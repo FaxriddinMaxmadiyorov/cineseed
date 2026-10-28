@@ -1,0 +1,936 @@
+# Ukrainian (Ukraine) dataset. Names, cities and usernames come from Faker's "uk" data
+# (I18n falls back from uk-UA to uk). Adjectives are stems with a hard or soft paradigm and agree
+# with the noun's gender, number and case (nominative / genitive). Titles use sentence case.
+uk-UA:
+  # ASCII spelling of names, used for usernames (Rails I18n transliteration rules)
+  i18n:
+    transliterate:
+      rule:
+        "а": "a"
+        "б": "b"
+        "в": "v"
+        "г": "h"
+        "ґ": "g"
+        "д": "d"
+        "е": "e"
+        "є": "ye"
+        "ж": "zh"
+        "з": "z"
+        "и": "y"
+        "і": "i"
+        "ї": "yi"
+        "й": "y"
+        "к": "k"
+        "л": "l"
+        "м": "m"
+        "н": "n"
+        "о": "o"
+        "п": "p"
+        "р": "r"
+        "с": "s"
+        "т": "t"
+        "у": "u"
+        "ф": "f"
+        "х": "kh"
+        "ц": "ts"
+        "ч": "ch"
+        "ш": "sh"
+        "щ": "shch"
+        "ь": ""
+        "ю": "yu"
+        "я": "ya"
+        "’": ""
+        "'": ""
+        "ʼ": ""
+
+  cineseed:
+    region:
+      name: "Українська (Україна)"
+      short: "UK-UA"
+      script: cyrillic
+      order: 3
+
+  faker:
+    movie_store:
+      genres:
+        action: Бойовик
+        adventure: Пригоди
+        animation: Анімація
+        comedy: Комедія
+        crime: Кримінал
+        documentary: Документальний
+        drama: Драма
+        family: Сімейний
+        fantasy: Фентезі
+        horror: Жахи
+        mystery: Детектив
+        romance: Мелодрама
+        sci_fi: Фантастика
+        thriller: Трилер
+        war: Воєнний
+        western: Вестерн
+
+      kinds:
+        movie: Фільм
+        series: Серіал
+
+      # Patterns for reviewer and liker usernames ({first} {last} {f} {l} {nn} {yy}); names are
+      # transliterated with i18n.transliterate.rule below.
+      usernames: ["{first}.{last}", "{first}_{last}", "{first}{last}", "{f}{last}", "{first}{nn}", "{last}{yy}", "{f}.{last}", "{last}_{first}", "{first}_kino", "kinoman_{first}", "{first}{last}{nn}", "{first}_ua"]
+
+      runtime: "%{h} год %{m} хв"
+      runtime_minutes: "%{m} хв"
+      seasons: "Сезонів: %{count}"
+      season_line: "Сезон %{n} · %{year} · серій: %{episodes}"
+
+      ratings:
+        0+: "Для глядачів будь-якого віку"
+        12+: "Для глядачів від 12 років"
+        16+: "Для глядачів від 16 років"
+        18+: "Тільки для дорослих"
+      rating_by_genre:
+        movie:
+          default: { 12+: 6, 16+: 4 }
+          family: { 0+: 8, 12+: 2 }
+          animation: { 0+: 9, 12+: 1 }
+          horror: { 16+: 4, 18+: 6 }
+          war: { 16+: 7, 18+: 3 }
+          crime: { 16+: 6, 18+: 4 }
+          documentary: { 0+: 6, 12+: 4 }
+          comedy: { 12+: 7, 16+: 3 }
+        series:
+          default: { 12+: 5, 16+: 5 }
+          family: { 0+: 8, 12+: 2 }
+          animation: { 0+: 9, 12+: 1 }
+
+      title:
+        case: first
+        adjective_endings:
+          hard:
+            default:
+              nom: { m: ий, f: а, n: е, pl: і }
+              gen: { m: ого, f: ої, n: ого, pl: их }
+          soft:
+            default:
+              nom: { m: ій, f: я, n: є, pl: і }
+              gen: { m: ього, f: ьої, n: ього, pl: іх }
+        # Faker city names that are drawn again: places under occupation or on the front line do not
+        # belong in light entertainment titles ("Останній потяг до міста ...").
+        avoid: [Алчевськ, Бахмут, Бердянськ, Горлівка, Донецьк, Євпаторія, Єнакієве, Запоріжжя, Керч, Краматорськ, Хрустальний, Лисичанськ, Луганськ, Макіївка, Маріуполь, Мелітополь, Нікополь, Севастополь, Сіверськодонецьк, Сімферополь, Слов’янськ, Слов'янськ, Харків, Херсон, Ялта]
+        patterns:
+          - { w: 10, base: true, t: "{adj@x} {noun:x}" }
+          - { w: 3, base: true, t: "{adj@x} {nouns:x}" }
+          - { w: 6, base: true, t: "{noun:x} {noun:y.gen}" }
+          - { w: 6, base: true, t: "{noun:x} {adj@y.gen} {noun:y.gen}" }
+          - { w: 3, base: true, t: "{noun:x} {nouns:y.gen}" }
+          - { w: 2, base: true, t: "{noun:x} {adj@y.gen} {nouns:y.gen}" }
+          - { w: 5, base: true, t: "{pick:single}" }
+          - { w: 6, t: "{pick:phrase}" }
+          - { w: 2, t: "{faker:Name.first_name} і {noun:x}" }
+          - { w: 3, t: "{pick:prep_frame}" }
+          - { w: 2, t: "{pick:city_frame}" }
+          - { w: 4, t: "{base}: {pick:subtitle}" }
+          - { w: 3, t: "{base} {pick:sequel}" }
+
+        nouns:
+          # чоловічий рід
+          - { g: m, nom: вовк, gen: вовка, pl: вовки, pl_gen: вовків, tags: [horror, fantasy, western, adventure, thriller] }
+          - { g: m, nom: ворон, gen: ворона, pl: ворони, pl_gen: воронів, tags: [horror, fantasy, western, mystery] }
+          - { g: m, nom: дракон, gen: дракона, pl: дракони, pl_gen: драконів, tags: [fantasy, family, animation, adventure] }
+          - { g: m, nom: король, gen: короля, pl: королі, pl_gen: королів, tags: [fantasy, drama, war] }
+          - { g: m, nom: свідок, gen: свідка, pl: свідки, pl_gen: свідків, tags: [thriller, crime, drama, mystery] }
+          - { g: m, nom: сон, gen: сну, pl: сни, pl_gen: снів, tags: [drama, romance, fantasy, animation, horror] }
+          - { g: m, nom: вітер, gen: вітру, pl: вітри, pl_gen: вітрів, tags: [adventure, drama, western, romance] }
+          - { g: m, nom: ліс, gen: лісу, pl: ліси, pl_gen: лісів, tags: [fantasy, horror, family, adventure, animation] }
+          - { g: m, nom: берег, gen: берега, pl: береги, pl_gen: берегів, tags: [drama, romance, war, adventure] }
+          - { g: m, nom: шлях, gen: шляху, pl: шляхи, pl_gen: шляхів, tags: [drama, western, adventure, war] }
+          - { g: m, nom: острів, gen: острова, pl: острови, pl_gen: островів, tags: [adventure, mystery, romance, horror, family] }
+          - { g: m, nom: камінь, gen: каменя, pl: камені, pl_gen: каменів, tags: [fantasy, drama, adventure] }
+          - { g: m, nom: вогонь, gen: вогню, pl: вогні, pl_gen: вогнів, tags: [action, drama, war, horror] }
+          - { g: m, nom: попіл, gen: попелу, tags: [war, drama, fantasy, horror] }
+          - { g: m, nom: туман, gen: туману, pl: тумани, pl_gen: туманів, tags: [horror, mystery, thriller, drama] }
+          - { g: m, nom: привид, gen: привида, pl: привиди, pl_gen: привидів, tags: [horror, comedy, mystery, family] }
+          - { g: m, nom: мисливець, gen: мисливця, pl: мисливці, pl_gen: мисливців, tags: [action, horror, western, fantasy, thriller] }
+          - { g: m, nom: солдат, gen: солдата, pl: солдати, pl_gen: солдатів, tags: [war, action, drama] }
+          - { g: m, nom: шериф, gen: шерифа, tags: [western, comedy] }
+          - { g: m, nom: злочин, gen: злочину, pl: злочини, pl_gen: злочинів, tags: [crime, thriller, mystery] }
+          - { g: m, nom: борг, gen: боргу, pl: борги, pl_gen: боргів, tags: [crime, thriller, drama] }
+          - { g: m, nom: секрет, gen: секрету, pl: секрети, pl_gen: секретів, tags: [mystery, drama, romance, family, comedy] }
+          - { g: m, nom: спадок, gen: спадку, tags: [drama, mystery, crime, comedy] }
+          - { g: m, nom: лист, gen: листа, pl: листи, pl_gen: листів, tags: [romance, drama, war, mystery] }
+          - { g: m, nom: ключ, gen: ключа, pl: ключі, pl_gen: ключів, tags: [mystery, fantasy, family, thriller] }
+          - { g: m, nom: сигнал, gen: сигналу, tags: [sci_fi, thriller, mystery] }
+          - { g: m, nom: код, gen: коду, tags: [thriller, sci_fi, crime, mystery] }
+          - { g: m, nom: експеримент, gen: експерименту, tags: [sci_fi, horror, thriller] }
+          - { g: m, nom: корабель, gen: корабля, pl: кораблі, pl_gen: кораблів, tags: [adventure, war, sci_fi, family] }
+          - { g: m, nom: космос, gen: космосу, tags: [sci_fi, documentary] }
+          - { g: m, nom: горизонт, gen: горизонту, tags: [sci_fi, adventure, drama, romance] }
+          - { g: m, nom: кордон, gen: кордону, tags: [war, thriller, drama, western] }
+          - { g: m, nom: фронт, gen: фронту, tags: [war, drama] }
+          - { g: m, nom: окоп, gen: окопу, pl: окопи, pl_gen: окопів, tags: [war, horror] }
+          - { g: m, nom: перевал, gen: перевалу, tags: [adventure, war, horror, western] }
+          - { g: m, nom: каньйон, gen: каньйону, tags: [western, adventure] }
+          - { g: m, nom: степ, gen: степу, pl: степи, pl_gen: степів, tags: [western, war, drama, documentary] }
+          - { g: m, nom: океан, gen: океану, tags: [adventure, documentary, family, drama] }
+          - { g: m, nom: ангел, gen: ангела, pl: ангели, pl_gen: ангелів, tags: [drama, romance, fantasy, horror] }
+          - { g: m, nom: диявол, gen: диявола, tags: [horror, crime, western, comedy] }
+          - { g: m, nom: пророк, gen: пророка, tags: [horror, fantasy, drama, sci_fi] }
+          - { g: m, nom: робот, gen: робота, pl: роботи, pl_gen: роботів, tags: [sci_fi, family, animation, comedy] }
+          - { g: m, nom: прибулець, gen: прибульця, pl: прибульці, pl_gen: прибульців, tags: [sci_fi, comedy, horror, family] }
+          - { g: m, nom: сусід, gen: сусіда, pl: сусіди, pl_gen: сусідів, tags: [comedy, horror, thriller, family] }
+          - { g: m, nom: детектив, gen: детектива, tags: [crime, mystery, comedy] }
+          - { g: m, nom: скарб, gen: скарбу, pl: скарби, pl_gen: скарбів, tags: [adventure, family, animation, comedy] }
+          - { g: m, nom: шепіт, gen: шепоту, tags: [horror, mystery, romance, thriller] }
+          - { g: m, nom: танець, gen: танцю, pl: танці, pl_gen: танців, tags: [romance, comedy, drama] }
+          - { g: m, nom: поцілунок, gen: поцілунку, tags: [romance, comedy] }
+          - { g: m, nom: світанок, gen: світанку, tags: [drama, war, romance, horror] }
+          - { g: m, nom: вирок, gen: вироку, tags: [crime, drama, thriller] }
+          - { g: m, nom: спогад, gen: спогаду, pl: спогади, pl_gen: спогадів, tags: [drama, romance, sci_fi, mystery] }
+          - { g: m, nom: маяк, gen: маяка, tags: [drama, mystery, horror, romance] }
+          - { g: m, nom: потяг, gen: потяга, tags: [thriller, western, action, mystery, drama] }
+          - { g: m, nom: герой, gen: героя, pl: герої, pl_gen: героїв, tags: [action, war, fantasy, family, comedy] }
+          - { g: m, nom: кіт, gen: кота, pl: коти, pl_gen: котів, tags: [family, comedy, animation, mystery] }
+          - { g: m, nom: ведмідь, gen: ведмедя, pl: ведмеді, pl_gen: ведмедів, tags: [family, animation, documentary, comedy] }
+          - { g: m, nom: птах, gen: птаха, pl: птахи, pl_gen: птахів, tags: [family, animation, drama, documentary] }
+          - { g: m, nom: місяць, gen: місяця, tags: [romance, horror, fantasy, sci_fi, family] }
+          - { g: m, nom: час, gen: часу, tags: [sci_fi, drama, mystery] }
+          - { g: m, nom: бог, gen: бога, pl: боги, pl_gen: богів, tags: [fantasy, drama, horror, war] }
+          - { g: m, nom: страх, gen: страху, tags: [horror, thriller, drama] }
+          - { g: m, nom: гріх, gen: гріха, pl: гріхи, pl_gen: гріхів, tags: [crime, drama, horror] }
+          - { g: m, nom: вершник, gen: вершника, pl: вершники, pl_gen: вершників, tags: [western, war, fantasy, horror] }
+          # жіночий рід
+          - { g: f, nom: ніч, gen: ночі, pl: ночі, pl_gen: ночей, tags: [horror, thriller, romance, crime, mystery] }
+          - { g: f, nom: тінь, gen: тіні, pl: тіні, pl_gen: тіней, tags: [horror, thriller, mystery, fantasy, crime] }
+          - { g: f, nom: вода, gen: води, pl: води, pl_gen: вод, tags: [drama, thriller, horror, documentary] }
+          - { g: f, nom: пісня, gen: пісні, pl: пісні, pl_gen: пісень, tags: [romance, drama, family, animation, documentary] }
+          - { g: f, nom: легенда, gen: легенди, pl: легенди, pl_gen: легенд, tags: [fantasy, adventure, western, family, documentary] }
+          - { g: f, nom: таємниця, gen: таємниці, pl: таємниці, pl_gen: таємниць, tags: [mystery, drama, romance, thriller, family] }
+          - { g: f, nom: буря, gen: бурі, pl: бурі, pl_gen: бур, tags: [action, adventure, drama, war, thriller] }
+          - { g: f, nom: зірка, gen: зірки, pl: зірки, pl_gen: зірок, tags: [romance, sci_fi, drama, family, animation, documentary] }
+          - { g: f, nom: королева, gen: королеви, tags: [fantasy, drama, romance] }
+          - { g: f, nom: відьма, gen: відьми, pl: відьми, pl_gen: відьом, tags: [horror, fantasy, family, comedy] }
+          - { g: f, nom: дорога, gen: дороги, pl: дороги, pl_gen: доріг, tags: [drama, western, action, adventure, comedy] }
+          - { g: f, nom: ріка, gen: ріки, pl: ріки, pl_gen: рік, tags: [drama, western, romance, adventure] }
+          - { g: f, nom: долина, gen: долини, pl: долини, pl_gen: долин, tags: [western, drama, horror, family] }
+          - { g: f, nom: пустеля, gen: пустелі, tags: [western, war, adventure, sci_fi] }
+          - { g: f, nom: станція, gen: станції, tags: [sci_fi, thriller, horror] }
+          - { g: f, nom: колонія, gen: колонії, tags: [sci_fi, horror, war] }
+          - { g: f, nom: планета, gen: планети, pl: планети, pl_gen: планет, tags: [sci_fi, animation, family, documentary] }
+          - { g: f, nom: місія, gen: місії, tags: [action, sci_fi, war, comedy] }
+          - { g: f, nom: машина, gen: машини, pl: машини, pl_gen: машин, tags: [sci_fi, action, thriller] }
+          - { g: f, nom: гра, gen: гри, pl: ігри, pl_gen: ігор, tags: [thriller, action, comedy, sci_fi, crime] }
+          - { g: f, nom: корона, gen: корони, tags: [fantasy, drama, war] }
+          - { g: f, nom: імперія, gen: імперії, tags: [war, fantasy, sci_fi, crime, drama] }
+          - { g: f, nom: війна, gen: війни, tags: [war, drama] }
+          - { g: f, nom: обіцянка, gen: обіцянки, tags: [romance, drama, family, war] }
+          - { g: f, nom: правда, gen: правди, tags: [drama, mystery, thriller, crime] }
+          - { g: f, nom: помста, gen: помсти, tags: [action, western, crime, thriller] }
+          - { g: f, nom: пам'ять, gen: пам'яті, tags: [drama, war, sci_fi, mystery] }
+          - { g: f, nom: тиша, gen: тиші, tags: [thriller, horror, drama, war, mystery] }
+          - { g: f, nom: темрява, gen: темряви, tags: [horror, fantasy, thriller] }
+          - { g: f, nom: кров, gen: крові, tags: [horror, war, action, crime, western] }
+          - { g: f, nom: сестра, gen: сестри, pl: сестри, pl_gen: сестер, tags: [drama, comedy, family, horror] }
+          - { g: f, nom: донька, gen: доньки, tags: [drama, family, thriller, horror] }
+          - { g: f, nom: подорож, gen: подорожі, tags: [adventure, family, documentary, drama, comedy] }
+          - { g: f, nom: експедиція, gen: експедиції, tags: [adventure, documentary, horror] }
+          - { g: f, nom: гора, gen: гори, pl: гори, pl_gen: гір, tags: [adventure, documentary, drama, war] }
+          - { g: f, nom: хвиля, gen: хвилі, pl: хвилі, pl_gen: хвиль, tags: [drama, romance, adventure, documentary] }
+          - { g: f, nom: межа, gen: межі, tags: [thriller, drama, sci_fi, war] }
+          - { g: f, nom: фортеця, gen: фортеці, tags: [war, fantasy, adventure] }
+          - { g: f, nom: вежа, gen: вежі, pl: вежі, pl_gen: веж, tags: [fantasy, thriller, horror, sci_fi] }
+          - { g: f, nom: душа, gen: душі, pl: душі, pl_gen: душ, tags: [horror, drama, fantasy, romance] }
+          - { g: f, nom: примара, gen: примари, pl: примари, pl_gen: примар, tags: [horror, mystery, fantasy] }
+          - { g: f, nom: лялька, gen: ляльки, pl: ляльки, pl_gen: ляльок, tags: [horror, family, comedy] }
+          - { g: f, nom: карта, gen: карти, tags: [adventure, family, animation, mystery] }
+          - { g: f, nom: банда, gen: банди, tags: [crime, comedy, family, western] }
+          - { g: f, nom: зима, gen: зими, tags: [drama, war, romance, fantasy] }
+          - { g: f, nom: осінь, gen: осені, tags: [drama, romance] }
+          - { g: f, nom: земля, gen: землі, tags: [documentary, sci_fi, drama, war] }
+          - { g: f, nom: брехня, gen: брехні, tags: [thriller, drama, crime, comedy] }
+          - { g: f, nom: надія, gen: надії, tags: [drama, war, family, documentary] }
+          # середній рід
+          - { g: n, nom: місто, gen: міста, pl: міста, pl_gen: міст, tags: [crime, thriller, drama, sci_fi, romance] }
+          - { g: n, nom: море, gen: моря, pl: моря, pl_gen: морів, tags: [adventure, documentary, romance, drama] }
+          - { g: n, nom: серце, gen: серця, pl: серця, pl_gen: сердець, tags: [romance, drama, family, comedy] }
+          - { g: n, nom: небо, gen: неба, tags: [adventure, war, sci_fi, romance, family] }
+          - { g: n, nom: полум'я, gen: полум'я, tags: [action, war, fantasy, romance] }
+          - { g: n, nom: золото, gen: золота, tags: [western, adventure, crime] }
+          - { g: n, nom: королівство, gen: королівства, tags: [fantasy, adventure, family, animation] }
+          - { g: n, nom: озеро, gen: озера, pl: озера, pl_gen: озер, tags: [horror, mystery, drama, romance] }
+          - { g: n, nom: дзеркало, gen: дзеркала, pl: дзеркала, pl_gen: дзеркал, tags: [horror, mystery, fantasy, thriller] }
+          - { g: n, nom: прокляття, gen: прокляття, tags: [horror, fantasy, mystery, comedy] }
+          - { g: n, nom: весілля, gen: весілля, tags: [comedy, romance] }
+          - { g: n, nom: кохання, gen: кохання, tags: [romance, drama, comedy] }
+          - { g: n, nom: літо, gen: літа, tags: [romance, comedy, drama, family] }
+          - { g: n, nom: світло, gen: світла, tags: [drama, sci_fi, romance, documentary] }
+          - { g: n, nom: сонце, gen: сонця, tags: [romance, family, documentary, sci_fi] }
+          - { g: n, nom: око, gen: ока, tags: [horror, thriller, mystery, sci_fi] }
+          - { g: n, nom: слово, gen: слова, tags: [drama, mystery, romance] }
+          - { g: n, nom: диво, gen: дива, pl: дива, pl_gen: див, tags: [family, drama, comedy, documentary] }
+          - { g: n, nom: болото, gen: болота, tags: [horror, mystery, crime] }
+          - { g: n, nom: життя, gen: життя, tags: [drama, documentary, romance, family] }
+
+        adjectives:
+          - { stem: останн, class: soft, tags: [action, war, western, drama, sci_fi, horror] }
+          - { stem: темн, class: hard, tags: [horror, thriller, fantasy, crime, mystery] }
+          - { stem: забут, class: hard, tags: [war, drama, mystery, horror, fantasy] }
+          - { stem: холодн, class: hard, tags: [thriller, crime, war, drama, sci_fi] }
+          - { stem: мертв, class: hard, tags: [horror, crime, western, comedy, thriller] }
+          - { stem: тих, class: hard, tags: [thriller, horror, drama, war, mystery, romance] }
+          - { stem: чорн, class: hard, tags: [crime, horror, western, war, thriller] }
+          - { stem: біл, class: hard, tags: [war, drama, thriller, horror] }
+          - { stem: червон, class: hard, tags: [war, western, action, horror, thriller] }
+          - { stem: золот, class: hard, tags: [fantasy, adventure, romance, family, western] }
+          - { stem: залізн, class: hard, tags: [war, action, fantasy, sci_fi] }
+          - { stem: кривав, class: hard, tags: [horror, war, action, western] }
+          - { stem: втрачен, class: hard, tags: [adventure, drama, fantasy, mystery, family] }
+          - { stem: прихован, class: hard, tags: [mystery, thriller, fantasy, family, documentary] }
+          - { stem: таємн, class: hard, tags: [mystery, family, romance, comedy, thriller] }
+          - { stem: вічн, class: hard, tags: [fantasy, romance, horror, sci_fi] }
+          - { stem: безкінечн, class: hard, tags: [romance, drama, sci_fi, documentary] }
+          - { stem: далек, class: hard, tags: [sci_fi, drama, war, romance, documentary] }
+          - { stem: північн, class: hard, tags: [war, drama, adventure, western, documentary] }
+          - { stem: стар, class: hard, tags: [western, drama, comedy, horror] }
+          - { stem: молод, class: hard, tags: [drama, romance, comedy, war] }
+          - { stem: нов, class: hard, tags: [comedy, romance, sci_fi, family] }
+          - { stem: велик, class: hard, tags: [comedy, family, animation, adventure] }
+          - { stem: мал, class: hard, tags: [comedy, family, animation, drama] }
+          - { stem: божевільн, class: hard, tags: [comedy, action] }
+          - { stem: щаслив, class: hard, tags: [comedy, family, romance] }
+          - { stem: небезпечн, class: hard, tags: [thriller, crime, action, romance, comedy] }
+          - { stem: ідеальн, class: hard, tags: [comedy, romance, thriller, drama] }
+          - { stem: солодк, class: hard, tags: [romance, comedy, family] }
+          - { stem: гірк, class: hard, tags: [drama, war, crime, western, romance] }
+          - { stem: дик, class: hard, tags: [adventure, comedy, western, family, documentary, romance] }
+          - { stem: сліп, class: hard, tags: [thriller, drama, horror, mystery] }
+          - { stem: свят, class: hard, tags: [horror, drama, war, fantasy] }
+          - { stem: грішн, class: hard, tags: [crime, drama, horror, western] }
+          - { stem: нічн, class: hard, tags: [horror, romance, crime, mystery, thriller] }
+          - { stem: зламан, class: hard, tags: [drama, romance, war, thriller] }
+          - { stem: крижан, class: hard, tags: [adventure, horror, documentary, war, sci_fi] }
+          - { stem: невидим, class: hard, tags: [sci_fi, thriller, comedy, drama, horror] }
+          - { stem: самотн, class: soft, tags: [drama, romance, western, sci_fi] }
+          - { stem: син, class: soft, tags: [romance, drama, sci_fi, crime] }
+          - { stem: срібн, class: hard, tags: [western, romance, sci_fi, fantasy, family] }
+          - { stem: кам'ян, class: hard, tags: [fantasy, war, horror, drama] }
+          - { stem: склян, class: hard, tags: [drama, thriller, fantasy, romance] }
+          - { stem: паперов, class: hard, tags: [drama, romance, crime, family, animation] }
+          - { stem: квантов, class: hard, tags: [sci_fi] }
+          - { stem: атомн, class: hard, tags: [sci_fi, war, action, documentary] }
+          - { stem: незнайом, class: hard, tags: [thriller, mystery, romance, sci_fi] }
+          - { stem: чуж, class: hard, tags: [sci_fi, thriller, drama, war] }
+          - { stem: лют, class: hard, tags: [war, horror, action, western] }
+          - { stem: жорсток, class: hard, tags: [action, crime, war, thriller] }
+          - { stem: хоробр, class: hard, tags: [family, animation, war, adventure, fantasy] }
+          - { stem: королівськ, class: hard, tags: [fantasy, drama, romance, comedy] }
+          - { stem: проклят, class: hard, tags: [horror, fantasy, western, comedy] }
+          - { stem: давн, class: soft, tags: [fantasy, documentary, horror, mystery] }
+          - { stem: осінн, class: soft, tags: [drama, romance] }
+          - { stem: літн, class: soft, tags: [romance, comedy, family] }
+          - { stem: зимов, class: hard, tags: [drama, war, romance, fantasy, family] }
+          - { stem: опівнічн, class: hard, tags: [horror, romance, crime, mystery] }
+          - { stem: викраден, class: hard, tags: [crime, thriller, drama, mystery] }
+          - { stem: безсонн, class: hard, tags: [thriller, romance, drama, horror] }
+
+        lists:
+          single:
+            - { v: "Попіл", tags: [war, drama, fantasy] }
+            - { v: "Туман", tags: [horror, mystery, thriller] }
+            - { v: "Безодня", tags: [horror, sci_fi, thriller] }
+            - { v: "Вигнанець", tags: [western, drama, fantasy] }
+            - { v: "Перевал", tags: [adventure, war, horror] }
+            - { v: "Буревій", tags: [action, adventure, war] }
+            - { v: "Відлуння", tags: [mystery, horror, drama, sci_fi] }
+            - { v: "Опівніч", tags: [horror, thriller, romance, crime] }
+            - { v: "Затемнення", tags: [sci_fi, horror, mystery] }
+            - { v: "Причал", tags: [drama, romance, crime] }
+            - { v: "Полин", tags: [drama, war, sci_fi] }
+            - { v: "Мара", tags: [horror, mystery, fantasy] }
+            - { v: "Шторм", tags: [action, thriller, adventure] }
+            - { v: "Розлом", tags: [sci_fi, thriller, war] }
+            - { v: "Вовкулака", tags: [horror, fantasy] }
+            - { v: "Чугайстер", tags: [fantasy, family, horror] }
+            - { v: "Безмежжя", tags: [documentary, sci_fi, adventure] }
+            - { v: "Зорепад", tags: [romance, family, sci_fi, animation] }
+            - { v: "Сніговій", tags: [drama, thriller, war] }
+            - { v: "Суховій", tags: [western, drama, war] }
+            - { v: "Пастка", tags: [thriller, crime, horror] }
+            - { v: "Втеча", tags: [thriller, action, comedy] }
+            - { v: "Вирок", tags: [crime, drama] }
+            - { v: "Сповідь", tags: [drama, crime, mystery] }
+            - { v: "Ковчег", tags: [sci_fi, drama, family] }
+            - { v: "Маяк", tags: [mystery, drama, horror] }
+            - { v: "Колапс", tags: [sci_fi, thriller, action] }
+            - { v: "Орбіта", tags: [sci_fi] }
+            - { v: "Позивний", tags: [war, action, thriller] }
+            - { v: "Грім", tags: [action, war, western] }
+            - { v: "Розплата", tags: [action, western, crime] }
+            - { v: "Перехрестя", tags: [drama, crime, romance] }
+            - { v: "Хуртовина", tags: [drama, adventure, war] }
+            - { v: "Сутінь", tags: [horror, mystery] }
+            - { v: "Блукач", tags: [western, adventure, drama] }
+            - { v: "Ліхтарник", tags: [family, fantasy, animation] }
+            - { v: "Непрохані", tags: [horror, thriller, comedy] }
+            - { v: "Сусіди", tags: [comedy, family] }
+            - { v: "Гастролі", tags: [comedy, drama, romance] }
+            - { v: "Обмін", tags: [comedy, crime, thriller] }
+            - { v: "Ширма", tags: [mystery, drama, thriller] }
+            - { v: "Сигнал", tags: [sci_fi, thriller] }
+            - { v: "Прикордоння", tags: [war, western, drama] }
+            - { v: "Чорнозем", tags: [drama, documentary, war] }
+            - { v: "Сріблянка", tags: [fantasy, family, romance] }
+            - { v: "Заметіль", tags: [drama, romance, war] }
+            - { v: "Мла", tags: [horror, mystery] }
+            - { v: "Обрій", tags: [adventure, sci_fi, drama] }
+            - { v: "Вирій", tags: [fantasy, family, drama] }
+            - { v: "Відплив", tags: [drama, romance, mystery] }
+            - { v: "Злива", tags: [drama, romance, thriller] }
+            - { v: "Протяг", tags: [comedy, horror] }
+            - { v: "Вартовий", tags: [war, action, thriller] }
+            - { v: "Зашморг", tags: [crime, western, thriller] }
+            - { v: "Окраїна", tags: [drama, crime, western] }
+            - { v: "Пороги", tags: [adventure, documentary, drama] }
+            - { v: "Відлига", tags: [drama, romance, war] }
+            - { v: "Причинна", tags: [horror, fantasy, drama] }
+            - { v: "Скарб", tags: [adventure, family, comedy] }
+            - { v: "Метелиця", tags: [family, fantasy, romance] }
+            - { v: "Безсоння", tags: [thriller, horror, drama] }
+            - { v: "Кривда", tags: [drama, crime, western] }
+            - { v: "Відчайдух", tags: [action, comedy, adventure] }
+            - { v: "Пройдисвіт", tags: [comedy, crime, western] }
+            - { v: "Ловець", tags: [thriller, crime, horror] }
+            - { v: "Безвість", tags: [war, mystery, drama] }
+            - { v: "Затока", tags: [drama, romance, thriller] }
+            - { v: "Гроза", tags: [drama, thriller, western] }
+            - { v: "Невагомість", tags: [sci_fi, romance, comedy] }
+            - { v: "Мандрівник", tags: [adventure, sci_fi, family] }
+            - { v: "Порожнеча", tags: [sci_fi, horror, drama] }
+            - { v: "Вічність", tags: [romance, drama, fantasy] }
+            - { v: "Залізниця", tags: [western, war, drama] }
+            - { v: "Плацдарм", tags: [war, action] }
+            - { v: "Розвідка", tags: [war, thriller, action] }
+            - { v: "Шахрай", tags: [crime, comedy] }
+            - { v: "Голос", tags: [mystery, drama, sci_fi] }
+            - { v: "Падолист", tags: [romance, drama, family] }
+            - { v: "Шепіт", tags: [horror, mystery, romance] }
+            - { v: "Вітрило", tags: [adventure, romance, family] }
+            - { v: "Звіробій", tags: [western, adventure, action] }
+            - { v: "Сніжинка", tags: [animation, family, romance] }
+            - { v: "Рахуба", tags: [crime, thriller, comedy] }
+          phrase:
+            - { v: "Немає дороги назад", tags: [action, thriller, war] }
+            - { v: "За обрієм", tags: [adventure, sci_fi, documentary, drama] }
+            - { v: "На краю світу", tags: [adventure, drama, documentary, romance] }
+            - { v: "Поза законом", tags: [crime, western, action] }
+            - { v: "Між двох вогнів", tags: [war, drama, western, thriller] }
+            - { v: "Коли зійде місяць", tags: [horror, romance, fantasy] }
+            - { v: "Ніхто не спить цієї ночі", tags: [horror, thriller, comedy] }
+            - { v: "Останнє літо", tags: [romance, drama, comedy] }
+            - { v: "Що знає річка", tags: [mystery, drama, crime] }
+            - { v: "Мертві не танцюють", tags: [crime, comedy, western] }
+            - { v: "Десь після опівночі", tags: [romance, thriller, mystery] }
+            - { v: "Пісня для загублених", tags: [drama, war, romance] }
+            - { v: "День, коли впало небо", tags: [sci_fi, action, war, drama] }
+            - { v: "Усе горить двічі", tags: [thriller, drama, crime] }
+            - { v: "Маленькі дива", tags: [family, drama, comedy] }
+            - { v: "Запізно для героїв", tags: [war, western, action] }
+            - { v: "Дівчина, яка рахувала зорі", tags: [drama, family, fantasy, romance] }
+            - { v: "Як викрасти планету", tags: [comedy, sci_fi, family, animation] }
+            - { v: "Мій сусід — монстр", tags: [comedy, family, horror, animation] }
+            - { v: "Десять днів у раю", tags: [comedy, romance, thriller] }
+            - { v: "Тримай оборону", tags: [war, action, drama] }
+            - { v: "Не дивись на озеро", tags: [horror, thriller] }
+            - { v: "Щось у стінах", tags: [horror, mystery] }
+            - { v: "Коли згасло світло", tags: [horror, thriller, drama, sci_fi] }
+            - { v: "Бабусине останнє пограбування", tags: [comedy, crime, family] }
+            - { v: "Кохання в ефірі", tags: [romance, sci_fi, comedy] }
+            - { v: "Вісімдесят миль поганої дороги", tags: [western, comedy, adventure] }
+            - { v: "Скачи до заходу сонця", tags: [western, action] }
+            - { v: "Планета під нами", tags: [documentary, sci_fi] }
+            - { v: "Королі холодного моря", tags: [documentary, adventure, war] }
+            - { v: "Дуже гучне весілля", tags: [comedy, romance] }
+            - { v: "Біжи, як грім", tags: [action, family] }
+            - { v: "Нас тут ніколи не було", tags: [thriller, crime, mystery, sci_fi] }
+            - { v: "Звук падаючого снігу", tags: [drama, romance, war] }
+            - { v: "Вогні над болотом", tags: [sci_fi, mystery, horror] }
+            - { v: "Дракон, який ненавидів понеділки", tags: [animation, family, comedy, fantasy] }
+            - { v: "Туман приходить по кожного", tags: [horror, mystery] }
+            - { v: "Спершу стріляй, потім молись", tags: [western, action, comedy] }
+            - { v: "Мапа на краю світу", tags: [adventure, fantasy, family] }
+            - { v: "Сім днів до весни", tags: [romance, drama, family] }
+            - { v: "Лист із минулого", tags: [drama, mystery, romance, war] }
+            - { v: "Хто вбив Марту?", tags: [crime, mystery, thriller] }
+            - { v: "Потяг у нікуди", tags: [thriller, mystery, drama] }
+            - { v: "Слідами вовка", tags: [adventure, western, documentary, thriller] }
+            - { v: "Під чужим небом", tags: [drama, war, romance, sci_fi] }
+            - { v: "Без права на помилку", tags: [thriller, action, crime] }
+            - { v: "Остання ніч у Карпатах", tags: [horror, thriller, romance] }
+            - { v: "Літо на Азові", tags: [romance, comedy, family] }
+            - { v: "Ніч належить нам", tags: [romance, crime, thriller] }
+            - { v: "Тільки вітер знає", tags: [mystery, drama, romance] }
+            - { v: "Хто сміється останнім", tags: [comedy, crime] }
+            - { v: "Дім, повний привидів", tags: [horror, comedy, family] }
+            - { v: "Перш ніж випаде сніг", tags: [drama, romance, war] }
+            - { v: "Мовчання гір", tags: [drama, thriller, documentary] }
+            - { v: "Повернення додому", tags: [drama, family, war] }
+            - { v: "Звідси ніхто не вийде", tags: [horror, thriller, action] }
+            - { v: "Хлопчик, який позичив сонце", tags: [animation, family, fantasy] }
+            - { v: "Не будіть сусідів", tags: [comedy, horror] }
+            - { v: "Кожна секунда на рахунку", tags: [action, thriller, sci_fi] }
+            - { v: "Листи, які не дійшли", tags: [romance, drama, war] }
+            - { v: "Привиди не платять за оренду", tags: [comedy, horror, family] }
+            - { v: "Під кригою", tags: [thriller, horror, documentary, sci_fi] }
+            - { v: "Літо поганих рішень", tags: [comedy, romance] }
+            - { v: "Народжені під червоним небом", tags: [war, drama, western] }
+            - { v: "Таємне життя маяків", tags: [documentary, mystery, family] }
+            - { v: "Вовки Срібної долини", tags: [western, adventure, fantasy] }
+            - { v: "Хтось мусить заплатити", tags: [crime, thriller] }
+            - { v: "Останній потяг звідси", tags: [war, thriller, drama] }
+            - { v: "Там, де закінчується мапа", tags: [adventure, fantasy, documentary] }
+            - { v: "Шум на дев'ятому каналі", tags: [horror, mystery, sci_fi] }
+            - { v: "Робот із сусіднього під'їзду", tags: [animation, family, sci_fi, comedy] }
+            - { v: "Кохання з перервами", tags: [romance, comedy, drama] }
+            - { v: "Два метри снігу", tags: [thriller, horror, crime] }
+            - { v: "Немає святих у Сухій балці", tags: [western, crime] }
+            - { v: "Сад після заходу сонця", tags: [mystery, horror, romance] }
+            - { v: "Велике пограбування пасіки", tags: [comedy, family, animation] }
+            - { v: "Серця, як грім", tags: [romance, action, drama] }
+            - { v: "Діти довгої зими", tags: [fantasy, drama, war] }
+            - { v: "Людина, яка продала дощ", tags: [comedy, fantasy, drama] }
+            - { v: "Брати з пилу", tags: [war, western, drama] }
+            - { v: "Сигнал із глибини", tags: [sci_fi, thriller, horror] }
+            - { v: "Сто років грому", tags: [documentary, war, drama] }
+            - { v: "Повернення паперових королів", tags: [fantasy, adventure, comedy] }
+            - { v: "Останній танець у клубі «Рай»", tags: [romance, crime, drama] }
+            - { v: "На останніх краплях пального", tags: [comedy, action, crime] }
+            - { v: "На межі всього", tags: [drama, sci_fi, romance] }
+            - { v: "Те, що ми поховали", tags: [horror, mystery, crime] }
+            - { v: "Вовк біля порога", tags: [thriller, horror, crime] }
+            - { v: "Дім пам'ятає", tags: [horror, mystery, drama] }
+            - { v: "Порахуй до десяти й тікай", tags: [thriller, horror] }
+            - { v: "Рік, коли ми розпалися", tags: [drama, romance] }
+            - { v: "Маленьке місто, великі клопоти", tags: [comedy, crime, family] }
+            - { v: "Вечеря з дияволом", tags: [horror, comedy, crime] }
+            - { v: "Місяць бреше", tags: [sci_fi, mystery, fantasy] }
+            - { v: "Коли розтане сніг", tags: [drama, romance, war] }
+            - { v: "Королівство зі скла", tags: [fantasy, drama] }
+            - { v: "Довга нічна зміна", tags: [crime, thriller, comedy] }
+            - { v: "Купальська ніч", tags: [fantasy, horror, romance] }
+            - { v: "Ведмежа послуга", tags: [comedy, family] }
+            - { v: "Борщ із сюрпризом", tags: [comedy, family] }
+          prep_frame:
+            - { v: "Без {noun:x.gen}", tags: [drama, war, thriller, romance] }
+            - { v: "Після {noun:x.gen}", tags: [drama, war, sci_fi, horror] }
+            - { v: "За межею {noun:x.gen}", tags: [sci_fi, fantasy, adventure, drama] }
+            - { v: "У тіні {adj@x.gen} {noun:x.gen}", tags: [horror, thriller, drama, crime] }
+            - { v: "Серце {adj@x.gen} {noun:x.gen}", tags: [romance, drama, fantasy, adventure] }
+            - { v: "Слідами {nouns:x.gen}", tags: [adventure, mystery, documentary, crime] }
+            - { v: "Година {nouns:x.gen}", tags: [horror, war, fantasy, action] }
+          city_frame:
+            - { v: "Повернення до міста {faker:Address.city}", tags: [drama, horror, mystery, romance] }
+            - { v: "Останній потяг до міста {faker:Address.city}", tags: [thriller, western, drama, war] }
+            - { v: "Вбивство в місті {faker:Address.city}", tags: [crime, mystery, thriller] }
+            - { v: "Ніч у місті {faker:Address.city}", tags: [romance, crime, horror] }
+            - { v: "Привиди міста {faker:Address.city}", tags: [horror, mystery, documentary] }
+            - { v: "Літо в місті {faker:Address.city}", tags: [romance, comedy, family, drama] }
+          subtitle:
+            - { v: "Розплата", tags: [action, western, thriller, crime] }
+            - { v: "День нуль", tags: [sci_fi, action, horror] }
+            - { v: "Спадщина", tags: [drama, war, sci_fi, fantasy] }
+            - { v: "Воскресіння", tags: [horror, sci_fi, action] }
+            - { v: "Останній бій", tags: [war, western, action] }
+            - { v: "Одкровення", tags: [mystery, horror, sci_fi] }
+            - { v: "Початок", tags: [fantasy, sci_fi, action] }
+            - { v: "Повстання", tags: [war, sci_fi, action] }
+            - { v: "Вихід", tags: [sci_fi, war, drama] }
+            - { v: "Реквієм", tags: [war, drama, horror] }
+            - { v: "Повернення", tags: [horror, fantasy, western, drama] }
+            - { v: "Відплата", tags: [action, crime, thriller] }
+            - { v: "В око бурі", tags: [adventure, action, war] }
+            - { v: "Кривавий місяць", tags: [horror, western, fantasy] }
+            - { v: "Година нуль", tags: [war, sci_fi, thriller] }
+            - { v: "Загублений розділ", tags: [mystery, fantasy, family] }
+            - { v: "Другий шанс", tags: [romance, drama, comedy] }
+            - { v: "Нова кров", tags: [crime, horror, action] }
+            - { v: "Повне коло", tags: [drama, crime, sci_fi] }
+            - { v: "Літні канікули", tags: [comedy, family, romance] }
+            - { v: "Великий план втечі", tags: [comedy, family, animation] }
+            - { v: "Повстання {nouns:z.gen}", tags: [fantasy, sci_fi, horror, action, family] }
+            - { v: "Повернення {noun:z.gen}", tags: [fantasy, horror, western, comedy] }
+            - { v: "Прокляття {adj@z.gen} {noun:z.gen}", tags: [horror, fantasy, adventure] }
+            - { v: "Пісня {nouns:z.gen}", tags: [fantasy, drama, family] }
+          sequel:
+            - { v: "2" }
+            - { v: "3" }
+            - { v: II }
+            - { v: III }
+            - { v: ": Частина друга" }
+            - { v: ": Частина третя" }
+
+      taglines:
+        action:
+          - "Жодних правил. Жодного прикриття. Жодного другого шансу."
+          - "Відлік почався тієї миті, коли вона сказала «ні»."
+          - "Деякі місії не передбачають дороги додому."
+          - "Він хотів спокійного року. Світ вирішив інакше."
+          - "Кожна дорога з міста вже палає."
+          - "Остання справа завжди йде не за планом."
+        adventure:
+          - "Мапа закінчується тут. Їхня подорож — ні."
+          - "Кожна легенда починається з того, хто наважився."
+          - "За останньою рікою чекає перше диво."
+          - "Легкий наплічник. Нікому не вір. Іди далі."
+          - "Світ більший за всі історії про нього."
+          - "Деякі скарби охороняють не лише замки."
+        animation:
+          - "Маленький герой. Величезна проблема."
+          - "У кожному лісі є таємниця. У цьому — сотня."
+          - "Дружба ще ніколи не була такою пухнастою."
+          - "Одне бажання. Нуль інструкцій."
+          - "Найсміливіші пригоди починаються на власному подвір'ї."
+          - "Навіть легенди колись були маленькими."
+        comedy:
+          - "Що може піти не так? Усе. Двічі."
+          - "У них було одне завдання. Вони його провалили."
+          - "Родина — це назавжди. На жаль."
+          - "Ідеальний план у руках неідеальних людей."
+          - "Кохання терпляче. Кохання лагідне. Кохання дуже, дуже гучне."
+          - "Вихідні, які зіпсували всім життя. Неймовірно смішно."
+        crime:
+          - "У цьому місті кожен комусь винен."
+          - "Правда має ціну. Вона готова платити."
+          - "Кожне зізнання має другу версію."
+          - "Злочин окуповується. Доки не прийде рахунок."
+          - "Одна сумка грошей. П'ятеро, хто її хоче."
+          - "Деякі борги не повертають грошима."
+        documentary:
+          - "Планета й досі пише власну історію."
+          - "Три роки. П'ять континентів. Одне крихке диво."
+          - "Найдивовижніші подорожі — справжні."
+          - "Що відбувається, коли ніхто не дивиться."
+          - "Портрет людей, які не здалися."
+          - "Природа ніколи не зупиняє вистави. Але бачать її небагато."
+        drama:
+          - "Деякі прощання тривають усе життя."
+          - "Вона повернулася додому, щоб поховати таємницю. Та ще жива."
+          - "У кожної родини є історія, яку не розповідають."
+          - "Найдовша відстань — між двома серцями."
+          - "Одне літо може змінити все подальше життя."
+          - "Спадок не обирають."
+        family:
+          - "Дім там, де твої рідні. Навіть пухнасті."
+          - "Пригода — це погана ідея з хорошими друзями."
+          - "Беріть ковдру. Історія починається."
+          - "Великі мрії вміщаються в маленьких кишенях."
+          - "У кожній родині є герой, на якого ніхто не чекав."
+          - "Свята вже ніколи не будуть тихими."
+        fantasy:
+          - "Магія пам'ятає все."
+          - "Старі боги прокидаються. І вони не в захваті."
+          - "Кожне королівство падає. Її — злетить."
+          - "Корона з попелу. Серце з полум'я."
+          - "За туманом чекає забутий світ."
+          - "Доля не стукає. Вона вибиває двері."
+        horror:
+          - "Деякі двері краще не відчиняти."
+          - "Воно знає, де ти спиш."
+          - "Страх має нову адресу."
+          - "Будинок пам'ятає кожен крик."
+          - "Не обертайся. Воно вже тут."
+          - "Темрява ніколи не була порожньою."
+        mystery:
+          - "Кожен слід веде до неї."
+          - "У цьому місті ніщо не є тим, чим здається."
+          - "Правду поховали. Минуле її відкопало."
+          - "Питання, на яке ніхто не хоче відповіді."
+          - "Останньої сторінки бракує не випадково."
+          - "Семеро підозрюваних. Одна дуже терпляча брехня."
+        romance:
+          - "Заради деяких людей не шкода пропустити останній потяг."
+          - "Кохання ніколи не приходить вчасно."
+          - "Два серця. Жахливий збіг обставин."
+          - "Спершу повільно. А потім — одразу й назавжди."
+          - "Кожна історія кохання — трохи хаос."
+          - "Літо минає. Деякі почуття — ні."
+        sci_fi:
+          - "Майбутнє вже слухає."
+          - "У відкритому космосі ніхто не почує твоїх вагань."
+          - "Людство надіслало повідомлення. Щось відповіло."
+          - "Завтра скасовано. Залишилося тільки сьогодні."
+          - "Сигнал ішов зсередини станції."
+          - "Еволюція ніколи не питала дозволу."
+        thriller:
+          - "Нікому не вір. Особливо собі."
+          - "Сорок вісім годин. Один шанс зникнути."
+          - "Ідеальне алібі має фатальну ваду."
+          - "Хтось завжди спостерігає. Сьогодні — особисто."
+          - "Кожна таємниця має термін придатності."
+          - "Найтихіші люди роблять найгучніші помилки."
+        war:
+          - "Мужність — це вибір під обстрілом."
+          - "Вони тримали оборону, щоб інші повернулися додому."
+          - "З фронту ніхто не повертається таким, як був."
+          - "Історія пам'ятає битву. Вони пам'ятають імена."
+          - "У тиші між пострілами прозвучала обіцянка."
+          - "Війна скінчилася. Їхня боротьба — ні."
+        western:
+          - "На кордоні діє лише той закон, що ти носиш при собі."
+          - "Одне місто. Один шериф. Забагато куль."
+          - "Тут пил осідає. Рахунки — ні."
+          - "Скачи швидко. Стріляй влучно. Не озирайся."
+          - "Кожен вигнанець колись був чиїмось сином."
+          - "Золото — в пагорбах. Могили — теж."
+
+      reviews:
+        openers:
+          positive:
+            - "«{title}» — справжній сюрприз."
+            - "Прийти з низькими очікуваннями й вийти з усмішкою — рідкісний досвід."
+            - "Один із найвпевненіших фільмів цього року."
+            - "З першого кадру фільм «{title}» точно знає, чим хоче бути."
+            - "Рідкісний фільм, який поважає глядача."
+            - "Не думалося, що це так зачепить."
+            - "{director} нарешті створює фільм, на який ми всі чекали."
+          mixed:
+            - "У фільмі «{title}» великі ідеї та трохи менший бюджет на них."
+            - "Десь усередині фільму «{title}» ховається чудове кіно."
+            - "Нерівно, але ніколи не нудно."
+            - "Краще, ніж очікувалося, але слабше, ніж хотілося."
+            - "Наполовину геніально, наполовину дивно."
+            - "Варто подивитися, хоча з певними застереженнями."
+          negative:
+            - "Дуже хотілося, щоб фільм «{title}» сподобався."
+            - "Дві години, які я вже не поверну."
+            - "Десь посередині фільм «{title}» забуває, про що він."
+            - "Фільм дуже старається, але майже ніколи не влучає."
+            - "Фільм, який плутає гучність із напругою."
+            - "Навіть сильний акторський склад не рятує цей сценарій."
+        lines:
+          positive:
+            - "{actor} грає так, що це не відпускає ще довго."
+            - "Темп бездоганний, а фінал чесно заробляє кожну сльозу."
+            - "Режисура терпляча: сценам дають подихати."
+            - "Лише операторська робота вартує квитка."
+            - "{actor} і {actor2} мають справжню хімію, яку неможливо зіграти."
+            - "Музика підсилює фільм саме там, де треба."
+            - "Навіть другорядні персонажі живуть власним життям."
+            - "Діалоги гострі, але без самолюбування."
+            - "На великому екрані це виглядає фантастично."
+            - "Про фінал думається ще всю дорогу додому."
+          mixed:
+            - "{actor} — окраса фільму, але сценарій дає замало матеріалу."
+            - "Середина провисає, хоча фінал багато що виправляє."
+            - "Деякі сцени вражають, інші ніби з іншого фільму."
+            - "Тон хитається між серйозним і безглуздим частіше, ніж слід."
+            - "У режисера була візія, але монтаж поспішний."
+            - "Передбачувано, але по-затишному."
+            - "Картинка сильна, а от діалоги — ні."
+          negative:
+            - "{actor} старається з репліками, які потопили б будь-кого."
+            - "Сюжетні діри такі, що в них проїде вантажівка."
+            - "Кожен поворот видно за кілометр."
+            - "Монтаж настільки хаотичний, що за екшеном важко стежити."
+            - "Фільм нічого не втратив би без зайвих пів години."
+            - "Жодне рішення героїв мене не переконало."
+            - "Навіть саундтрек звучить знуджено."
+        genre_lines:
+          horror:
+            positive: ["Страх тут заслужений, а не дешевий.", "Останні двадцять хвилин доводилося дивитися крізь пальці."]
+            negative: ["Кожен скример музика оголошує секунд за десять."]
+          comedy:
+            positive: ["Жарти влучають, а тихі моменти — ще більше.", "Кілька разів уся зала сміялася вголос, а це рідкість."]
+            negative: ["Більшість жартів уже були в трейлері."]
+          action:
+            positive: ["Екшен чіткий, жорсткий і чудово поставлений.", "Сама лише погоня в другому акті вартує квитка."]
+            negative: ["Бійки зняті так близько, що не розбереш, хто кого б'є."]
+          romance:
+            positive: ["Після нього знову віриш у великі жести.", "Романтично, але без цукру."]
+            negative: ["Між головними героями хімії, як між двома припаркованими авто."]
+          sci_fi:
+            positive: ["Світ продуманий і приємно оригінальний.", "Фільм ставить великі питання й довіряє нам відповіді."]
+            negative: ["Наука тут — нісенітниця, і зовсім не весела."]
+          documentary:
+            positive: ["Кадри неймовірні, а історія за ними — ще більше.", "Розповідає, не повчаючи."]
+            negative: ["Більше схоже на довгу заставку, ніж на документалку."]
+          family:
+            positive: ["Діти в захваті, і, чесно кажучи, я теж.", "Смішно для дітей і несподівано зворушливо для батьків."]
+            negative: ["Задовго для малечі й надто просто для всіх інших."]
+          animation:
+            positive: ["Кожен кадр ніби зроблений вручну з любов'ю.", "Анімація чудова й повна дрібних деталей."]
+            negative: ["Гарно на вигляд, але швидко забувається."]
+          western:
+            positive: ["Запилений, жорсткий і гарний — таким і має бути вестерн."]
+            negative: ["Багато капелюхів, мало справи."]
+          war:
+            positive: ["Болісно, людяно й незабутньо."]
+            negative: ["Трагедія тут лише тло для вибухів."]
+          thriller:
+            positive: ["Напруга не спадає ані на секунду."]
+            negative: ["Головний поворот руйнує все, що було до нього."]
+        closers:
+          positive:
+            - "Однозначно рекомендую."
+            - "Дивіться на найбільшому екрані, який знайдете."
+            - "{rating}/10, і це ще скромна оцінка."
+            - "Одразу до улюблених."
+            - "Візьміть хустинки."
+          mixed:
+            - "Згодиться для лінивої неділі."
+            - "Краще дочекатися стрімінгу."
+            - "{rating}/10. Добре, але не чудово."
+            - "На любителя."
+          negative:
+            - "Можна пропустити."
+            - "{rating}/10, переважно за старання."
+            - "Краще перегляньте трейлер: той самий фільм, тільки коротший."
+            - "Не рекомендую."
+        # Reviews of series talk about episodes and seasons instead of the cinema.
+        series:
+          openers:
+            positive:
+              - "«{title}» — рідкісний серіал, який стає кращим із кожною серією."
+              - "Планувалася одна серія, а скінчилося цілим сезоном до ранку."
+              - "Цей серіал я зараз раджу всім знайомим."
+              - "Уже з першої серії «{title}» точно знає, куди веде історію."
+              - "Мало який серіал так довіряє глядачеві."
+            mixed:
+              - "У «{title}» сильна перша половина сезону і хитка друга."
+              - "Десь усередині «{title}» ховається чудовий серіал."
+              - "Від серії до серії нерівно, але ніколи не нудно."
+              - "Одні серії злітають, інші просто заповнюють ефір."
+              - "«{title}» вартий уваги, хоч і з застереженнями."
+            negative:
+              - "Три серії «{title}», і досить. Це було щедро."
+              - "Цілий сезон, який міг би бути півторагодинним фільмом."
+              - "Десь посередині сезону «{title}» губить нитку."
+              - "Серіал дуже старається, але мало чого досягає."
+              - "Навіть сильний акторський склад не рятує цей серіал."
+          lines:
+            positive:
+              - "{actor} із кожною серією дедалі глибше вживається в роль."
+              - "Сценаристи точно знають, коли обірвати серію на найцікавішому."
+              - "{actor} і {actor2} разом дарують одні з найкращих сцен цього року."
+              - "Кожна серія рухає історію вперед, нічого зайвого."
+              - "Фінал сезону зв'язує всі нитки без жодних хитрощів."
+              - "Другорядні персонажі отримують справжній розвиток."
+              - "Повільний початок окупається вже з третьої серії."
+              - "{director} надає серіалу вигляду, який на телебаченні трапляється рідко."
+            mixed:
+              - "{actor} чудово грає, але побічні сюжетні лінії ведуть у нікуди."
+              - "Середні серії затягнуті, хоча фінал багато що виправляє."
+              - "Одні сюжетні лінії захоплюють, інші явно розтягнуті."
+              - "Тон стрибає від серії до серії сильніше, ніж слід."
+              - "Передбачувано, але затишно: такий серіал легко подивитися за вихідні."
+              - "Чудові персонажі, нерівні сценарії."
+            negative:
+              - "{actor} щосили бореться з репліками, які потопили б будь-кого."
+              - "Кожен кліфгенгер розв'язують у перші дві хвилини наступної серії."
+              - "Половину сезону сюжет ходить по колу."
+              - "Забагато персонажів і замало причин ними перейматися."
+              - "Фінал руйнує ту крихту прихильності, яку сезон устиг заробити."
+              - "Серії зливаються в одну."
+          closers:
+            positive:
+              - "Дивитися запоєм."
+              - "{rating}/10. Уже чекаю на наступний сезон."
+              - "Однозначно раджу."
+              - "Звільніть вихідні."
+            mixed:
+              - "Якщо є вільні вихідні, чому б і ні."
+              - "{rating}/10. Добре, але не чудово."
+              - "Дайте йому шанс до третьої серії."
+              - "На любителя."
+            negative:
+              - "Краще пропустити."
+              - "{rating}/10, переважно за старання."
+              - "Не раджу."
+              - "Вистачить переказу."
+        critic_outlets:
+          - Вечірній оглядач
+          - Кінокритика
+          - Екран тижня
+          - Кінозал
+          - Дніпровський кур'єр
+          - Другий ряд
+          - Кіночас
+          - Світло і тінь
+          - Перегляд
+          - Кадр за кадром
+        critic_suffix: "%{name}, «%{outlet}»"
+
+      trailer:
+        when: [ЦІЄЇ ОСЕНІ, ЦЬОГО ЛІТА, ЦІЄЇ ЗИМИ, ЦІЄЇ ВЕСНИ, НА РІЗДВО, НАСТУПНОГО РОКУ, НА ГЕЛОВІН]
+        from:
+          - "ВІД РЕЖИСЕРА ФІЛЬМУ «{other_title}»"
+          - "ВІД ТВОРЦІВ «{other_title}»"
+          - "{studio} ПРЕДСТАВЛЯЄ"
+          - "РЕЖИСЕР {director}"
+        series_from:
+          - "ВІД ТВОРЦІВ «{other_title}»"
+          - "{platform} ПРЕДСТАВЛЯЄ"
+          - "ОРИГІНАЛЬНИЙ СЕРІАЛ"
+        hooks:
+          action: [[ОДИН ЧОЛОВІК, ОДНА МІСІЯ], [ЖОДНИХ ПРАВИЛ, ЖОДНОЇ ПОЩАДИ], [НЕМАЄ ВИХОДУ, НЕМАЄ ДОПОМОГИ], [ЧАС, СПЛИВАЄ]]
+          adventure: [[ЗА МЕЖАМИ МАПИ, ЗА МЕЖАМИ СТРАХУ], [ОДНА ПОДОРОЖ, ЗМІНИТЬ, УСЕ], [СВІТ, ЧЕКАЄ]]
+          animation: [[ЦЬОГО ЛІТА, МРІЙ ПО-ВЕЛИКОМУ], [МАЛЕНЬКИЙ ГЕРОЙ, ВЕЛИЧЕЗНА ПРОБЛЕМА], [ПРИГОДИ, ЩЕ НІКОЛИ, НЕ БУЛИ ТАКИМИ ВЕСЕЛИМИ]]
+          comedy: [[У НИХ БУЛО, ОДНЕ ЗАВДАННЯ], [ЩО МОЖЕ, ПІТИ, НЕ ТАК], [РОДИНА — ЦЕ НАЗАВЖДИ, НА ЖАЛЬ]]
+          crime: [[КОЖЕН, МАЄ СВОЮ ЦІНУ], [ОДНА СУМКА, П'ЯТЕРО ГРАВЦІВ], [ПРАВДА, ПРОДАЄТЬСЯ]]
+          documentary: [[ОДНА ПЛАНЕТА, МІЛЬЙОНИ ІСТОРІЙ], [ДИКА ПРИРОДА, КЛИЧЕ], [ПОБАЧ, НЕЙМОВІРНЕ]]
+          drama: [[ДЕЯКІ ТАЄМНИЦІ, НЕ ПОМИРАЮТЬ], [У КОЖНОЇ РОДИНИ, Є СВОЯ ІСТОРІЯ], [ОДНЕ ЛІТО, ЗМІНИЛО, УСЕ]]
+          family: [[ДІМ, ТАМ, ДЕ СЕРЦЕ], [ВЕЛИКЕ СЕРЦЕ, МАЛЕНЬКИЙ ГЕРОЙ], [ПРИГОДА, ПОЧИНАЄТЬСЯ ВДОМА]]
+          fantasy: [[МАГІЯ, МАЄ ЦІНУ], [СТАРИЙ СВІТ, ПРОКИДАЄТЬСЯ], [ОДНА КОРОНА, ОДНА ДОЛЯ]]
+          horror: [[ВОНО ЗНАЄ, ДЕ ТИ СПИШ], [НЕ, ОБЕРТАЙСЯ], [ТЕМРЯВА, НЕ ПОРОЖНЯ], [ДЕЯКІ ДВЕРІ, КРАЩЕ, НЕ ВІДЧИНЯТИ]]
+          mystery: [[КОЖЕН СЛІД, ВЕДЕ ДО НЕЇ], [НІЩО, НЕ Є ТИМ, ЧИМ ЗДАЄТЬСЯ], [ОДНЕ ПИТАННЯ, ЖОДНОЇ ВІДПОВІДІ]]
+          romance: [[ІНОДІ, КОХАННЯ, ЗНАХОДИТЬ ТЕБЕ], [ДВА СЕРЦЯ, ОДИН ШАНС], [ЗАКОХУЙСЯ, ПОВІЛЬНО]]
+          sci_fi: [[МАЙБУТНЄ, СЛУХАЄ], [МИ, НЕ САМІ], [СИГНАЛ, ПРИЙШОВ]]
+          thriller: [[НІКОМУ, НЕ ВІР], [48 ГОДИН, ЩОБ ЗНИКНУТИ], [ХТОСЬ, СПОСТЕРІГАЄ]]
+          war: [[ТРИМАЙ, ОБОРОНУ], [НІХТО, НЕ ПОВЕРТАЄТЬСЯ, КОЛИШНІМ], [МУЖНІСТЬ, ПІД ВОГНЕМ]]
+          western: [[ОДНЕ МІСТО, ОДИН ЗАКОН], [СКАЧИ ШВИДКО, СТРІЛЯЙ ВЛУЧНО], [КОРДОН, НЕ ЗНАЄ ПОЩАДИ]]
+        release:
+          - "НЕЗАБАРОМ У КІНО"
+          - "У КІНО З {date}"
+          - "З {date} ТІЛЬКИ В КІНО"
+          - "{date}"
+          - "ПРЕМ'ЄРА {date}"
+        series_release:
+          - "ПРЕМ'ЄРА {date}"
+          - "УСІ СЕРІЇ З {date}"
+          - "ДИВІТЬСЯ НА {platform}"
+          - "{platform} · {date}"
+        season: ["СЕЗОН {n}", "ФІНАЛЬНИЙ СЕЗОН", "НОВИЙ СЕЗОН"]
+        season_first: ["НОВИЙ СЕРІАЛ", "ОРИГІНАЛЬНИЙ СЕРІАЛ"]
+        starring_prefix: ""
+        and_prefix: "А ТАКОЖ "
+        billing:
+          presents: "{studio} ПРЕДСТАВЛЯЄ"
+          production: "ВИРОБНИЦТВО «{company}»"
+          film_by: "РЕЖИСЕР {director}"
+          starring: "У ГОЛОВНИХ РОЛЯХ"
+          music: "КОМПОЗИТОР"
+          edited: "МОНТАЖ"
+          photography: "ОПЕРАТОР-ПОСТАНОВНИК"
+          produced: "ПРОДЮСЕР"
+          written: "СЦЕНАРИСТ"
+          directed: "РЕЖИСЕР"
+        date: "{day} {month_gen}"
+        months: [СІЧЕНЬ, ЛЮТИЙ, БЕРЕЗЕНЬ, КВІТЕНЬ, ТРАВЕНЬ, ЧЕРВЕНЬ, ЛИПЕНЬ, СЕРПЕНЬ, ВЕРЕСЕНЬ, ЖОВТЕНЬ, ЛИСТОПАД, ГРУДЕНЬ]
+        months_gen: [СІЧНЯ, ЛЮТОГО, БЕРЕЗНЯ, КВІТНЯ, ТРАВНЯ, ЧЕРВНЯ, ЛИПНЯ, СЕРПНЯ, ВЕРЕСНЯ, ЖОВТНЯ, ЛИСТОПАДА, ГРУДНЯ]
+        studios:
+          - Чорноморфільм
+          - Дніпро Пікчерз
+          - Карпатська кіностудія
+          - Золоті ворота
+          - Степовий вітер
+          - Подільська кінокомпанія
+          - Кадр-Медіа
+          - Срібна стрічка
+          - Північне сяйво
+          - Лівий берег
+        companies:
+          - Майстерня кадру
+          - Нічна зміна
+          - Вітрило
+          - Світлотінь
+          - Перший план
+          - Синій ліхтар
+        platforms: [KINOLA, НОВА+, ЕКРАН ТВ, СТРІМХАТА, КІНОПРОСТІР, SERIALLAND]

@@ -1,0 +1,11 @@
+/.git
+/.bundle
+/log/*
+/tmp/*
+!/log/.keep
+!/tmp/.keep
+/footage/sources/*
+/public/assets
+/test
+/.env*
+/config/master.key

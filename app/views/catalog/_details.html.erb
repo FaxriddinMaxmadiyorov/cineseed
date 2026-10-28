@@ -1,0 +1,27 @@
+<div class="screening">
+  <div class="screening__player">
+    <%= render "catalog/player", movie: movie %>
+  </div>
+
+  <div class="screening__about">
+    <h3 class="screening__title"><%= movie.title %></h3>
+    <p class="screening__tagline"><%= movie.tagline %></p>
+    <dl class="facts">
+      <div class="facts__item"><dt><%= t("details.director") %></dt><dd><%= movie.director %></dd></div>
+      <div class="facts__item"><dt><%= t("details.cast") %></dt><dd><%= actors_label(movie) %></dd></div>
+      <div class="facts__item"><dt><%= t("details.rating") %></dt><dd><span class="badge"><%= movie.rating %></span> <%= movie.rating_label %></dd></div>
+      <div class="facts__item"><dt><%= t(movie.series? ? "details.episode_runtime" : "details.runtime") %></dt><dd><%= movie.runtime_label %></dd></div>
+      <div class="facts__item"><dt><%= t("details.studio") %></dt><dd><%= movie.studio %></dd></div>
+    </dl>
+    <% if movie.series? %>
+      <h4 class="screening__subhead"><%= t("details.seasons") %></h4>
+      <ol class="seasons">
+        <% movie.seasons.each do |season| %><li><%= season.label %></li><% end %>
+      </ol>
+    <% end %>
+  </div>
+
+  <div class="screening__audience">
+    <%= render "catalog/audience", movie: movie %>
+  </div>
+</div>

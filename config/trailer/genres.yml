@@ -1,0 +1,340 @@
+# How each genre looks and sounds in a trailer. Keys must match faker.movie_store.genres in the
+# region files. Every list of options is a weight map; the trailer director samples from it with
+# the movie's own seed, so a given seed always cuts the same trailer.
+#
+# weight      how often the genre appears in the catalog
+# families    which footage worlds may be used (see footage/sources.yml)
+# clips       required/preferred/avoided clip tags (mood tags dark/bright/warm/cool/mono/calm/dynamic
+#             are derived from measurements)
+# pace        shot length in beats [min, max]; speed = playback speed range
+# music       moods to pick an excerpt from; hit/riser/extras = sound effect groups
+# title_fonts / card_fonts   keys of config/trailer/fonts.yml (filtered by the region's script)
+# title_fx / card_fx         typographic animations (see Trailer::Typography)
+# palette     title, glow/outline and accent colors (hex RGB)
+# hero_darkness  how much the footage behind the title card is darkened (eq brightness)
+
+defaults:
+  structures: { classic: 4, hooks: 3, cold_open: 2, stars: 2, montage: 1, teaser: 1 }
+  transitions: { cut: 6, dissolve: 2, fadeblack: 3, fadewhite: 1 }
+  aspect: { scope: 5, flat: 2, full: 1 }
+  speed: [0.9, 1.1]
+  pace: [2, 4]
+  zoom: { push: 3, pull: 2, drift: 2, still: 1 }
+  hero_darkness: 0.16
+
+genres:
+  action:
+    weight: 10
+    families: { sintel: 3, live: 4, archival: 1 }
+    clips: { prefer: [action, dynamic, fire, cars, city, rocket], avoid: [calm, macro, animal, wildlife] }
+    pace: [1, 3]
+    speed: [1.0, 1.3]
+    structures: { classic: 3, hooks: 3, montage: 3, stars: 2 }
+    transitions: { cut: 8, fadewhite: 3, fadeblack: 2, hblur: 1, slideleft: 1 }
+    grades: { teal_orange: 5, bleach: 2, crimson: 1, cold: 2 }
+    music: [action, epic]
+    hit: [boom, hit]
+    riser: true
+    extras: { glass: 1, whoosh: 3 }
+    title_fonts: { anton: 3, bebas: 3, oswald: 3, russo: 2, black_ops: 2, montserrat_black: 2, unbounded: 1, fira_cond_black: 2 }
+    card_fonts: { bebas: 3, oswald: 3, fira_xcond_black: 2, alumni: 2 }
+    title_fx: { slam: 4, split: 3, zoom_through: 2, burn: 1, wipe: 1 }
+    card_fx: { slam: 2, tracking: 3, cut: 3 }
+    palette: { title: "F4F1EA", glow: "FF7A1A", accent: "FFB347" }
+
+  adventure:
+    weight: 7
+    families: { sintel: 6, live: 3 }
+    clips: { prefer: [adventure, landscape, sky, bright, warm, wildlife], avoid: [night, horror] }
+    pace: [2, 4]
+    speed: [0.9, 1.1]
+    structures: { classic: 4, hooks: 3, cold_open: 2, teaser: 1 }
+    transitions: { cut: 5, dissolve: 3, fadeblack: 2, fadewhite: 1 }
+    grades: { warm_golden: 4, teal_orange: 4, vivid: 1 }
+    music: [epic, adventure, wonder]
+    hit: [boom, gong]
+    riser: true
+    extras: { whoosh: 2, wind: 1 }
+    title_fonts: { cinzel: 3, cinzel_deco: 2, forum: 3, marcellus: 2, playfair_black: 2, cormorant_sc: 2, pirata: 1, philosopher: 2 }
+    card_fonts: { cinzel: 3, forum: 3, cormorant_sc: 2, tenor: 1 }
+    title_fx: { shine: 4, blur_focus: 2, tracking: 2, wipe: 2 }
+    card_fx: { tracking: 4, fade_up: 3 }
+    palette: { title: "F2D79B", glow: "C8872E", accent: "FFE7B0" }
+
+  animation:
+    weight: 4
+    families: { toon: 7, sintel: 2 }
+    clips: { prefer: [bright, warm, comedy, family], avoid: [dark, horror, war] }
+    pace: [2, 3]
+    speed: [0.95, 1.1]
+    structures: { classic: 4, hooks: 3, montage: 2 }
+    transitions: { cut: 4, circleopen: 2, dissolve: 2, slideleft: 1, radial: 1 }
+    aspect: { full: 5, flat: 3, scope: 1 }
+    grades: { vivid: 5, pastel: 2, warm_golden: 2 }
+    music: [light, wonder, comedy]
+    hit: [toon, gong]
+    riser: false
+    extras: { toon: 2, whoosh: 2 }
+    title_fonts: { lilita: 3, luckiest: 3, bangers: 2, seymour: 3, rubik_moonrocks: 2, rubik_puddles: 2, underdog: 2, lobster: 1 }
+    card_fonts: { montserrat_black: 3, seymour: 2, lilita: 2, underdog: 2 }
+    title_fx: { drop_bounce: 5, cascade: 3, flip3d: 2 }
+    card_fx: { drop_bounce: 2, fade_up: 3, cascade: 2 }
+    palette: { title: "FFF7D6", glow: "FF8A00", accent: "5BC0FF" }
+
+  comedy:
+    weight: 12
+    families: { live: 5, toon: 3, archival: 1 }
+    clips: { prefer: [comedy, bright, animal, people, sports, celebration], avoid: [dark, horror, war, fire] }
+    pace: [2, 3]
+    speed: [1.0, 1.15]
+    structures: { classic: 3, hooks: 4, stars: 2, montage: 1 }
+    transitions: { cut: 6, circleopen: 1, slideleft: 1, dissolve: 1, fadeblack: 1 }
+    aspect: { full: 4, flat: 4, scope: 1 }
+    grades: { vivid: 5, warm_golden: 2, pastel: 3 }
+    music: [comedy, light]
+    hit: [toon, hit]
+    riser: false
+    extras: { toon: 3 }
+    title_fonts: { luckiest: 3, bangers: 3, lilita: 2, seymour: 2, amatic: 1, lobster: 2, rubik_mono: 2, montserrat_black: 2, underdog: 2 }
+    card_fonts: { montserrat_black: 4, oswald: 2, seymour: 1, bebas: 2 }
+    title_fx: { drop_bounce: 4, cascade: 2, slam: 2, flip3d: 1 }
+    card_fx: { cut: 3, drop_bounce: 2, fade_up: 2 }
+    palette: { title: "FFFFFF", glow: "FFC400", accent: "FF4F79" }
+
+  crime:
+    weight: 6
+    hero_darkness: 0.23
+    families: { live: 6, sintel: 1, archival: 1 }
+    clips: { prefer: [crime, night, city, cars, cool, tech, dark], avoid: [bright, comedy, animal, celebration, wildlife] }
+    pace: [2, 3]
+    speed: [0.9, 1.1]
+    structures: { classic: 3, hooks: 3, cold_open: 3, stars: 2, teaser: 1 }
+    transitions: { cut: 7, fadeblack: 3, dissolve: 1, hblur: 1 }
+    grades: { teal_orange: 3, cold: 3, bleach: 2, noir: 1, night_blue: 2 }
+    music: [suspense, crime, dark, thriller]
+    hit: [hit, boom]
+    riser: true
+    extras: { tick: 2, glass: 1, whoosh: 1 }
+    title_fonts: { bebas: 3, oswald: 3, anton: 2, special_elite: 2, fira_cond_black: 2, playfair: 1, alumni: 2 }
+    card_fonts: { bebas: 3, oswald: 3, fira_xcond_bold: 2, alumni: 2 }
+    title_fx: { wipe: 3, typewriter: 2, slam: 2, tracking: 3 }
+    card_fx: { tracking: 3, typewriter: 2, cut: 3 }
+    palette: { title: "E9E4DA", glow: "C9A227", accent: "D7263D" }
+
+  documentary:
+    weight: 3
+    families: { live: 6, archival: 2 }
+    clips: { prefer: [documentary, wildlife, nature, landscape, space, aerial, history], avoid: [cg, comedy] }
+    pace: [3, 5]
+    speed: [0.85, 1.0]
+    structures: { classic: 4, hooks: 3, cold_open: 2, teaser: 2 }
+    transitions: { dissolve: 5, cut: 3, fadeblack: 2 }
+    aspect: { full: 3, flat: 4, scope: 3 }
+    grades: { warm_golden: 2, vivid: 1, cold: 1, teal_orange: 2, natural: 3 }
+    music: [documentary, wonder, calm, emotional]
+    hit: [gong, boom]
+    riser: false
+    extras: { bell: 1, wind: 1 }
+    title_fonts: { montserrat: 3, tenor: 3, oswald_light: 2, cormorant: 2, jura: 1 }
+    card_fonts: { montserrat: 3, tenor: 3, oswald_light: 2 }
+    title_fx: { tracking: 4, blur_focus: 3, wipe: 2 }
+    card_fx: { tracking: 3, fade_up: 4 }
+    palette: { title: "F5F5F0", glow: "8FB8DE", accent: "F4D35E" }
+
+  drama:
+    weight: 14
+    families: { live: 4, sintel: 4, archival: 2 }
+    clips: { prefer: [drama, calm, people, rain, warm, nature], avoid: [cg, comedy, fire] }
+    pace: [3, 5]
+    speed: [0.85, 1.0]
+    structures: { classic: 4, hooks: 3, stars: 3, cold_open: 2, teaser: 2 }
+    transitions: { dissolve: 4, cut: 4, fadeblack: 3 }
+    grades: { faded: 3, warm_golden: 2, cold: 2, bleach: 1, natural: 2 }
+    music: [emotional, drama, calm]
+    hit: [gong, boom]
+    riser: false
+    extras: { bell: 1 }
+    title_fonts: { playfair: 3, cormorant_sc: 3, tenor: 2, prata: 2, yeseva: 2, old_standard: 2, spectral_sc: 2 }
+    card_fonts: { cormorant_sc: 3, playfair: 3, tenor: 2, spectral_sc: 2 }
+    title_fx: { blur_focus: 4, tracking: 3, cascade: 2 }
+    card_fx: { fade_up: 4, tracking: 3 }
+    palette: { title: "F3EEE6", glow: "B08D57", accent: "D9C3A0" }
+
+  family:
+    weight: 4
+    families: { toon: 4, live: 4, sintel: 1 }
+    clips: { prefer: [family, bright, warm, animal, nature, celebration], avoid: [dark, horror, war, fire, crime] }
+    pace: [2, 4]
+    speed: [0.95, 1.1]
+    structures: { classic: 4, hooks: 3, montage: 1 }
+    transitions: { cut: 4, dissolve: 3, circleopen: 2, fadewhite: 1 }
+    aspect: { full: 4, flat: 4, scope: 1 }
+    grades: { vivid: 4, warm_golden: 3, pastel: 3 }
+    music: [light, wonder, family]
+    hit: [toon, gong]
+    riser: false
+    extras: { toon: 2, whoosh: 1 }
+    title_fonts: { lilita: 3, seymour: 3, luckiest: 2, rubik_moonrocks: 2, underdog: 2, lobster: 2, philosopher: 1 }
+    card_fonts: { montserrat_black: 3, seymour: 2, lilita: 2 }
+    title_fx: { drop_bounce: 4, shine: 2, cascade: 3 }
+    card_fx: { fade_up: 3, drop_bounce: 2, cascade: 2 }
+    palette: { title: "FFF8E1", glow: "FFB300", accent: "7BD389" }
+
+  fantasy:
+    weight: 5
+    families: { sintel: 8, live: 1 }
+    clips: { prefer: [fantasy, landscape, sky, warm, mystery, fire], avoid: [city, cars, tech] }
+    pace: [2, 4]
+    speed: [0.85, 1.05]
+    structures: { classic: 4, hooks: 3, cold_open: 2, stars: 1, teaser: 1 }
+    transitions: { dissolve: 3, cut: 4, fadeblack: 3, fadewhite: 1 }
+    grades: { warm_golden: 3, teal_orange: 2, cold: 2, crimson: 1 }
+    music: [epic, fantasy, wonder]
+    hit: [boom, gong]
+    riser: true
+    extras: { whoosh: 2, wind: 1, thunder: 1 }
+    title_fonts: { cinzel_deco: 3, cinzel: 3, uncial: 2, forum: 3, ruslan: 2, cormorant_sc: 2, pirata: 1, philosopher: 1 }
+    card_fonts: { cinzel: 3, forum: 3, cormorant_sc: 3 }
+    title_fx: { shine: 4, blur_focus: 3, burn: 1, tracking: 2 }
+    card_fx: { tracking: 3, fade_up: 3, blur_focus: 2 }
+    palette: { title: "F7E2A8", glow: "D4A017", accent: "9FD8FF" }
+
+  horror:
+    weight: 7
+    hero_darkness: 0.32
+    families: { live: 4, sintel: 3 }
+    clips: { require: [dark, horror, night], prefer: [dark, cool, night, horror, fire], avoid: [bright, comedy, celebration, sports] }
+    pace: [2, 4]
+    speed: [0.75, 0.95]
+    structures: { hooks: 4, classic: 3, cold_open: 2, teaser: 2 }
+    transitions: { fadeblack: 5, cut: 5, dissolve: 1, fadewhite: 1 }
+    grades: { horror_green: 3, night_blue: 3, bleach: 2, crimson: 1, noir: 1 }
+    music: [horror, dark, suspense]
+    hit: [boom, hit]
+    riser: true
+    extras: { heartbeat: 2, creak: 2, thunder: 2, growl: 1 }
+    title_fonts: { creepster: 2, nosifer: 1, metal_mania: 1, unifraktur: 2, rubik_wet_paint: 2, rubik_beastly: 1, old_standard: 2, im_fell: 2, playfair_black: 2, spectral_sc: 2 }
+    card_fonts: { spectral_sc: 3, old_standard: 2, oswald_light: 2, cormorant_sc: 2 }
+    title_fx: { flicker: 5, blur_focus: 2, tracking: 2, burn: 1 }
+    card_fx: { flicker: 3, fade_up: 2, tracking: 2 }
+    palette: { title: "E6DED3", glow: "8B0000", accent: "C1121F" }
+
+  mystery:
+    weight: 4
+    hero_darkness: 0.27
+    families: { live: 4, sintel: 3, archival: 1 }
+    clips: { prefer: [mystery, night, dark, cool, rain, fog], avoid: [bright, comedy, celebration] }
+    pace: [2, 4]
+    speed: [0.85, 1.0]
+    structures: { hooks: 4, classic: 3, cold_open: 2, teaser: 2 }
+    transitions: { fadeblack: 4, dissolve: 3, cut: 4 }
+    grades: { cold: 3, faded: 2, noir: 1, horror_green: 1, sepia: 1, night_blue: 1 }
+    music: [mystery, suspense, dark]
+    hit: [gong, hit]
+    riser: true
+    extras: { tick: 2, bell: 1, creak: 1 }
+    title_fonts: { im_fell: 2, special_elite: 2, playfair: 3, spectral_sc: 3, cormorant_sc: 2, old_standard: 2, prata: 1 }
+    card_fonts: { spectral_sc: 3, cormorant_sc: 3, playfair: 2 }
+    title_fx: { typewriter: 3, blur_focus: 3, wipe: 2, tracking: 2 }
+    card_fx: { typewriter: 2, fade_up: 3, tracking: 3 }
+    palette: { title: "E8E4DC", glow: "4A6FA5", accent: "B5C7E3" }
+
+  romance:
+    weight: 6
+    families: { live: 5, sintel: 2 }
+    clips: { prefer: [romance, calm, warm, nature, rain, celebration, macro], avoid: [fire, war, horror, cars] }
+    pace: [3, 5]
+    speed: [0.85, 1.0]
+    structures: { classic: 4, hooks: 3, stars: 3, teaser: 2 }
+    transitions: { dissolve: 6, cut: 3, fadewhite: 2 }
+    aspect: { flat: 4, scope: 3, full: 2 }
+    grades: { warm_golden: 3, pastel: 3, faded: 2 }
+    music: [romance, emotional, calm]
+    hit: [gong, bell]
+    riser: false
+    extras: { bell: 1 }
+    title_fonts: { great_vibes: 3, marck_script: 2, lobster: 2, playfair: 2, cormorant: 3, poiret: 2, yeseva: 2, abril: 1 }
+    card_fonts: { cormorant_sc: 3, poiret: 2, tenor: 2, playfair: 2 }
+    title_fx: { blur_focus: 4, cascade: 3, shine: 2 }
+    card_fx: { fade_up: 4, cascade: 2 }
+    palette: { title: "FFF1EC", glow: "F4A6B8", accent: "FFD6A5" }
+
+  sci_fi:
+    weight: 7
+    families: { live: 6, archival: 2, sintel: 1 }
+    clips: { prefer: [sci_fi, space, tech, rocket, cg, night, cool, city], avoid: [animal, comedy, western, wildlife] }
+    pace: [2, 3]
+    speed: [0.9, 1.15]
+    structures: { classic: 3, hooks: 4, montage: 2, cold_open: 2, teaser: 1 }
+    transitions: { cut: 6, fadeblack: 2, fadewhite: 2, pixelize: 1, hblur: 1, zoomin: 1 }
+    grades: { cold: 4, matrix: 2, teal_orange: 3, night_blue: 1 }
+    music: [scifi, suspense, action]
+    hit: [boom, laser]
+    riser: true
+    extras: { laser: 1, whoosh: 2, tick: 1 }
+    title_fonts: { orbitron: 3, audiowide: 2, michroma: 2, exo2: 3, jura: 2, russo: 2, rubik_glitch: 2, rubik_80s: 1, unbounded: 2, press_start: 1 }
+    card_fonts: { exo2: 3, jura: 2, michroma: 2, orbitron: 2, oswald_light: 2 }
+    title_fx: { glitch: 4, zoom_through: 3, wipe: 2, flip3d: 1, tracking: 2 }
+    card_fx: { glitch: 2, tracking: 4, typewriter: 2 }
+    palette: { title: "E6F7FF", glow: "00B4D8", accent: "7DF9FF" }
+
+  thriller:
+    weight: 9
+    hero_darkness: 0.27
+    families: { live: 6, sintel: 2, archival: 1 }
+    clips: { prefer: [thriller, night, dark, city, cars, tech, cool, rain], avoid: [bright, comedy, animal, celebration] }
+    pace: [1, 3]
+    speed: [0.95, 1.2]
+    structures: { hooks: 4, classic: 3, cold_open: 2, stars: 2, teaser: 1 }
+    transitions: { cut: 7, fadeblack: 3, fadewhite: 1, hblur: 1 }
+    grades: { cold: 3, teal_orange: 3, bleach: 2, night_blue: 2 }
+    music: [thriller, suspense, action, dark]
+    hit: [boom, hit]
+    riser: true
+    extras: { heartbeat: 1, tick: 2, glass: 1, whoosh: 1 }
+    title_fonts: { bebas: 3, oswald: 3, anton: 2, montserrat_black: 2, fira_cond_black: 2, rubik_glitch: 1, alumni: 2 }
+    card_fonts: { bebas: 3, oswald: 3, alumni: 2, fira_xcond_bold: 2 }
+    title_fx: { slam: 3, split: 3, tracking: 2, glitch: 1, wipe: 2 }
+    card_fx: { cut: 3, tracking: 3, slam: 1 }
+    palette: { title: "F0F0F0", glow: "3A86FF", accent: "E63946" }
+
+  war:
+    weight: 2
+    hero_darkness: 0.2
+    families: { sintel: 4, archival: 3, live: 2 }
+    clips: { prefer: [war, fire, dark, mono, history, rocket, landscape], avoid: [comedy, bright, animal, celebration, wildlife] }
+    pace: [2, 4]
+    speed: [0.8, 1.05]
+    structures: { classic: 4, hooks: 3, cold_open: 2, teaser: 2 }
+    transitions: { cut: 5, fadeblack: 4, dissolve: 2, fadewhite: 1 }
+    aspect: { scope: 6, flat: 2 }
+    grades: { bleach: 4, sepia: 2, noir: 2, cold: 2 }
+    music: [war, epic, emotional]
+    hit: [boom, gong]
+    riser: true
+    extras: { thunder: 1, wind: 1, whoosh: 1 }
+    title_fonts: { black_ops: 2, stalinist: 2, rubik_burned: 2, rubik_distressed: 2, oswald: 3, anton: 2, cinzel: 2, forum: 1 }
+    card_fonts: { oswald: 3, bebas: 2, fira_xcond_bold: 2, old_standard: 2 }
+    title_fx: { burn: 4, slam: 2, tracking: 3, wipe: 1 }
+    card_fx: { tracking: 4, fade_up: 2, cut: 2 }
+    palette: { title: "ECE6D8", glow: "B5651D", accent: "D4A373" }
+
+  western:
+    weight: 2
+    families: { sintel: 5, live: 3, archival: 1 }
+    clips: { prefer: [western, warm, landscape, sand, wildlife, bright, nature], avoid: [city, tech, cars, cg, night] }
+    pace: [2, 4]
+    speed: [0.85, 1.05]
+    structures: { classic: 4, hooks: 3, stars: 2, teaser: 2 }
+    transitions: { cut: 5, dissolve: 3, fadeblack: 2, wipeleft: 1 }
+    aspect: { scope: 6, flat: 2 }
+    grades: { western_dust: 5, sepia: 2, warm_golden: 2 }
+    music: [western, adventure, action]
+    hit: [boom, hit]
+    riser: true
+    extras: { wind: 2, thunder: 1, whoosh: 1 }
+    title_fonts: { rye: 3, sancreek: 3, kelly_slab: 2, rubik_dirt: 2, rubik_distressed: 2, old_standard: 2, playfair_black: 1 }
+    card_fonts: { old_standard: 3, kelly_slab: 2, oswald: 2, rye: 1 }
+    title_fx: { burn: 3, slam: 2, wipe: 2, tracking: 2 }
+    card_fx: { tracking: 3, fade_up: 3 }
+    palette: { title: "F2E3C6", glow: "C1440E", accent: "E9B872" }

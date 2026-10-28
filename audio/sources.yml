@@ -1,0 +1,144 @@
+# Music and sound effects for trailers.
+#
+# Every file comes from a free/open game data package in the Debian/Ubuntu archive. The builder
+# (script/build_audio_library.py) downloads the packages with `apt-get download`, extracts the
+# listed files, analyses tempo/beats/energy with librosa, cuts the strongest windows into short
+# excerpts, normalizes loudness with ffmpeg and writes audio/manifest.json.
+#
+# moods drive the choice per genre (see config/trailer/genres.yml).
+
+packages:
+  wesnoth-1.16-music: { license: GPL-2.0-or-later, attribution: "The Battle for Wesnoth soundtrack (various composers)", root: usr/share/games/wesnoth/1.16/data/core/music }
+  flare-game: { license: CC-BY-SA-3.0, attribution: "Flare: Empyrean Campaign soundtrack and sounds", root: usr/share/games/flare/mods/fantasycore }
+  warmux-data: { license: GPL-2.0-or-later, attribution: "Warmux soundtrack and sounds (Olivier Militon, Mike Errecart and others)", root: usr/share/games/warmux }
+  singularity-music: { license: CC-BY-SA-3.0, attribution: "Singularity soundtrack", root: usr/share/games/singularity/music }
+  starfighter-data: { license: CC-BY-3.0 / CC-BY-SA-3.0, attribution: "Project: Starfighter soundtrack", root: usr/share/starfighter/music }
+  hyperrogue-music: { license: CC-BY-SA-3.0, attribution: "HyperRogue soundtrack (Shawn Parrotte, Lincoln Domina, Rafal Wesolowski)", root: usr/share/hyperrogue/music }
+  warzone2100-music: { license: GPL-2.0-or-later, attribution: "Warzone 2100 soundtrack", root: usr/share/games/warzone2100/music }
+  freeorion-data: { license: CC-BY-SA-3.0, attribution: "FreeOrion sound effects", root: usr/share/games/freeorion/default/data/sound }
+  angband-audio: { license: CC-BY-NC-SA-3.0, attribution: "Angband sound effects (Myshkin and contributors)", root: usr/share/angband/sounds }
+  lugaru-data: { license: CC-BY-SA-3.0, attribution: "Lugaru sound effects (Wolfire Games)", root: usr/share/games/lugaru/Sounds }
+  btanks-data: { license: GPL-2.0-or-later, attribution: "Battle Tanks sound effects", root: usr/share/games/btanks/data/sounds }
+  crossfire-client: { license: GPL-2.0-or-later / CC-BY-3.0, attribution: "Crossfire client sounds", root: usr/share/games/crossfire-client/sounds }
+  brainparty-data: { license: GPL-3.0-or-later, attribution: "Brain Party sounds", root: usr/share/games/brainparty }
+
+music:
+  - { id: battle_epic, pkg: wesnoth-1.16-music, file: battle-epic.ogg, moods: [epic, action, war, fantasy] }
+  - { id: battle, pkg: wesnoth-1.16-music, file: battle.ogg, moods: [action, war, epic] }
+  - { id: breaking_chains, pkg: wesnoth-1.16-music, file: breaking_the_chains.ogg, moods: [epic, action, adventure] }
+  - { id: casualties, pkg: wesnoth-1.16-music, file: casualties_of_war.ogg, moods: [war, emotional, epic] }
+  - { id: elf_land, pkg: wesnoth-1.16-music, file: elf-land.ogg, moods: [wonder, fantasy, family, romance] }
+  - { id: frantic, pkg: wesnoth-1.16-music, file: frantic.ogg, moods: [action, thriller] }
+  - { id: heroes_rite, pkg: wesnoth-1.16-music, file: heroes_rite.ogg, moods: [epic, adventure, war] }
+  - { id: into_shadows, pkg: wesnoth-1.16-music, file: into_the_shadows.ogg, moods: [dark, horror, mystery, suspense] }
+  - { id: journeys_end, pkg: wesnoth-1.16-music, file: journeys_end.ogg, moods: [emotional, drama, war] }
+  - { id: knolls, pkg: wesnoth-1.16-music, file: knolls.ogg, moods: [calm, documentary, family, drama] }
+  - { id: legends_north, pkg: wesnoth-1.16-music, file: legends_of_the_north.ogg, moods: [epic, adventure, war, fantasy] }
+  - { id: love_theme, pkg: wesnoth-1.16-music, file: love_theme.ogg, moods: [romance, emotional] }
+  - { id: northern_mountains, pkg: wesnoth-1.16-music, file: northern_mountains.ogg, moods: [wonder, adventure, documentary] }
+  - { id: northerners, pkg: wesnoth-1.16-music, file: northerners.ogg, moods: [war, action] }
+  - { id: nunc_dimittis, pkg: wesnoth-1.16-music, file: nunc_dimittis.ogg, moods: [emotional, war, drama, dark] }
+  - { id: revelation, pkg: wesnoth-1.16-music, file: revelation.ogg, moods: [mystery, suspense, wonder] }
+  - { id: sad, pkg: wesnoth-1.16-music, file: sad.ogg, moods: [emotional, drama] }
+  - { id: siege, pkg: wesnoth-1.16-music, file: siege_of_laurelmor.ogg, moods: [war, epic, action] }
+  - { id: silvan, pkg: wesnoth-1.16-music, file: silvan_sanctuary.ogg, moods: [wonder, fantasy, calm, family] }
+  - { id: suspense, pkg: wesnoth-1.16-music, file: suspense.ogg, moods: [suspense, thriller, horror, mystery] }
+  - { id: city_falls, pkg: wesnoth-1.16-music, file: the_city_falls.ogg, moods: [war, dark, epic] }
+  - { id: dangerous_symphony, pkg: wesnoth-1.16-music, file: the_dangerous_symphony.ogg, moods: [action, thriller, suspense] }
+  - { id: deep_path, pkg: wesnoth-1.16-music, file: the_deep_path.ogg, moods: [dark, mystery, adventure] }
+  - { id: king_is_dead, pkg: wesnoth-1.16-music, file: the_king_is_dead.ogg, moods: [emotional, drama, war] }
+  - { id: transience, pkg: wesnoth-1.16-music, file: transience.ogg, moods: [emotional, romance, drama] }
+  - { id: minstrels, pkg: wesnoth-1.16-music, file: traveling_minstrels.ogg, moods: [light, comedy, family, western] }
+  - { id: underground, pkg: wesnoth-1.16-music, file: underground.ogg, moods: [dark, horror] }
+  - { id: vengeful, pkg: wesnoth-1.16-music, file: vengeful.ogg, moods: [action, western, thriller] }
+  - { id: wanderer, pkg: wesnoth-1.16-music, file: wanderer.ogg, moods: [adventure, western, drama] }
+  - { id: weight_of_revenge, pkg: wesnoth-1.16-music, file: weight_of_revenge.ogg, moods: [dark, action, crime, thriller] }
+  - { id: flare_title, pkg: flare-game, file: music/title_theme.ogg, moods: [epic, fantasy, adventure] }
+  - { id: flare_battle, pkg: flare-game, file: music/battle_theme.ogg, moods: [action, fantasy, war] }
+  - { id: flare_boss, pkg: flare-game, file: music/boss_theme.ogg, moods: [epic, action, dark] }
+  - { id: flare_dungeon, pkg: flare-game, file: music/dungeon_theme.ogg, moods: [dark, horror, mystery] }
+  - { id: flare_town, pkg: flare-game, file: music/town_theme.ogg, moods: [light, family, comedy] }
+  - { id: flare_forest, pkg: flare-game, file: music/forest_theme.ogg, moods: [wonder, family, calm] }
+  - { id: flare_magical, pkg: flare-game, file: music/magical_theme.ogg, moods: [wonder, fantasy, mystery] }
+  - { id: circus, pkg: warmux-data, file: music/ingame/circux.ogg, moods: [comedy, light] }
+  - { id: flute, pkg: warmux-data, file: music/menu/Divertissement_pour_flute.ogg, moods: [light, comedy, family] }
+  - { id: woodlux, pkg: warmux-data, file: music/ingame/woodlux.ogg, moods: [light, comedy, family] }
+  - { id: monkey_bubble, pkg: warmux-data, file: music/ingame/Mike_Errecart.-.Monkey-bubble.ogg, moods: [comedy, light] }
+  - { id: like_a_rock, pkg: warmux-data, file: music/ingame/Olivier_Militon.-.Like_a_rock.ogg, moods: [action, comedy] }
+  - { id: etrange, pkg: warmux-data, file: music/ingame/Olivier_Militon.-.Etrange_epouvantable.ogg, moods: [dark, comedy, horror] }
+  - { id: exotic, pkg: warmux-data, file: music/ingame/exoticux.ogg, moods: [comedy, adventure, light] }
+  - { id: awakening, pkg: singularity-music, file: Awakening.ogg, moods: [scifi, suspense] }
+  - { id: nebula, pkg: singularity-music, file: Nebula.ogg, moods: [scifi, calm, documentary] }
+  - { id: enemy_unknown, pkg: singularity-music, file: Enemy Unknown.ogg, moods: [scifi, thriller, suspense] }
+  - { id: orbital_elevator, pkg: singularity-music, file: Orbital Elevator.ogg, moods: [scifi, wonder] }
+  - { id: media_threat, pkg: singularity-music, file: Media Threat.ogg, moods: [thriller, scifi, crime] }
+  - { id: inevitable, pkg: singularity-music, file: Inevitable.ogg, moods: [scifi, emotional] }
+  - { id: rise_of_spirit, pkg: starfighter-data, file: rise_of_spirit.ogg, moods: [action, scifi, epic] }
+  - { id: orbital_colossus, pkg: starfighter-data, file: orbital_colossus.ogg, moods: [action, scifi] }
+  - { id: androids, pkg: starfighter-data, file: walking_among_androids.ogg, moods: [scifi, suspense] }
+  - { id: cyber_dance, pkg: starfighter-data, file: last_cyber_dance.ogg, moods: [action, scifi] }
+  - { id: graveyard, pkg: hyperrogue-music, file: hr3-graveyard.ogg, moods: [horror, dark] }
+  - { id: rlyeh, pkg: hyperrogue-music, file: hr3-rlyeh.ogg, moods: [horror, dark, mystery] }
+  - { id: desert, pkg: hyperrogue-music, file: hr3-desert.ogg, moods: [western, adventure] }
+  - { id: laboratory, pkg: hyperrogue-music, file: hr3-laboratory.ogg, moods: [scifi, thriller] }
+  - { id: caribbean, pkg: hyperrogue-music, file: hr-savino-caribbean.ogg, moods: [comedy, adventure, light] }
+  - { id: jungle, pkg: hyperrogue-music, file: hr3-jungle.ogg, moods: [adventure, wonder] }
+  - { id: hunting, pkg: hyperrogue-music, file: hr-domina-hunting.ogg, moods: [action, adventure] }
+  - { id: wz_original1, pkg: warzone2100-music, file: albums/original_soundtrack/track1.opus, moods: [action, war, scifi] }
+  - { id: wz_original2, pkg: warzone2100-music, file: albums/original_soundtrack/track2.opus, moods: [war, suspense] }
+
+sfx:
+  boom:
+    - { id: boom_heavy, pkg: freeorion-data, file: combat/explosion-heavy1.ogg }
+    - { id: boom_nuke, pkg: btanks-data, file: nuke-explosion.ogg }
+    - { id: boom_building, pkg: btanks-data, file: building-explosion1.ogg }
+    - { id: boom_med, pkg: freeorion-data, file: combat/explosion-med1.ogg }
+    - { id: boom_doom, pkg: angband-audio, file: amb_door_doom.ogg }
+  hit:
+    - { id: hit_heavy, pkg: lugaru-data, file: HeavyImpact.ogg }
+    - { id: hit_anvil, pkg: angband-audio, file: plc_hit_anvil2.ogg }
+    - { id: hit_metal, pkg: lugaru-data, file: MetalHit.ogg }
+    - { id: hit_slam, pkg: angband-audio, file: plm_door_slam.ogg }
+    - { id: hit_crash, pkg: crossfire-client, file: MetalCrash.wav }
+  gong:
+    - { id: gong_low, pkg: angband-audio, file: amb_gong_low.ogg }
+    - { id: gong_strike, pkg: angband-audio, file: amb_gong_strike.ogg }
+    - { id: gong_temple, pkg: angband-audio, file: sum_gong_temple.ogg }
+    - { id: gong_bright, pkg: crossfire-client, file: gong.wav }
+  whoosh:
+    - { id: whoosh_long, pkg: lugaru-data, file: Whoosh.ogg }
+    - { id: whoosh_short, pkg: crossfire-client, file: Whoosh.wav }
+    - { id: whoosh_low, pkg: lugaru-data, file: LowWhoosh.ogg }
+    - { id: whoosh_mid, pkg: lugaru-data, file: MidWhoosh.ogg }
+  thunder:
+    - { id: thunder_roll, pkg: angband-audio, file: amb_thunder_roll.ogg }
+    - { id: thunder_rain, pkg: angband-audio, file: amb_thunder_rain.ogg }
+    - { id: thunder_crack, pkg: flare-game, file: soundfx/powers/thunder.ogg }
+  heartbeat:
+    - { id: heartbeat, pkg: flare-game, file: soundfx/heartbeat.ogg }
+  tick:
+    - { id: tower_clock, pkg: crossfire-client, file: TowerClock.wav }
+    - { id: mine_tick, pkg: btanks-data, file: mine-tick.ogg }
+  creak:
+    - { id: door_creak, pkg: angband-audio, file: plm_door_creak.ogg }
+    - { id: floor_creak, pkg: angband-audio, file: plm_floor_creak.ogg }
+  glass:
+    - { id: glass_break, pkg: angband-audio, file: plm_break_glass.ogg }
+  laser:
+    - { id: laser, pkg: freeorion-data, file: combat/laser-blaster2.ogg }
+  bell:
+    - { id: bell_tibet, pkg: angband-audio, file: amb_bell_tibet1.ogg }
+    - { id: bell_bowl, pkg: angband-audio, file: pls_bell_bowl.ogg }
+  toon:
+    - { id: toon_fall, pkg: warmux-data, file: sound/default/weapons/anvil_fall.ogg }
+    - { id: toon_bounce, pkg: warmux-data, file: sound/default/weapons/gnu_bounce.ogg }
+    - { id: toon_slap, pkg: warmux-data, file: sound/default/weapons/slap.ogg }
+  growl:
+    - { id: growl, pkg: lugaru-data, file: Growl.ogg }
+  wind:
+    - { id: wind, pkg: flare-game, file: soundfx/environment/wind_loop.ogg, trim: 12 }
+  riser:
+    # reversed recordings: a classic trailer "suck-in" before a hit
+    - { id: riser_gong, pkg: angband-audio, file: amb_gong_undertone.ogg, reverse: true, trim: 4 }
+    - { id: riser_thunder, pkg: angband-audio, file: amb_thunder_roll.ogg, reverse: true, trim: 4 }
+    - { id: riser_boom, pkg: freeorion-data, file: combat/explosion-heavy1.ogg, reverse: true, trim: 3 }

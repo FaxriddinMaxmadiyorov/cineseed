@@ -1,0 +1,15 @@
+<figure class="player" data-controller="player" data-player-src-value="<%= media_url_for(movie, :mp4) %>"
+        data-player-poster-value="<%= media_url_for(movie, :jpg) %>"
+        data-player-label-value="<%= t("player.video_label", title: movie.title) %>"
+        data-failed-text="<%= t("player.failed") %>">
+  <img class="player__poster" alt="<%= t("player.poster_alt", title: movie.title) %>"
+       width="854" height="480" decoding="async" data-player-target="poster">
+  <button type="button" class="player__play" data-action="player#play" data-player-target="button"
+          aria-label="<%= t("player.play", title: movie.title) %>">
+    <span class="player__badge">
+      <svg viewBox="0 0 48 48" width="30" height="30" aria-hidden="true" focusable="false"><circle cx="24" cy="24" r="24" fill="currentColor"/><path d="M19 14.5v19l15-9.5z" fill="#fff"/></svg>
+      <span class="player__badge-text"><%= t("player.badge") %></span>
+    </span>
+  </button>
+  <figcaption class="player__status" data-player-target="status" role="status"></figcaption>
+</figure>

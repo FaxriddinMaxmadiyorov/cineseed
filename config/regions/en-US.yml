@@ -1,0 +1,1001 @@
+# English (United States) dataset.
+#
+# Everything a generated movie says in this region comes from this file. People's names, cities and
+# usernames come from Faker's own "en" data (I18n falls back from en-US to en); the vocabulary below
+# is loaded into the same I18n tree under faker.movie_store and read through Faker::MovieStore.
+#
+# Title grammar (see TitleComposer):
+#   {noun:x}      pick a noun into variable x (singular)   {nouns:x}   ... plural
+#   {noun:x.gen}  another case of x (not used in English)  {adj@x}     adjective agreeing with x
+#   {pick:list}   random entry of title.lists.list         {base}      a nested base title
+#   {faker:Name.first_name}  value from Faker
+en-US:
+  cineseed:
+    region:
+      name: "English (United States)"
+      short: "EN-US"
+      script: latin
+      order: 1
+
+  faker:
+    movie_store:
+      genres:
+        action: Action
+        adventure: Adventure
+        animation: Animation
+        comedy: Comedy
+        crime: Crime
+        documentary: Documentary
+        drama: Drama
+        family: Family
+        fantasy: Fantasy
+        horror: Horror
+        mystery: Mystery
+        romance: Romance
+        sci_fi: Sci-Fi
+        thriller: Thriller
+        war: War
+        western: Western
+
+      kinds:
+        movie: Movie
+        series: Series
+
+      # Patterns for reviewer and liker usernames ({first} {last} {f} {l} {nn} {yy}); names are
+      # transliterated with i18n.transliterate.rule below.
+      usernames: ["{first}.{last}", "{first}_{last}", "{first}{last}", "{f}{last}", "{first}{nn}", "{last}{yy}", "{first}_{yy}", "{last}.{first}", "the_{last}", "{first}{last}{nn}", "{first}_watches", "reel_{first}"]
+
+      runtime: "%{h}h %{m}m"
+      runtime_minutes: "%{m} min"
+      seasons:
+        one: "%{count} season"
+        other: "%{count} seasons"
+      season_line: "Season %{n} · %{year} · %{episodes} episodes"
+
+      ratings:
+        G: "General audiences"
+        PG: "Parental guidance suggested"
+        PG-13: "Parents strongly cautioned"
+        R: "Restricted"
+        TV-14: "Parents strongly cautioned"
+        TV-MA: "Mature audiences only"
+      rating_by_genre:
+        movie:
+          default: { PG-13: 5, R: 3, PG: 2 }
+          family: { G: 4, PG: 6 }
+          animation: { G: 4, PG: 6 }
+          horror: { R: 8, PG-13: 2 }
+          war: { R: 6, PG-13: 4 }
+          crime: { R: 6, PG-13: 4 }
+          documentary: { PG: 5, G: 3, PG-13: 2 }
+          comedy: { PG-13: 6, PG: 3, R: 2 }
+        series:
+          default: { TV-14: 6, TV-MA: 4 }
+          family: { TV-14: 1, PG: 6, G: 3 }
+          animation: { PG: 6, TV-14: 3 }
+
+      title:
+        case: words
+        small_words: [a, an, the, of, in, on, at, to, for, and, but, or, from, with, by, into, over, as, vs]
+        # Faker first names that read as countries or states in a title ("Crossing Israel") are re-drawn
+        avoid: [Chad, Israel, Jordan, Argentina, China, Dominica, France, Georgia, India, Kenya, Florida, Maryland, Nevada, Virginia]
+        patterns:
+          - { w: 10, base: true, t: "The {adj@x} {noun:x}" }
+          - { w: 6, base: true, t: "{adj@x} {noun:x}" }
+          - { w: 5, base: true, t: "The {noun:x} of {noun:y}" }
+          - { w: 3, base: true, t: "The {noun:x} of the {adj@y} {noun:y}" }
+          - { w: 4, base: true, t: "{nouns:x} of the {adj@y} {noun:y}" }
+          - { w: 3, base: true, t: "{adj@x} {nouns:x}" }
+          - { w: 3, base: true, t: "The {noun:x}" }
+          - { w: 6, base: true, t: "{pick:single}" }
+          - { w: 6, t: "{pick:phrase}" }
+          - { w: 4, t: "{pick:gerund} {nouns:x}" }
+          - { w: 2, t: "{pick:gerund} {faker:Name.first_name}" }
+          - { w: 3, t: "{faker:Name.first_name}'s {noun:x}" }
+          - { w: 2, t: "{faker:Name.first_name} and the {adj@x} {noun:x}" }
+          - { w: 2, t: "The {faker:Name.last_name} {pick:family_noun}" }
+          - { w: 4, t: "{pick:city_frame}" }
+          - { w: 2, t: "{pick:number} {nouns:x}" }
+          - { w: 1, t: "{noun:x} & {noun:y}" }
+          - { w: 4, t: "{base}: {pick:subtitle}" }
+          - { w: 3, t: "{base} {pick:sequel}" }
+
+        nouns:
+          - { nom: witness, pl: witnesses, tags: [thriller, crime, drama, mystery] }
+          - { nom: harbor, pl: harbors, tags: [drama, thriller, crime, romance] }
+          - { nom: shadow, pl: shadows, tags: [horror, thriller, mystery, fantasy, crime] }
+          - { nom: storm, pl: storms, tags: [action, adventure, drama, war, thriller] }
+          - { nom: river, pl: rivers, tags: [drama, western, romance, adventure] }
+          - { nom: kingdom, pl: kingdoms, tags: [fantasy, adventure, family, animation] }
+          - { nom: crown, pl: crowns, tags: [fantasy, drama, war] }
+          - { nom: heart, pl: hearts, tags: [romance, drama, family, comedy] }
+          - { nom: night, pl: nights, tags: [horror, thriller, romance, crime, mystery] }
+          - { nom: road, pl: roads, tags: [drama, western, action, adventure, comedy] }
+          - { nom: garden, pl: gardens, tags: [romance, family, drama, mystery, fantasy] }
+          - { nom: signal, pl: signals, tags: [sci_fi, thriller, mystery] }
+          - { nom: frontier, pl: frontiers, tags: [western, sci_fi, adventure, war] }
+          - { nom: echo, pl: echoes, tags: [mystery, horror, sci_fi, drama] }
+          - { nom: summer, pl: summers, tags: [romance, comedy, drama, family] }
+          - { nom: winter, pl: winters, tags: [drama, war, romance, fantasy] }
+          - { nom: island, pl: islands, tags: [adventure, mystery, romance, horror, family] }
+          - { nom: house, pl: houses, tags: [horror, drama, comedy, family, mystery] }
+          - { nom: game, pl: games, tags: [thriller, action, comedy, sci_fi, crime] }
+          - { nom: debt, pl: debts, tags: [crime, thriller, drama] }
+          - { nom: dragon, pl: dragons, tags: [fantasy, family, animation, adventure] }
+          - { nom: machine, pl: machines, tags: [sci_fi, action, thriller] }
+          - { nom: orbit, pl: orbits, tags: [sci_fi] }
+          - { nom: station, pl: stations, tags: [sci_fi, thriller, horror] }
+          - { nom: colony, pl: colonies, tags: [sci_fi, horror, war] }
+          - { nom: horizon, pl: horizons, tags: [sci_fi, adventure, drama, romance] }
+          - { nom: planet, pl: planets, tags: [sci_fi, animation, family, documentary] }
+          - { nom: outlaw, pl: outlaws, tags: [western, crime, action] }
+          - { nom: sheriff, pl: sheriffs, tags: [western, comedy] }
+          - { nom: canyon, pl: canyons, tags: [western, adventure] }
+          - { nom: gun, pl: guns, tags: [western, action, crime, war] }
+          - { nom: soldier, pl: soldiers, tags: [war, action, drama] }
+          - { nom: battalion, pl: battalions, tags: [war] }
+          - { nom: front, pl: fronts, tags: [war, drama] }
+          - { nom: trench, pl: trenches, tags: [war, horror] }
+          - { nom: promise, pl: promises, tags: [romance, drama, family, war] }
+          - { nom: letter, pl: letters, tags: [romance, drama, war, mystery] }
+          - { nom: wedding, pl: weddings, tags: [comedy, romance] }
+          - { nom: neighbor, pl: neighbors, tags: [comedy, horror, thriller, family] }
+          - { nom: vacation, pl: vacations, tags: [comedy, family] }
+          - { nom: party, pl: parties, tags: [comedy] }
+          - { nom: boss, pl: bosses, tags: [comedy, crime] }
+          - { nom: detective, pl: detectives, tags: [crime, mystery, comedy] }
+          - { nom: alibi, pl: alibis, tags: [crime, mystery, thriller] }
+          - { nom: secret, pl: secrets, tags: [mystery, drama, romance, thriller, family] }
+          - { nom: clue, pl: clues, tags: [mystery, family, comedy] }
+          - { nom: curse, pl: curses, tags: [horror, fantasy, mystery, comedy] }
+          - { nom: ghost, pl: ghosts, tags: [horror, comedy, mystery, family] }
+          - { nom: hollow, pl: hollows, tags: [horror, fantasy, mystery] }
+          - { nom: cellar, pl: cellars, tags: [horror] }
+          - { nom: ritual, pl: rituals, tags: [horror, mystery, thriller] }
+          - { nom: whisper, pl: whispers, tags: [horror, mystery, romance, thriller] }
+          - { nom: monster, pl: monsters, tags: [horror, family, animation, comedy] }
+          - { nom: forest, pl: forests, tags: [fantasy, horror, adventure, family, animation] }
+          - { nom: legend, pl: legends, tags: [fantasy, adventure, western, family, documentary] }
+          - { nom: quest, pl: quests, tags: [fantasy, adventure, animation, family] }
+          - { nom: treasure, pl: treasures, tags: [adventure, family, animation, comedy] }
+          - { nom: expedition, pl: expeditions, tags: [adventure, documentary, horror] }
+          - { nom: ocean, pl: oceans, tags: [adventure, documentary, family, drama] }
+          - { nom: mountain, pl: mountains, tags: [adventure, documentary, drama] }
+          - { nom: wilderness, tags: [adventure, documentary, drama] }
+          - { nom: tide, pl: tides, tags: [drama, romance, adventure, thriller] }
+          - { nom: fire, pl: fires, tags: [action, drama, war, horror] }
+          - { nom: ember, pl: embers, tags: [fantasy, romance, drama, war] }
+          - { nom: silence, tags: [thriller, horror, drama, war, mystery] }
+          - { nom: blood, tags: [horror, war, action, crime, western] }
+          - { nom: iron, tags: [war, action, fantasy] }
+          - { nom: ruin, pl: ruins, tags: [war, fantasy, adventure, sci_fi] }
+          - { nom: empire, pl: empires, tags: [war, fantasy, sci_fi, crime, drama] }
+          - { nom: dynasty, pl: dynasties, tags: [drama, crime, fantasy] }
+          - { nom: city, pl: cities, tags: [crime, thriller, drama, sci_fi, romance] }
+          - { nom: street, pl: streets, tags: [crime, drama, action] }
+          - { nom: bridge, pl: bridges, tags: [drama, war, romance, thriller] }
+          - { nom: tower, pl: towers, tags: [fantasy, thriller, horror, sci_fi] }
+          - { nom: star, pl: stars, tags: [romance, sci_fi, drama, family, animation, documentary] }
+          - { nom: moon, pl: moons, tags: [romance, horror, sci_fi, fantasy, family] }
+          - { nom: wolf, pl: wolves, tags: [horror, fantasy, western, thriller, adventure] }
+          - { nom: bird, pl: birds, tags: [family, animation, drama, documentary] }
+          - { nom: fox, pl: foxes, tags: [family, animation, comedy] }
+          - { nom: bear, pl: bears, tags: [family, animation, documentary, comedy] }
+          - { nom: rabbit, pl: rabbits, tags: [family, animation, comedy] }
+          - { nom: train, pl: trains, tags: [thriller, western, action, mystery, drama] }
+          - { nom: flight, pl: flights, tags: [action, adventure, drama, thriller, sci_fi] }
+          - { nom: pilot, pl: pilots, tags: [war, action, drama, sci_fi] }
+          - { nom: hunter, pl: hunters, tags: [action, horror, western, fantasy, thriller] }
+          - { nom: stranger, pl: strangers, tags: [thriller, western, drama, horror, romance, mystery] }
+          - { nom: daughter, pl: daughters, tags: [drama, family, thriller, horror] }
+          - { nom: son, pl: sons, tags: [drama, family, western, war, crime] }
+          - { nom: brother, pl: brothers, tags: [drama, crime, war, comedy, family] }
+          - { nom: sister, pl: sisters, tags: [drama, comedy, family, horror] }
+          - { nom: king, pl: kings, tags: [fantasy, drama, war, crime] }
+          - { nom: queen, pl: queens, tags: [fantasy, drama, romance] }
+          - { nom: thief, pl: thieves, tags: [crime, comedy, action, fantasy] }
+          - { nom: assassin, pl: assassins, tags: [action, thriller, crime] }
+          - { nom: agent, pl: agents, tags: [action, thriller, comedy, sci_fi] }
+          - { nom: mission, pl: missions, tags: [action, sci_fi, war, comedy] }
+          - { nom: protocol, pl: protocols, tags: [thriller, sci_fi, action] }
+          - { nom: code, pl: codes, tags: [thriller, sci_fi, crime, mystery] }
+          - { nom: paradox, pl: paradoxes, tags: [sci_fi, mystery] }
+          - { nom: frequency, pl: frequencies, tags: [sci_fi, horror, thriller] }
+          - { nom: dream, pl: dreams, tags: [drama, romance, fantasy, animation, horror] }
+          - { nom: memory, pl: memories, tags: [drama, romance, sci_fi, mystery] }
+          - { nom: song, pl: songs, tags: [romance, drama, family, animation, documentary] }
+          - { nom: champion, pl: champions, tags: [drama, family, comedy, documentary] }
+          - { nom: coast, pl: coasts, tags: [drama, romance, thriller] }
+          - { nom: desert, pl: deserts, tags: [western, war, adventure, sci_fi] }
+          - { nom: valley, pl: valleys, tags: [western, drama, horror, family] }
+          - { nom: sky, pl: skies, tags: [adventure, war, sci_fi, romance, family] }
+          - { nom: bone, pl: bones, tags: [horror, crime, western] }
+          - { nom: crow, pl: crows, tags: [horror, fantasy, western] }
+          - { nom: lantern, pl: lanterns, tags: [fantasy, family, animation, mystery] }
+          - { nom: mirror, pl: mirrors, tags: [horror, mystery, fantasy, thriller] }
+          - { nom: door, pl: doors, tags: [horror, mystery, thriller, fantasy] }
+          - { nom: key, pl: keys, tags: [mystery, fantasy, family, thriller] }
+          - { nom: map, pl: maps, tags: [adventure, family, animation] }
+          - { nom: voyage, pl: voyages, tags: [adventure, documentary, family, sci_fi] }
+          - { nom: harvest, pl: harvests, tags: [horror, drama, western] }
+          - { nom: reckoning, tags: [action, western, crime, thriller] }
+          - { nom: vendetta, pl: vendettas, tags: [crime, action, thriller] }
+          - { nom: heist, pl: heists, tags: [crime, comedy, action, thriller] }
+          - { nom: verdict, pl: verdicts, tags: [crime, drama, thriller] }
+          - { nom: confession, pl: confessions, tags: [crime, drama, romance, mystery] }
+          - { nom: affair, pl: affairs, tags: [drama, romance, thriller] }
+          - { nom: kiss, pl: kisses, tags: [romance, comedy] }
+          - { nom: miracle, pl: miracles, tags: [drama, family, comedy] }
+          - { nom: angel, pl: angels, tags: [drama, romance, fantasy, horror] }
+          - { nom: devil, pl: devils, tags: [horror, crime, western, comedy] }
+          - { nom: sinner, pl: sinners, tags: [crime, drama, horror, western] }
+          - { nom: prophet, pl: prophets, tags: [horror, fantasy, drama, sci_fi] }
+          - { nom: witch, pl: witches, tags: [horror, fantasy, family, comedy] }
+          - { nom: vampire, pl: vampires, tags: [horror, comedy, romance] }
+          - { nom: robot, pl: robots, tags: [sci_fi, family, animation, comedy] }
+          - { nom: android, pl: androids, tags: [sci_fi, thriller] }
+          - { nom: clone, pl: clones, tags: [sci_fi, thriller] }
+          - { nom: alien, pl: aliens, tags: [sci_fi, comedy, horror, family] }
+          - { nom: galaxy, pl: galaxies, tags: [sci_fi, animation, family] }
+          - { nom: satellite, pl: satellites, tags: [sci_fi, thriller, documentary] }
+          - { nom: ice, tags: [documentary, adventure, sci_fi, horror] }
+          - { nom: journey, pl: journeys, tags: [documentary, adventure, family, drama] }
+          - { nom: giant, pl: giants, tags: [documentary, fantasy, family, animation] }
+          - { nom: predator, pl: predators, tags: [documentary, horror, action, sci_fi] }
+          - { nom: migration, pl: migrations, tags: [documentary] }
+
+        adjectives:
+          - { base: silent, tags: [thriller, horror, drama, war, mystery] }
+          - { base: last, tags: [action, war, western, drama, sci_fi, horror] }
+          - { base: broken, tags: [drama, romance, war, thriller] }
+          - { base: cold, tags: [thriller, crime, war, drama, sci_fi] }
+          - { base: dark, tags: [horror, thriller, fantasy, crime, mystery] }
+          - { base: hollow, tags: [horror, mystery, fantasy] }
+          - { base: golden, tags: [fantasy, adventure, romance, family, western] }
+          - { base: iron, tags: [war, action, fantasy, sci_fi] }
+          - { base: crimson, tags: [horror, war, action, fantasy] }
+          - { base: wild, tags: [adventure, comedy, western, family, documentary, romance] }
+          - { base: lost, tags: [adventure, drama, fantasy, mystery, family] }
+          - { base: hidden, tags: [mystery, thriller, fantasy, family, documentary] }
+          - { base: secret, tags: [mystery, family, romance, comedy, thriller] }
+          - { base: burning, tags: [action, war, drama, thriller, horror] }
+          - { base: frozen, tags: [adventure, horror, documentary, war, sci_fi] }
+          - { base: forgotten, tags: [war, drama, mystery, horror, fantasy] }
+          - { base: endless, tags: [romance, drama, sci_fi, documentary] }
+          - { base: midnight, tags: [horror, romance, crime, mystery, thriller] }
+          - { base: perfect, tags: [comedy, romance, thriller, drama] }
+          - { base: dangerous, tags: [thriller, crime, action, romance, comedy] }
+          - { base: little, tags: [comedy, family, animation, drama] }
+          - { base: big, tags: [comedy, family, animation] }
+          - { base: crazy, tags: [comedy, action] }
+          - { base: lucky, tags: [comedy, family, crime, romance] }
+          - { base: electric, tags: [sci_fi, romance, comedy, drama] }
+          - { base: quantum, tags: [sci_fi] }
+          - { base: infinite, tags: [sci_fi, drama, documentary] }
+          - { base: distant, tags: [sci_fi, drama, war, romance, documentary] }
+          - { base: fallen, tags: [war, fantasy, action, drama, horror] }
+          - { base: savage, tags: [action, horror, western, documentary] }
+          - { base: restless, tags: [drama, horror, thriller, romance] }
+          - { base: bitter, tags: [drama, war, crime, western, romance] }
+          - { base: sweet, tags: [romance, comedy, family, drama] }
+          - { base: blind, tags: [thriller, drama, horror, mystery] }
+          - { base: wicked, tags: [horror, fantasy, comedy, crime] }
+          - { base: holy, tags: [horror, drama, crime, war] }
+          - { base: black, tags: [crime, horror, western, war, thriller] }
+          - { base: white, tags: [war, drama, thriller, horror] }
+          - { base: red, tags: [war, western, action, horror, thriller] }
+          - { base: blue, tags: [romance, drama, sci_fi, crime] }
+          - { base: gray, tags: [war, drama, thriller] }
+          - { base: silver, tags: [western, romance, sci_fi, fantasy, family] }
+          - { base: northern, tags: [war, drama, adventure, western, documentary] }
+          - { base: southern, tags: [drama, western, crime, romance] }
+          - { base: final, tags: [action, war, sci_fi, horror, thriller] }
+          - { base: first, tags: [romance, drama, sci_fi, family, comedy] }
+          - { base: young, tags: [drama, romance, comedy, war] }
+          - { base: deadly, tags: [action, thriller, crime, horror] }
+          - { base: quiet, tags: [drama, horror, thriller, war, romance] }
+          - { base: gentle, tags: [romance, family, drama, documentary] }
+          - { base: brave, tags: [family, animation, war, adventure, fantasy] }
+          - { base: magnificent, tags: [western, comedy, adventure, family] }
+          - { base: stolen, tags: [crime, thriller, drama, mystery] }
+          - { base: borrowed, tags: [romance, comedy, drama] }
+          - { base: beautiful, tags: [romance, drama, documentary] }
+          - { base: sacred, tags: [fantasy, drama, horror, documentary] }
+          - { base: mortal, tags: [fantasy, thriller, war, horror] }
+          - { base: eternal, tags: [fantasy, romance, horror, sci_fi] }
+          - { base: shattered, tags: [thriller, drama, war, sci_fi] }
+          - { base: hungry, tags: [horror, comedy, documentary, family] }
+          - { base: invisible, tags: [sci_fi, thriller, comedy, drama, horror] }
+          - { base: lonely, tags: [drama, romance, sci_fi] }
+          - { base: wandering, tags: [adventure, drama, fantasy, western, documentary] }
+          - { base: dead, tags: [horror, crime, western, comedy, thriller] }
+          - { base: living, tags: [documentary, horror, drama] }
+          - { base: unknown, tags: [mystery, sci_fi, horror, documentary, war] }
+          - { base: stray, tags: [comedy, family, crime, drama] }
+          - { base: rogue, tags: [action, sci_fi, thriller, crime] }
+          - { base: royal, tags: [fantasy, drama, romance, comedy] }
+          - { base: wooden, tags: [family, animation, fantasy, horror] }
+          - { base: paper, tags: [drama, romance, crime, family, animation] }
+          - { base: velvet, tags: [romance, crime, drama] }
+          - { base: neon, tags: [crime, sci_fi, thriller, romance] }
+          - { base: atomic, tags: [sci_fi, war, action, comedy, documentary] }
+          - { base: radioactive, tags: [sci_fi, comedy, horror] }
+
+        lists:
+          single:
+            - { v: "Ashfall", tags: [war, sci_fi, drama] }
+            - { v: "Blackwater", tags: [horror, thriller, crime, western] }
+            - { v: "Undertow", tags: [thriller, drama, horror] }
+            - { v: "Wildfire", tags: [action, drama, romance] }
+            - { v: "Nightfall", tags: [horror, thriller, fantasy] }
+            - { v: "Outpost", tags: [sci_fi, war, horror] }
+            - { v: "Driftwood", tags: [drama, romance, comedy] }
+            - { v: "Hollowmere", tags: [horror, fantasy, mystery] }
+            - { v: "Ironside", tags: [war, action, crime] }
+            - { v: "Moonrise", tags: [romance, fantasy, family, horror] }
+            - { v: "Starlight", tags: [romance, family, animation, sci_fi] }
+            - { v: "Overdrive", tags: [action, sci_fi] }
+            - { v: "Afterglow", tags: [romance, drama, sci_fi] }
+            - { v: "Brimstone", tags: [western, horror, fantasy] }
+            - { v: "Deadline", tags: [thriller, crime, comedy] }
+            - { v: "Downpour", tags: [drama, thriller, romance] }
+            - { v: "Firebrand", tags: [action, drama, western] }
+            - { v: "Glasshouse", tags: [thriller, drama, mystery] }
+            - { v: "Lowlands", tags: [drama, war, western] }
+            - { v: "Riptide", tags: [action, thriller, drama] }
+            - { v: "Silverlake", tags: [romance, drama, crime] }
+            - { v: "Snowblind", tags: [thriller, horror, crime] }
+            - { v: "Stormbreaker", tags: [fantasy, action, war] }
+            - { v: "Sunburn", tags: [comedy, crime, romance] }
+            - { v: "Thunderhead", tags: [action, western, war] }
+            - { v: "Tidewater", tags: [drama, romance, crime] }
+            - { v: "Turncoat", tags: [war, thriller, crime] }
+            - { v: "Wanderlust", tags: [romance, adventure, comedy, documentary] }
+            - { v: "Wishbone", tags: [family, comedy, animation] }
+            - { v: "Wolfsbane", tags: [horror, fantasy] }
+            - { v: "Saltmarsh", tags: [horror, drama, mystery] }
+            - { v: "Coldharbor", tags: [thriller, crime, war] }
+            - { v: "Skybound", tags: [adventure, family, animation, sci_fi] }
+            - { v: "Lightyear Lane", tags: [comedy, family, sci_fi] }
+            - { v: "Ravenhurst", tags: [horror, mystery, drama] }
+            - { v: "Quicksilver", tags: [action, crime, sci_fi] }
+            - { v: "Copperhead", tags: [western, crime, thriller] }
+            - { v: "Grindhouse Heights", tags: [comedy, crime] }
+            - { v: "Featherweight", tags: [comedy, drama, family] }
+            - { v: "Hailstone", tags: [war, western, drama] }
+            - { v: "Longshot", tags: [comedy, drama, crime, family] }
+            - { v: "Mockingjaw", tags: [comedy, horror] }
+            - { v: "Paperweight", tags: [comedy, drama] }
+            - { v: "Redline", tags: [action, crime, thriller] }
+            - { v: "Sandcastle", tags: [family, romance, drama, comedy] }
+            - { v: "Sleepwalker", tags: [horror, thriller, mystery] }
+            - { v: "Starboard", tags: [adventure, war, family] }
+            - { v: "Switchback", tags: [western, thriller, adventure] }
+            - { v: "Tinderbox", tags: [drama, thriller, war] }
+            - { v: "Underland", tags: [fantasy, family, animation, horror] }
+            - { v: "Vanishing Point", tags: [mystery, thriller, sci_fi] }
+            - { v: "Waterline", tags: [documentary, drama, thriller] }
+            - { v: "Windfall", tags: [comedy, crime, drama] }
+            - { v: "Zero Hour", tags: [action, war, thriller, sci_fi] }
+            - { v: "Earthrise", tags: [documentary, sci_fi, drama] }
+            - { v: "Bluebird", tags: [family, romance, drama] }
+            - { v: "Daybreak", tags: [drama, war, romance, horror] }
+            - { v: "Graveyard Shift", tags: [horror, comedy] }
+            - { v: "Heartland", tags: [drama, western, family, documentary] }
+            - { v: "Kingmaker", tags: [drama, fantasy, crime, war] }
+            - { v: "Backwater", tags: [drama, crime, horror] }
+            - { v: "Brightwater", tags: [romance, family, drama] }
+            - { v: "Cinderland", tags: [fantasy, war, adventure] }
+            - { v: "Cold Open", tags: [comedy, crime, thriller] }
+            - { v: "Crosswind", tags: [action, adventure, drama] }
+            - { v: "Dead Reckoning", tags: [thriller, war, mystery] }
+            - { v: "Deep Field", tags: [sci_fi, documentary] }
+            - { v: "Dog Days", tags: [comedy, crime, drama] }
+            - { v: "Dustbowl", tags: [western, drama, documentary] }
+            - { v: "Eclipse Road", tags: [sci_fi, thriller, western] }
+            - { v: "Fault Line", tags: [thriller, action, drama] }
+            - { v: "Firewatch", tags: [thriller, mystery, drama] }
+            - { v: "Foxglove", tags: [mystery, horror, romance] }
+            - { v: "Ghostlight", tags: [horror, mystery, drama] }
+            - { v: "Gravel Road", tags: [western, drama, crime] }
+            - { v: "Greenhorn", tags: [western, comedy, family] }
+            - { v: "Highwire", tags: [thriller, action, comedy] }
+            - { v: "Homebound", tags: [drama, family, war] }
+            - { v: "Ironwood", tags: [western, war, fantasy] }
+            - { v: "Lifeline", tags: [drama, thriller, documentary] }
+            - { v: "Low Tide", tags: [drama, romance, mystery] }
+            - { v: "Lullaby", tags: [horror, family, drama] }
+            - { v: "Moonshot", tags: [sci_fi, documentary, comedy] }
+            - { v: "Nightshade", tags: [horror, mystery, thriller] }
+            - { v: "Northbound", tags: [adventure, drama, romance] }
+            - { v: "Open Season", tags: [comedy, crime, action] }
+            - { v: "Patchwork", tags: [family, animation, drama] }
+            - { v: "Pinwheel", tags: [animation, family, comedy] }
+            - { v: "Pocket Universe", tags: [sci_fi, animation, family] }
+            - { v: "Rainmaker", tags: [western, drama, fantasy] }
+            - { v: "Red Sky", tags: [war, drama, action] }
+            - { v: "Second Wind", tags: [comedy, romance, drama] }
+            - { v: "Shellshock", tags: [war, drama] }
+            - { v: "Silent Orbit", tags: [sci_fi, thriller] }
+            - { v: "Slow Burn", tags: [romance, crime, thriller] }
+            - { v: "Spellbound", tags: [fantasy, romance, family] }
+            - { v: "Static", tags: [horror, sci_fi, thriller] }
+            - { v: "Sweetwater", tags: [western, romance] }
+            - { v: "Wavelength", tags: [sci_fi, romance, documentary] }
+            - { v: "Whiteout", tags: [thriller, adventure, horror] }
+            - { v: "Wild Card", tags: [crime, comedy, action] }
+            - { v: "Sunflower Season", tags: [romance, family] }
+            - { v: "Gunpowder Creek", tags: [western, action] }
+            - { v: "Blood Moon", tags: [horror, western] }
+            - { v: "Hollow Pines", tags: [horror, mystery] }
+            - { v: "Kitebird", tags: [animation, family, adventure] }
+            - { v: "Mudlark", tags: [family, comedy, adventure] }
+          phrase:
+            - { v: "No Way Back", tags: [action, thriller, war] }
+            - { v: "Beyond the Horizon", tags: [adventure, sci_fi, documentary, drama] }
+            - { v: "All the Quiet Hours", tags: [drama, romance, war] }
+            - { v: "The Weight of Water", tags: [drama, thriller, romance] }
+            - { v: "Before the Rain Falls", tags: [drama, romance] }
+            - { v: "Under a Paper Moon", tags: [romance, comedy, family] }
+            - { v: "What the River Knows", tags: [mystery, drama, thriller] }
+            - { v: "Nobody Sleeps Tonight", tags: [horror, thriller, comedy] }
+            - { v: "Tomorrow Never Called", tags: [romance, comedy, drama] }
+            - { v: "The Long Way Home", tags: [drama, family, war, adventure] }
+            - { v: "Out of the Dark", tags: [horror, thriller, drama] }
+            - { v: "Between Two Fires", tags: [war, drama, western, thriller] }
+            - { v: "Where the Wolves Run", tags: [western, adventure, horror, documentary] }
+            - { v: "Dead Men Don't Dance", tags: [crime, comedy, western] }
+            - { v: "Somewhere Past Midnight", tags: [romance, thriller, mystery] }
+            - { v: "A Song for the Lost", tags: [drama, war, romance] }
+            - { v: "The Day the Sky Fell", tags: [sci_fi, action, war, drama] }
+            - { v: "Last Call at the Starlight", tags: [drama, comedy, romance, crime] }
+            - { v: "Everything Burns Twice", tags: [thriller, drama, crime] }
+            - { v: "Small Miracles", tags: [family, drama, comedy] }
+            - { v: "Too Late for Heroes", tags: [war, western, action] }
+            - { v: "The Girl Who Counted Stars", tags: [drama, family, fantasy, romance] }
+            - { v: "Keep Your Enemies Closer", tags: [thriller, crime, comedy] }
+            - { v: "How to Steal a Planet", tags: [comedy, sci_fi, family, animation] }
+            - { v: "My Neighbor Is a Monster", tags: [comedy, family, horror, animation] }
+            - { v: "Ten Days in Paradise", tags: [comedy, romance, thriller] }
+            - { v: "One Last Summer", tags: [romance, drama, comedy] }
+            - { v: "Hold the Line", tags: [war, action, drama, sports] }
+            - { v: "Don't Look at the Lake", tags: [horror, thriller] }
+            - { v: "Something in the Walls", tags: [horror, mystery] }
+            - { v: "The Truth About Harbor Lane", tags: [mystery, drama, crime] }
+            - { v: "When the Lights Went Out", tags: [horror, thriller, drama, sci_fi] }
+            - { v: "Grandma's Last Heist", tags: [comedy, crime, family] }
+            - { v: "Love in the Time of Static", tags: [romance, sci_fi, comedy] }
+            - { v: "Eighty Miles of Bad Road", tags: [western, comedy, adventure] }
+            - { v: "Ride Until Sundown", tags: [western, action] }
+            - { v: "The Planet Below Us", tags: [documentary, sci_fi] }
+            - { v: "Kings of the Cold Sea", tags: [documentary, adventure, war] }
+            - { v: "Winged Empires", tags: [documentary, family] }
+            - { v: "A Very Loud Wedding", tags: [comedy, romance] }
+            - { v: "Run Like Thunder", tags: [action, sports, family] }
+            - { v: "We Were Never Here", tags: [thriller, crime, mystery, sci_fi] }
+            - { v: "The Sound of Falling Snow", tags: [drama, romance, war] }
+            - { v: "Lights Over Marrow Creek", tags: [sci_fi, mystery, horror] }
+            - { v: "The Dragon Who Hated Mondays", tags: [animation, family, comedy, fantasy] }
+            - { v: "Fog Comes for Everyone", tags: [horror, mystery] }
+            - { v: "Shoot First, Pray Later", tags: [western, action, comedy] }
+            - { v: "The Map at the End of the World", tags: [adventure, fantasy, family] }
+            - { v: "All the Rivers Run North", tags: [drama, adventure, romance] }
+            - { v: "A Wolf at the Door", tags: [thriller, horror, crime] }
+            - { v: "The Last Light on Pike Street", tags: [drama, crime, romance] }
+            - { v: "The House Remembers", tags: [horror, mystery, drama] }
+            - { v: "Count to Ten and Run", tags: [thriller, horror] }
+            - { v: "The Year We Fell Apart", tags: [drama, romance] }
+            - { v: "Small Town, Big Trouble", tags: [comedy, crime, family] }
+            - { v: "Dinner with the Devil", tags: [horror, comedy, crime] }
+            - { v: "The Quiet Part", tags: [thriller, drama] }
+            - { v: "Highway to Nowhere", tags: [western, thriller, action] }
+            - { v: "The Moon Is a Liar", tags: [sci_fi, mystery, fantasy] }
+            - { v: "When the Snow Melts", tags: [drama, romance, war] }
+            - { v: "Bring the Rain", tags: [western, drama] }
+            - { v: "A Kingdom of Glass", tags: [fantasy, drama] }
+            - { v: "The Boy Who Borrowed the Sun", tags: [animation, family, fantasy] }
+            - { v: "Don't Wake the Neighbors", tags: [comedy, horror] }
+            - { v: "Every Second Counts", tags: [action, thriller, sci_fi] }
+            - { v: "The Long Night Shift", tags: [crime, thriller, comedy] }
+            - { v: "Letters Never Sent", tags: [romance, drama, war] }
+            - { v: "The Last Honest Man in Texas", tags: [western, comedy, crime] }
+            - { v: "Ghosts Don't Pay Rent", tags: [comedy, horror, family] }
+            - { v: "Under the Ice", tags: [thriller, horror, documentary, sci_fi] }
+            - { v: "Summer of Bad Decisions", tags: [comedy, romance] }
+            - { v: "Born Under a Red Sky", tags: [war, drama, western] }
+            - { v: "One Shot at Glory", tags: [action, drama, war] }
+            - { v: "The Secret Life of Lighthouses", tags: [documentary, mystery, family] }
+            - { v: "Wolves of the Silver Valley", tags: [western, adventure, fantasy] }
+            - { v: "Somebody Has to Pay", tags: [crime, thriller] }
+            - { v: "The Last Train Out", tags: [war, thriller, drama] }
+            - { v: "Where the Map Ends", tags: [adventure, fantasy, documentary] }
+            - { v: "Static on Channel Nine", tags: [horror, mystery, sci_fi] }
+            - { v: "The Robot Next Door", tags: [animation, family, sci_fi, comedy] }
+            - { v: "Love, Interrupted", tags: [romance, comedy, drama] }
+            - { v: "The Night Belongs to Us", tags: [romance, crime, thriller] }
+            - { v: "Six Feet of Snow", tags: [thriller, horror, crime] }
+            - { v: "No Saints in Dry Creek", tags: [western, crime] }
+            - { v: "The Garden After Dark", tags: [mystery, horror, romance] }
+            - { v: "The Great Pudding Robbery", tags: [comedy, family, animation] }
+            - { v: "Hearts Like Thunder", tags: [romance, action, drama] }
+            - { v: "Children of the Long Winter", tags: [fantasy, drama, war] }
+            - { v: "The Man Who Sold the Rain", tags: [comedy, fantasy, drama] }
+            - { v: "Brothers of the Dust", tags: [war, western, drama] }
+            - { v: "Signal from the Deep", tags: [sci_fi, thriller, horror] }
+            - { v: "A Hundred Years of Thunder", tags: [documentary, war, drama] }
+            - { v: "Return of the Paper Kings", tags: [fantasy, adventure, comedy] }
+            - { v: "Last Dance at the Paradise Club", tags: [romance, crime, drama] }
+            - { v: "Running on Fumes", tags: [comedy, action, crime] }
+            - { v: "The Edge of Everything", tags: [drama, sci_fi, romance] }
+            - { v: "What We Buried", tags: [horror, mystery, crime] }
+          gerund:
+            - { v: "Chasing", tags: [action, romance, drama, thriller] }
+            - { v: "Finding", tags: [family, drama, comedy, adventure] }
+            - { v: "Hunting", tags: [horror, thriller, action, western] }
+            - { v: "Saving", tags: [drama, family, war, comedy] }
+            - { v: "Burning", tags: [action, drama, war] }
+            - { v: "Breaking", tags: [crime, thriller, drama] }
+            - { v: "Losing", tags: [drama, romance] }
+            - { v: "Stealing", tags: [crime, comedy, romance] }
+            - { v: "Waking", tags: [horror, fantasy, drama] }
+            - { v: "Becoming", tags: [drama, documentary, fantasy] }
+            - { v: "Leaving", tags: [drama, romance, war] }
+            - { v: "Crossing", tags: [western, war, adventure, drama] }
+            - { v: "Racing", tags: [action, sports, comedy, family] }
+            - { v: "Dancing with", tags: [romance, comedy, drama] }
+            - { v: "Fighting", tags: [action, war, drama] }
+            - { v: "Escaping", tags: [thriller, sci_fi, action] }
+            - { v: "Remembering", tags: [drama, war, documentary] }
+            - { v: "Raising", tags: [comedy, family, drama] }
+            - { v: "Running with", tags: [action, adventure, drama] }
+            - { v: "Haunting", tags: [horror, mystery] }
+            - { v: "Catching", tags: [comedy, crime, family] }
+            - { v: "Taming", tags: [comedy, western, family, fantasy] }
+          family_noun:
+            - { v: "Affair", tags: [crime, drama, mystery] }
+            - { v: "Boys", tags: [comedy, crime, western] }
+            - { v: "Sisters", tags: [comedy, drama, horror] }
+            - { v: "Inheritance", tags: [drama, mystery, horror] }
+            - { v: "Job", tags: [crime, comedy, thriller] }
+            - { v: "Files", tags: [crime, thriller, sci_fi] }
+            - { v: "Curse", tags: [horror, comedy] }
+            - { v: "Christmas", tags: [comedy, family, romance] }
+            - { v: "Protocol", tags: [thriller, sci_fi, action] }
+            - { v: "Legacy", tags: [drama, war, crime] }
+          city_frame:
+            - { v: "Return to {faker:Address.city}", tags: [drama, horror, mystery, romance] }
+            - { v: "Last Train to {faker:Address.city}", tags: [thriller, western, drama, war] }
+            - { v: "Murder in {faker:Address.city}", tags: [crime, mystery, thriller] }
+            - { v: "Escape from {faker:Address.city}", tags: [action, sci_fi, thriller, war] }
+            - { v: "Nights in {faker:Address.city}", tags: [romance, crime, drama] }
+            - { v: "Welcome to {faker:Address.city}", tags: [comedy, horror, family] }
+            - { v: "The {faker:Address.city} Job", tags: [crime, comedy, action] }
+            - { v: "{faker:Address.city} Confidential", tags: [crime, thriller, drama] }
+            - { v: "Goodbye, {faker:Address.city}", tags: [drama, romance, comedy, war] }
+            - { v: "{faker:Address.city} After Dark", tags: [horror, crime, thriller, romance] }
+            - { v: "The Ghosts of {faker:Address.city}", tags: [horror, mystery, documentary] }
+            - { v: "{faker:Address.city}, Population Zero", tags: [sci_fi, horror, thriller] }
+          number:
+            - { v: Two }
+            - { v: Three }
+            - { v: Four }
+            - { v: Five }
+            - { v: Seven }
+            - { v: Nine }
+            - { v: Ten }
+            - { v: Twelve }
+            - { v: "Thirteen", tags: [horror, thriller] }
+            - { v: "A Hundred", tags: [war, drama, documentary] }
+          subtitle:
+            - { v: "The Reckoning", tags: [action, western, thriller, crime] }
+            - { v: "Day Zero", tags: [sci_fi, action, horror] }
+            - { v: "Legacy", tags: [drama, war, sci_fi, fantasy] }
+            - { v: "Resurrection", tags: [horror, sci_fi, action] }
+            - { v: "The Last Stand", tags: [war, western, action] }
+            - { v: "Revelation", tags: [mystery, horror, sci_fi] }
+            - { v: "Origins", tags: [fantasy, sci_fi, action] }
+            - { v: "Uprising", tags: [war, sci_fi, action] }
+            - { v: "Exodus", tags: [sci_fi, war, drama] }
+            - { v: "Requiem", tags: [war, drama, horror] }
+            - { v: "The Return", tags: [horror, fantasy, western, drama] }
+            - { v: "Retribution", tags: [action, crime, thriller] }
+            - { v: "Ascension", tags: [fantasy, sci_fi] }
+            - { v: "Into the Storm", tags: [adventure, action, war] }
+            - { v: "Blood Moon", tags: [horror, western, fantasy] }
+            - { v: "Ground Zero", tags: [war, sci_fi, thriller] }
+            - { v: "The Lost Chapter", tags: [mystery, fantasy, family] }
+            - { v: "Second Chances", tags: [romance, drama, comedy] }
+            - { v: "New Blood", tags: [crime, horror, action] }
+            - { v: "Full Circle", tags: [drama, crime, sci_fi] }
+            - { v: "Summer Break", tags: [comedy, family, romance] }
+            - { v: "The Great Escape Plan", tags: [comedy, family, animation] }
+            - { v: "Rise of the {nouns:z}", tags: [fantasy, sci_fi, horror, action, family] }
+            - { v: "Return of the {noun:z}", tags: [fantasy, horror, western, comedy] }
+            - { v: "Curse of the {adj@z} {noun:z}", tags: [horror, fantasy, adventure] }
+            - { v: "Song of the {nouns:z}", tags: [fantasy, drama, family] }
+          sequel:
+            - { v: "2" }
+            - { v: "3" }
+            - { v: II }
+            - { v: III }
+            - { v: IV }
+            - { v: Part II }
+            - { v: Part III }
+
+      taglines:
+        action:
+          - "No rules. No backup. No second chances."
+          - "The clock started the moment she said no."
+          - "Some missions don't come with a way home."
+          - "He wanted one quiet year. The world had other plans."
+          - "Every road out of town is already burning."
+          - "The last job is always the one that goes wrong."
+        adventure:
+          - "The map ends here. They don't."
+          - "Every legend begins with someone foolish enough to try."
+          - "Beyond the last river lies the first wonder."
+          - "Pack light. Trust no one. Keep walking."
+          - "The world is bigger than the stories told about it."
+          - "Some treasures are guarded by more than locks."
+        animation:
+          - "Small hero. Huge problem."
+          - "Every forest has a secret. This one has a hundred."
+          - "Friendship has never been this fluffy."
+          - "One wish. Zero instructions."
+          - "The bravest adventures start in the backyard."
+          - "Even legends have to start somewhere."
+        comedy:
+          - "What could possibly go wrong? Everything. Twice."
+          - "They had one job. They did not do that job."
+          - "Family is forever. Unfortunately."
+          - "A perfect plan, executed by imperfect people."
+          - "Love is patient. Love is kind. Love is very, very loud."
+          - "The weekend that ruined everyone's life. Hilariously."
+        crime:
+          - "Everyone in this town owes somebody."
+          - "The truth has a price. She's buying."
+          - "Every confession has a second version."
+          - "Crime pays. Until it sends the bill."
+          - "One bag of money. Five people who want it."
+          - "Some debts are paid in more than cash."
+        documentary:
+          - "The planet is still writing its own story."
+          - "Three years. Five continents. One fragile miracle."
+          - "The most extraordinary journeys are real."
+          - "What happens when no one is watching."
+          - "A portrait of the people who refused to give up."
+          - "Nature never stops performing. Few ever see it."
+        drama:
+          - "Some goodbyes take a lifetime."
+          - "She came home to bury a secret. It wasn't dead yet."
+          - "Every family has a story it never tells."
+          - "The hardest distance is the one between two hearts."
+          - "One summer can change the rest of your life."
+          - "You don't get to choose what you inherit."
+        family:
+          - "Home is wherever your people are. Even the furry ones."
+          - "Adventure is just a bad idea with good friends."
+          - "Grab a blanket. The story is about to begin."
+          - "Big dreams fit in small pockets."
+          - "Every family has a hero nobody expected."
+          - "The holidays will never be quiet again."
+        fantasy:
+          - "Magic has a memory. And it remembers everything."
+          - "The old gods are waking. They are not pleased."
+          - "Every kingdom falls. Hers will fall upward."
+          - "A crown of ash. A heart of fire."
+          - "Beyond the mist, the forgotten world is waiting."
+          - "Destiny doesn't knock. It breaks the door."
+        horror:
+          - "Some doors should stay closed."
+          - "It knows where you sleep."
+          - "Fear has a new address."
+          - "The house remembers every scream."
+          - "Don't turn around. It's already there."
+          - "The dark was never empty."
+        mystery:
+          - "Every clue leads back to her."
+          - "Nothing in this town is what it seems."
+          - "The truth was buried. The past dug it up."
+          - "One question nobody wants answered."
+          - "The last page is missing for a reason."
+          - "Seven suspects. One very patient lie."
+        romance:
+          - "Some people are worth missing the last train for."
+          - "Love never arrives on schedule."
+          - "Two hearts. One terrible sense of timing."
+          - "Fall slowly. Then all at once."
+          - "Every love story is a little bit of a mess."
+          - "Summer ends. Some feelings don't."
+        sci_fi:
+          - "The future is already listening."
+          - "In deep space, no one hears you hesitate."
+          - "Humanity sent a message. Something answered."
+          - "Tomorrow was cancelled. Today is all that's left."
+          - "The signal came from inside the station."
+          - "Evolution never asked for permission."
+        thriller:
+          - "Trust no one. Especially yourself."
+          - "Forty-eight hours. One chance to disappear."
+          - "The perfect alibi has a fatal flaw."
+          - "Someone is always watching. Tonight, it's personal."
+          - "Every secret has an expiration date."
+          - "The quietest people make the loudest mistakes."
+        war:
+          - "Courage is a choice made under fire."
+          - "They held the line so others could come home."
+          - "No one returns from the front the same."
+          - "History remembers the battle. They remember the names."
+          - "In the silence between shots, a promise was made."
+          - "The war ended. Their fight did not."
+        western:
+          - "The frontier has no law but the one you carry."
+          - "One town. One sheriff. Too many bullets."
+          - "Out here, dust settles. Scores don't."
+          - "Ride hard. Shoot straight. Never look back."
+          - "Every outlaw was somebody's son."
+          - "The gold is in the hills. So are the graves."
+
+      reviews:
+        openers:
+          positive:
+            - "{title} is a genuine surprise."
+            - "I walked in with low expectations and walked out grinning."
+            - "Easily one of the most confident films I've seen this year."
+            - "This is the kind of {genre_lower} movie people will rewatch for years."
+            - "From the first frame, {title} knows exactly what it wants to be."
+            - "A rare film that respects its audience."
+            - "I didn't expect to care this much, but here we are."
+            - "{director} has finally made the movie we always knew was coming."
+          mixed:
+            - "{title} has big ideas and a slightly smaller budget for them."
+            - "There's a great movie somewhere inside {title}."
+            - "Uneven, but never boring."
+            - "I liked it more than I expected and less than I wanted."
+            - "Half brilliant, half baffling."
+            - "{title} is worth watching, with a few caveats."
+          negative:
+            - "I really wanted to like {title}."
+            - "Two hours I will not be getting back."
+            - "Somewhere along the way, {title} forgot what it was about."
+            - "This one tries very hard and lands very little."
+            - "A film that confuses being loud with being exciting."
+            - "Even a strong cast can't rescue this script."
+        lines:
+          positive:
+            - "{actor} gives a performance that sneaks up on you and doesn't let go."
+            - "The pacing is tight and the final act genuinely earns its emotions."
+            - "{director} directs with real patience, letting scenes breathe."
+            - "The cinematography alone is worth the ticket."
+            - "{actor} and {actor2} have chemistry you can't fake."
+            - "The score does a lot of heavy lifting in the best possible way."
+            - "Every supporting character feels like they have a life off-screen."
+            - "The dialogue is sharp without ever trying to be clever."
+            - "It looks fantastic, especially on a big screen."
+            - "I was still thinking about the ending on the drive home."
+          mixed:
+            - "{actor} is excellent, but the script gives them very little to do."
+            - "The middle section drags, though the ending mostly makes up for it."
+            - "Some scenes are stunning; others feel like they belong to a different film."
+            - "The tone wobbles between serious and silly more than it should."
+            - "{director} clearly had a vision, but the edit feels rushed."
+            - "It's predictable, but it's predictable in a comfortable way."
+            - "The visuals are great; the dialogue is not."
+          negative:
+            - "{actor} does their best with lines that would sink anyone."
+            - "The plot holes are big enough to drive a truck through."
+            - "Every twist is visible from a mile away."
+            - "The editing is so frantic it's hard to follow the action."
+            - "The runtime could lose half an hour without losing anything."
+            - "I never believed a single decision these characters made."
+            - "Even the soundtrack seems bored."
+        genre_lines:
+          horror:
+            positive: ["The scares are earned, not cheap.", "I watched the last twenty minutes through my fingers."]
+            negative: ["Every jump scare is announced by the music ten seconds early."]
+          comedy:
+            positive: ["The jokes land, and the quiet moments land even harder.", "I laughed out loud more than once, which almost never happens."]
+            negative: ["Most of the jokes were already in the trailer."]
+          action:
+            positive: ["The action is clear, brutal and beautifully staged.", "The car chase in the second act is worth the price of admission."]
+            negative: ["The fights are shot so close you can't tell who is hitting whom."]
+          romance:
+            positive: ["It made me believe in grand gestures again.", "Sweet without ever becoming sugary."]
+            negative: ["The leads have all the chemistry of two parked cars."]
+          sci_fi:
+            positive: ["The world-building is thoughtful and refreshingly original.", "It asks big questions and trusts you to answer them."]
+            negative: ["The science is nonsense, and not the fun kind."]
+          documentary:
+            positive: ["The footage is breathtaking, and the story behind it even more so.", "It informs without ever lecturing."]
+            negative: ["It feels more like a long screensaver than a documentary."]
+          family:
+            positive: ["The kids loved it, and honestly so did I.", "Funny for children, surprisingly touching for parents."]
+            negative: ["Too long for little kids and too simple for anyone else."]
+          animation:
+            positive: ["Every frame looks hand-crafted with love.", "The animation is gorgeous and full of tiny details."]
+            negative: ["Pretty to look at, forgettable to remember."]
+          western:
+            positive: ["Dusty, mean and gorgeous, the way westerns should be."]
+            negative: ["All hats, no cattle."]
+          war:
+            positive: ["Harrowing, humane and impossible to forget."]
+            negative: ["It treats tragedy like a backdrop for explosions."]
+          thriller:
+            positive: ["The tension never lets up, not even for a second."]
+            negative: ["The big twist undoes everything that came before it."]
+        closers:
+          positive:
+            - "Highly recommended."
+            - "Go see it on the biggest screen you can find."
+            - "{rating}/10, and I'm being stingy."
+            - "Instantly added to my favorites."
+            - "Bring tissues."
+          mixed:
+            - "Worth a watch on a lazy Sunday."
+            - "Wait for streaming."
+            - "{rating}/10. Good, not great."
+            - "Your mileage may vary."
+          negative:
+            - "Skip it."
+            - "{rating}/10, mostly for the effort."
+            - "Watch the trailer instead; it's the same film, only shorter."
+            - "Not recommended."
+        # Reviews of series talk about episodes and seasons instead of the cinema.
+        series:
+          openers:
+            positive:
+              - "{title} is the rare show that gets better with every episode."
+              - "I meant to watch one episode. I finished the season by morning."
+              - "This is the series I keep recommending to everyone I know."
+              - "From the pilot on, {title} knows exactly where it is going."
+              - "Few shows trust their audience this much."
+              - "{title} makes appointment television feel new again."
+            mixed:
+              - "{title} has a terrific first half of the season and a wobbly second."
+              - "There is a great show hiding inside {title}."
+              - "Uneven from episode to episode, but never boring."
+              - "Some episodes soar, others feel like filler."
+              - "{title} is worth a look, with a few caveats."
+            negative:
+              - "I gave {title} three episodes. That was generous."
+              - "A whole season that could have been a ninety-minute film."
+              - "{title} loses the plot halfway through the season."
+              - "It tries very hard and lands very little."
+              - "Even a strong cast can't hold this series together."
+          lines:
+            positive:
+              - "{actor} grows into the role with every episode."
+              - "The writers know exactly when to end an episode on a cliffhanger."
+              - "{actor} and {actor2} share some of the best scenes on television this year."
+              - "Every episode adds something; nothing feels like filler."
+              - "The season finale ties the threads together without cheating."
+              - "The supporting cast gets real arcs, not just one-liners."
+              - "It rewards patience: the slow start pays off around episode three."
+              - "{director} gives the series a look you rarely see on the small screen."
+            mixed:
+              - "{actor} is excellent, but the subplots around them go nowhere."
+              - "The middle episodes drag, though the finale mostly makes up for it."
+              - "Some storylines are gripping; others feel stretched to fill the season."
+              - "The tone shifts from episode to episode more than it should."
+              - "It's predictable, but in a comfortable, bingeable way."
+              - "Great characters, uneven writing."
+            negative:
+              - "{actor} does their best with lines that would sink anyone."
+              - "Every cliffhanger is resolved in the first two minutes of the next episode."
+              - "The plot moves in circles for most of the season."
+              - "Too many characters, too little reason to care about them."
+              - "The finale undoes the little goodwill the season had built."
+              - "The episodes blur together; I could not tell you what happened in which one."
+          closers:
+            positive:
+              - "Binge it."
+              - "{rating}/10. Already waiting for the next season."
+              - "Highly recommended."
+              - "Clear your weekend."
+            mixed:
+              - "Worth a watch if you have a free weekend."
+              - "{rating}/10. Good, not great."
+              - "Give it until episode three."
+              - "Your mileage may vary."
+            negative:
+              - "Skip it."
+              - "{rating}/10, mostly for the effort."
+              - "Not recommended."
+              - "Read the recap instead."
+        critic_outlets:
+          - The Evening Ledger
+          - Screen Notes Weekly
+          - Coastline Review
+          - The Projector
+          - Midtown Film Journal
+          - Reel Courier
+          - The Sunday Marquee
+          - Second Row Magazine
+          - Northern Light Gazette
+          - Popcorn & Politics
+          - The Matinee Post
+          - Celluloid Daily
+        critic_suffix: "%{name}, %{outlet}"
+
+      trailer:
+        when: [THIS FALL, THIS SUMMER, THIS WINTER, THIS SPRING, THIS CHRISTMAS, NEXT YEAR, THIS HALLOWEEN, THIS MEMORIAL DAY]
+        from:
+          - "FROM THE DIRECTOR OF {other_title}"
+          - "FROM THE STUDIO THAT BROUGHT YOU {other_title}"
+          - "{studio} PRESENTS"
+          - "A FILM BY {director}"
+          - "FROM THE CREATORS OF {other_title}"
+        series_from:
+          - "FROM THE CREATORS OF {other_title}"
+          - "{platform} PRESENTS"
+          - "AN ORIGINAL SERIES"
+        hooks:
+          action: [[ONE MAN, ONE MISSION], [NO RULES, NO MERCY], [NO BACKUP, NO WAY OUT], [THE CLOCK, IS TICKING]]
+          adventure: [[BEYOND THE MAP, BEYOND FEAR], [ONE JOURNEY, WILL CHANGE, EVERYTHING], [THE WORLD, IS WAITING]]
+          animation: [[THIS SUMMER, THINK BIG], [ONE TINY HERO, ONE GIANT PROBLEM], [ADVENTURE, HAS NEVER BEEN, THIS FUN]]
+          comedy: [[THEY HAD, ONE JOB], [WHAT COULD, POSSIBLY, GO WRONG], [FAMILY, IS FOREVER, UNFORTUNATELY]]
+          crime: [[EVERYONE, HAS A PRICE], [ONE BAG, FIVE PLAYERS], [THE TRUTH, IS FOR SALE]]
+          documentary: [[ONE PLANET, A MILLION STORIES], [THE WILD, IS CALLING], [WITNESS, THE EXTRAORDINARY]]
+          drama: [[SOME SECRETS, NEVER DIE], [EVERY FAMILY, HAS A STORY], [ONE SUMMER, CHANGED, EVERYTHING]]
+          family: [[HOME, IS WHERE, THE HEART IS], [BIG HEART, SMALL HERO], [THE ADVENTURE, STARTS AT HOME]]
+          fantasy: [[MAGIC, HAS A PRICE], [THE OLD WORLD, IS WAKING], [ONE CROWN, ONE DESTINY]]
+          horror: [[IT KNOWS, WHERE YOU SLEEP], [DON'T, LOOK BACK], [THE DARK, IS NOT EMPTY], [SOME DOORS, SHOULD STAY, CLOSED]]
+          mystery: [[EVERY CLUE, LEADS TO HER], [NOTHING, IS WHAT IT SEEMS], [ONE QUESTION, NO ANSWERS]]
+          romance: [[SOMETIMES, LOVE, FINDS YOU], [TWO HEARTS, ONE CHANCE], [FALL, SLOWLY]]
+          sci_fi: [[THE FUTURE, IS LISTENING], [HUMANITY, IS NOT ALONE], [THE SIGNAL, HAS ARRIVED]]
+          thriller: [[TRUST, NO ONE], [48 HOURS, TO DISAPPEAR], [SOMEONE, IS WATCHING]]
+          war: [[HOLD, THE LINE], [NO ONE, COMES HOME, THE SAME], [COURAGE, UNDER FIRE]]
+          western: [[ONE TOWN, ONE LAW], [RIDE HARD, SHOOT STRAIGHT], [THE FRONTIER, HAS NO MERCY]]
+        release:
+          - "COMING SOON"
+          - "IN THEATERS {date}"
+          - "ONLY IN THEATERS {date}"
+          - "{date}"
+          - "EXPERIENCE IT IN IMAX {date}"
+        series_release:
+          - "STREAMING {date}"
+          - "ALL EPISODES {date}"
+          - "ONLY ON {platform}"
+          - "{platform} · {date}"
+        season: ["SEASON {n}", "THE FINAL SEASON", "A NEW SEASON"]
+        season_first: ["A NEW SERIES", "AN ORIGINAL SERIES"]
+        starring_prefix: ""
+        and_prefix: "AND "
+        billing:
+          presents: "{studio} PRESENTS"
+          production: "A {company} PRODUCTION"
+          film_by: "A FILM BY {director}"
+          starring: "STARRING"
+          music: "MUSIC BY"
+          edited: "EDITED BY"
+          photography: "DIRECTOR OF PHOTOGRAPHY"
+          produced: "PRODUCED BY"
+          written: "WRITTEN BY"
+          directed: "DIRECTED BY"
+        date: "{month} {day}"
+        months: [JANUARY, FEBRUARY, MARCH, APRIL, MAY, JUNE, JULY, AUGUST, SEPTEMBER, OCTOBER, NOVEMBER, DECEMBER]
+        studios:
+          - Harborlight Pictures
+          - Ninth Wave Films
+          - Copperline Studios
+          - Bluebird Avenue Entertainment
+          - Long Shadow Pictures
+          - Silver Mesa Films
+          - Northstar Cinema Group
+          - Paper Lantern Studios
+          - Redwood Junction Pictures
+          - Atlas Hollow Entertainment
+          - Grand Meridian Films
+          - Two Rivers Studios
+          - "{faker:Name.last_name} Brothers Pictures"
+          - "{faker:Name.last_name} & {faker:Name.last_name} Films"
+        companies:
+          - Lighthouse Row
+          - Ironbridge
+          - Saltwater Kid
+          - Moving Picture Club
+          - Small Hours
+          - Blue Lantern
+          - "{faker:Name.last_name} Entertainment"
+          - "{faker:Name.last_name} Media"
+        platforms: [STREAMHOUSE, NOVA+, KINOLA, CINEWAVE, PRISM TV, BINGEPORT]

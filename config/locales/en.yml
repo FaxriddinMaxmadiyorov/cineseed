@@ -1,0 +1,65 @@
+# Interface strings. Generated catalog data (titles, names, genres, reviews, trailer copy) comes
+# from the region files in config/regions instead.
+en:
+  app:
+    name: Cineseed
+    title: Cineseed movie store
+    description: An endless movie store generated from a seed, with a trailer for every title.
+  toolbar:
+    region: Region
+    seed: Seed
+    seed_hint: Any number up to 20 digits, or any text. The same seed always gives the same catalog.
+    random_seed: New random seed
+    likes: Likes
+    likes_range: Average likes per movie
+    reviews: Reviews
+    reviews_range: Average reviews per movie
+    average_hint: Average per movie, from 0 to 10. Fractions are allowed, for example 3.7.
+    view: View
+    table: Table
+    gallery: Gallery
+  table:
+    caption: Catalog, page %{page}
+    index: "#"
+    title: Title
+    actors: Actors
+    year: Year
+    genre: Genre
+    details: Details
+  pager:
+    label: Pages
+    previous: Previous
+    next: Next
+    page: Page %{page}
+    export: Trailers of this page (ZIP)
+    export_hint: Downloads the 20 trailers of this page, each file named after its movie. Trailers that were never played are cut first, so this can take a minute.
+  details:
+    director: Director
+    cast: Cast
+    rating: Rating
+    runtime: Runtime
+    episode_runtime: Episode length
+    studio: Studio
+    seasons: Seasons
+  player:
+    play: Play the trailer of %{title}
+    badge: Play trailer
+    poster_alt: Freeze frame from the trailer of %{title}
+    video_label: Trailer of %{title}
+    failed: The trailer could not be loaded. Press play to try again.
+  audience:
+    label: Likes and reviews
+    summary: Likes and reviews
+    likes:
+      zero: No likes yet
+      one: 1 like
+      other: "%{count} likes"
+    reviews:
+      zero: No reviews yet
+      one: 1 review
+      other: "%{count} reviews"
+    score: "%{rating}/10"
+    score_hint: Rating out of 10
+  gallery:
+    label: Gallery
+    loading: Loading more movies

@@ -1,0 +1,564 @@
+# Fonts available to the trailer typography (vendor/fonts, SIL OFL / Apache 2.0, subset to Latin + Cyrillic).
+# width_*: average advance per character in px at \fs100 as rendered by libass (measured, see README);
+# cap_*: cap height in px at \fs100. case: upper = typeset in capitals, any = keep the title's case.
+fonts:
+  abril:
+    family: "Abril Fatface"
+    file: AbrilFatface-Regular.ttf
+    bold: false
+    scripts: [latin]
+    case: any
+    width: { latin_upper: 0.5031, latin_mixed: 0.4024 }
+    cap: 0.71
+  alumni:
+    family: "Alumni Sans Bold"
+    file: AlumniSans-Bold.ttf
+    bold: false
+    scripts: [latin, cyrillic]
+    case: upper
+    width: { latin_upper: 0.3058, latin_mixed: 0.2836, cyrillic_upper: 0.343, cyrillic_mixed: 0.2778 }
+    cap: 0.59
+  amatic:
+    family: "Amatic SC"
+    file: AmaticSC-Bold.ttf
+    bold: true
+    scripts: [latin, cyrillic]
+    case: any
+    width: { latin_upper: 0.2338, latin_mixed: 0.2279, cyrillic_upper: 0.249, cyrillic_mixed: 0.213 }
+    cap: 0.66
+  anton:
+    family: "Anton"
+    file: Anton-Regular.ttf
+    bold: false
+    scripts: [latin]
+    case: upper
+    width: { latin_upper: 0.2738, latin_mixed: 0.267 }
+    cap: 0.56
+  audiowide:
+    family: "Audiowide"
+    file: Audiowide-Regular.ttf
+    bold: false
+    scripts: [latin]
+    case: upper
+    width: { latin_upper: 0.6165, latin_mixed: 0.5012 }
+    cap: 0.66
+  bangers:
+    family: "Bangers"
+    file: Bangers-Regular.ttf
+    bold: false
+    scripts: [latin]
+    case: upper
+    width: { latin_upper: 0.2423, latin_mixed: 0.2424 }
+    cap: 0.47
+  bebas:
+    family: "Bebas Neue"
+    file: BebasNeue-Regular.ttf
+    bold: false
+    scripts: [latin]
+    case: upper
+    width: { latin_upper: 0.2992, latin_mixed: 0.2997 }
+    cap: 0.61
+  black_ops:
+    family: "Black Ops One"
+    file: BlackOpsOne-Regular.ttf
+    bold: false
+    scripts: [latin]
+    case: upper
+    width: { latin_upper: 0.4892, latin_mixed: 0.4367 }
+    cap: 0.59
+  cinzel:
+    family: "Cinzel Bold"
+    file: Cinzel-Bold.ttf
+    bold: false
+    scripts: [latin]
+    case: upper
+    width: { latin_upper: 0.5396, latin_mixed: 0.4864 }
+    cap: 0.75
+  cinzel_deco:
+    family: "Cinzel Decorative"
+    file: CinzelDecorative-Bold.ttf
+    bold: true
+    scripts: [latin]
+    case: upper
+    width: { latin_upper: 0.56, latin_mixed: 0.5485 }
+    cap: 0.91
+  cormorant:
+    family: "Cormorant Garamond SemiBold"
+    file: CormorantGaramond-SemiBold.ttf
+    bold: false
+    scripts: [latin, cyrillic]
+    case: any
+    width: { latin_upper: 0.4662, latin_mixed: 0.3242, cyrillic_upper: 0.5033, cyrillic_mixed: 0.3137 }
+    cap: 0.66
+  cormorant_sc:
+    family: "Cormorant SC"
+    file: CormorantSC-Bold.ttf
+    bold: true
+    scripts: [latin, cyrillic]
+    case: upper
+    width: { latin_upper: 0.5285, latin_mixed: 0.4288, cyrillic_upper: 0.5713, cyrillic_mixed: 0.4211 }
+    cap: 0.77
+  creepster:
+    family: "Creepster"
+    file: Creepster-Regular.ttf
+    bold: false
+    scripts: [latin]
+    case: upper
+    width: { latin_upper: 0.3831, latin_mixed: 0.3833 }
+    cap: 0.68
+  exo2:
+    family: "Exo 2 ExtraBold"
+    file: Exo2-ExtraBold.ttf
+    bold: false
+    scripts: [latin, cyrillic]
+    case: upper
+    width: { latin_upper: 0.4408, latin_mixed: 0.3852, cyrillic_upper: 0.4723, cyrillic_mixed: 0.3681 }
+    cap: 0.67
+  fira_cond_black:
+    family: "Fira Sans Condensed Black"
+    file: FiraSansCondensed-Black.ttf
+    bold: false
+    scripts: [latin, cyrillic]
+    case: upper
+    width: { latin_upper: 0.4588, latin_mixed: 0.4064, cyrillic_upper: 0.4947, cyrillic_mixed: 0.3874 }
+    cap: 0.76
+  fira_xcond:
+    family: "Fira Sans Extra Condensed"
+    file: FiraSansExtraCondensed-Regular.ttf
+    bold: false
+    scripts: [latin, cyrillic]
+    case: upper
+    width: { latin_upper: 0.4023, latin_mixed: 0.3579, cyrillic_upper: 0.433, cyrillic_mixed: 0.3444 }
+    cap: 0.71
+  fira_xcond_black:
+    family: "Fira Sans Extra Condensed Black"
+    file: FiraSansExtraCondensed-Black.ttf
+    bold: false
+    scripts: [latin, cyrillic]
+    case: upper
+    width: { latin_upper: 0.4242, latin_mixed: 0.3758, cyrillic_upper: 0.457, cyrillic_mixed: 0.3578 }
+    cap: 0.76
+  fira_xcond_bold:
+    family: "Fira Sans Extra Condensed"
+    file: FiraSansExtraCondensed-Bold.ttf
+    bold: true
+    scripts: [latin, cyrillic]
+    case: upper
+    width: { latin_upper: 0.4154, latin_mixed: 0.3688, cyrillic_upper: 0.4473, cyrillic_mixed: 0.3526 }
+    cap: 0.74
+  forum:
+    family: "Forum"
+    file: Forum-Regular.ttf
+    bold: false
+    scripts: [latin, cyrillic]
+    case: upper
+    width: { latin_upper: 0.5035, latin_mixed: 0.4188, cyrillic_upper: 0.5407, cyrillic_mixed: 0.3941 }
+    cap: 0.81
+  great_vibes:
+    family: "Great Vibes"
+    file: GreatVibes-Regular.ttf
+    bold: false
+    scripts: [latin, cyrillic]
+    case: any
+    width: { latin_upper: 0.5504, latin_mixed: 0.1924, cyrillic_upper: 0.584, cyrillic_mixed: 0.2093 }
+    cap: 0.73
+  im_fell:
+    family: "IM FELL English SC"
+    file: IMFeENsc28P.ttf
+    bold: false
+    scripts: [latin]
+    case: upper
+    width: { latin_upper: 0.5696, latin_mixed: 0.3855 }
+    cap: 0.8
+  jura:
+    family: "Jura Bold"
+    file: Jura-Bold.ttf
+    bold: false
+    scripts: [latin, cyrillic]
+    case: upper
+    width: { latin_upper: 0.4969, latin_mixed: 0.4406, cyrillic_upper: 0.4613, cyrillic_mixed: 0.4152 }
+    cap: 0.58
+  kelly_slab:
+    family: "Kelly Slab"
+    file: KellySlab-Regular.ttf
+    bold: false
+    scripts: [latin, cyrillic]
+    case: upper
+    width: { latin_upper: 0.4877, latin_mixed: 0.4012, cyrillic_upper: 0.516, cyrillic_mixed: 0.3889 }
+    cap: 0.68
+  lilita:
+    family: "Lilita One"
+    file: LilitaOne-Regular.ttf
+    bold: false
+    scripts: [latin]
+    case: any
+    width: { latin_upper: 0.5323, latin_mixed: 0.4318 }
+    cap: 0.79
+  lobster:
+    family: "Lobster"
+    file: Lobster-Regular.ttf
+    bold: false
+    scripts: [latin, cyrillic]
+    case: any
+    width: { latin_upper: 0.3969, latin_mixed: 0.2945, cyrillic_upper: 0.4287, cyrillic_mixed: 0.3137 }
+    cap: 0.68
+  luckiest:
+    family: "Luckiest Guy"
+    file: LuckiestGuy-Regular.ttf
+    bold: false
+    scripts: [latin]
+    case: upper
+    width: { latin_upper: 0.4819, latin_mixed: 0.4879 }
+    cap: 0.68
+  marcellus:
+    family: "Marcellus SC"
+    file: MarcellusSC-Regular.ttf
+    bold: false
+    scripts: [latin]
+    case: upper
+    width: { latin_upper: 0.5069, latin_mixed: 0.4191 }
+    cap: 0.8
+  marck_script:
+    family: "Marck Script"
+    file: MarckScript-Regular.ttf
+    bold: false
+    scripts: [latin, cyrillic]
+    case: any
+    width: { latin_upper: 0.5488, latin_mixed: 0.3333, cyrillic_upper: 0.6027, cyrillic_mixed: 0.3622 }
+    cap: 0.82
+  metal_mania:
+    family: "Metal Mania"
+    file: MetalMania-Regular.ttf
+    bold: false
+    scripts: [latin]
+    case: upper
+    width: { latin_upper: 0.4012, latin_mixed: 0.3424 }
+    cap: 0.85
+  michroma:
+    family: "Michroma"
+    file: Michroma-Regular.ttf
+    bold: false
+    scripts: [latin]
+    case: upper
+    width: { latin_upper: 0.5723, latin_mixed: 0.4127 }
+    cap: 0.5
+  monoton:
+    family: "Monoton"
+    file: Monoton-Regular.ttf
+    bold: false
+    scripts: [latin]
+    case: any
+    width: { latin_upper: 0.5188, latin_mixed: 0.4876 }
+    cap: 0.62
+  montserrat:
+    family: "Montserrat Medium"
+    file: Montserrat-Medium.ttf
+    bold: false
+    scripts: [latin, cyrillic]
+    case: upper
+    width: { latin_upper: 0.4615, latin_mixed: 0.377, cyrillic_upper: 0.4903, cyrillic_mixed: 0.3567 }
+    cap: 0.56
+  montserrat_black:
+    family: "Montserrat Black"
+    file: Montserrat-Black.ttf
+    bold: false
+    scripts: [latin, cyrillic]
+    case: upper
+    width: { latin_upper: 0.4815, latin_mixed: 0.4058, cyrillic_upper: 0.5107, cyrillic_mixed: 0.3859 }
+    cap: 0.58
+  nosifer:
+    family: "Nosifer"
+    file: Nosifer-Regular.ttf
+    bold: false
+    scripts: [latin]
+    case: upper
+    width: { latin_upper: 0.5285, latin_mixed: 0.5309 }
+    cap: 0.64
+  old_standard:
+    family: "Old Standard TT"
+    file: OldStandard-Bold.ttf
+    bold: true
+    scripts: [latin, cyrillic]
+    case: any
+    width: { latin_upper: 0.5873, latin_mixed: 0.4103, cyrillic_upper: 0.6233, cyrillic_mixed: 0.3941 }
+    cap: 0.8
+  orbitron:
+    family: "Orbitron Black"
+    file: Orbitron-Black.ttf
+    bold: false
+    scripts: [latin]
+    case: upper
+    width: { latin_upper: 0.6469, latin_mixed: 0.5209 }
+    cap: 0.58
+  oswald:
+    family: "Oswald Bold"
+    file: Oswald-Bold.ttf
+    bold: false
+    scripts: [latin, cyrillic]
+    case: upper
+    width: { latin_upper: 0.3115, latin_mixed: 0.2688, cyrillic_upper: 0.3497, cyrillic_mixed: 0.2607 }
+    cap: 0.58
+  oswald_light:
+    family: "Oswald Light"
+    file: Oswald-Light.ttf
+    bold: false
+    scripts: [latin, cyrillic]
+    case: upper
+    width: { latin_upper: 0.2792, latin_mixed: 0.2236, cyrillic_upper: 0.3007, cyrillic_mixed: 0.2137 }
+    cap: 0.58
+  philosopher:
+    family: "Philosopher"
+    file: Philosopher-Bold.ttf
+    bold: true
+    scripts: [latin, cyrillic]
+    case: any
+    width: { latin_upper: 0.4742, latin_mixed: 0.3764, cyrillic_upper: 0.5057, cyrillic_mixed: 0.36 }
+    cap: 0.66
+  pirata:
+    family: "Pirata One"
+    file: PirataOne-Regular.ttf
+    bold: false
+    scripts: [latin]
+    case: any
+    width: { latin_upper: 0.3246, latin_mixed: 0.3212 }
+    cap: 0.77
+  playfair:
+    family: "Playfair Display SC"
+    file: PlayfairDisplaySC-Bold.ttf
+    bold: true
+    scripts: [latin, cyrillic]
+    case: upper
+    width: { latin_upper: 0.4685, latin_mixed: 0.4542, cyrillic_upper: 0.513, cyrillic_mixed: 0.4385 }
+    cap: 0.64
+  playfair_black:
+    family: "Playfair Display SC Black"
+    file: PlayfairDisplaySC-Black.ttf
+    bold: false
+    scripts: [latin, cyrillic]
+    case: upper
+    width: { latin_upper: 0.4869, latin_mixed: 0.4676, cyrillic_upper: 0.5363, cyrillic_mixed: 0.4522 }
+    cap: 0.63
+  poiret:
+    family: "Poiret One"
+    file: PoiretOne-Regular.ttf
+    bold: false
+    scripts: [latin, cyrillic]
+    case: any
+    width: { latin_upper: 0.4388, latin_mixed: 0.3561, cyrillic_upper: 0.48, cyrillic_mixed: 0.3263 }
+    cap: 0.61
+  prata:
+    family: "Prata"
+    file: Prata-Regular.ttf
+    bold: false
+    scripts: [latin, cyrillic]
+    case: any
+    width: { latin_upper: 0.4765, latin_mixed: 0.3582, cyrillic_upper: 0.5097, cyrillic_mixed: 0.3478 }
+    cap: 0.68
+  press_start:
+    family: "Press Start 2P"
+    file: PressStart2P-Regular.ttf
+    bold: false
+    scripts: [latin, cyrillic]
+    case: upper
+    width: { latin_upper: 0.7235, latin_mixed: 0.7212, cyrillic_upper: 0.7237, cyrillic_mixed: 0.72 }
+    cap: 0.64
+  pt_narrow:
+    family: "PT Sans Narrow"
+    file: PT_Sans-Narrow-Web-Bold.ttf
+    bold: true
+    scripts: [latin, cyrillic]
+    case: upper
+    width: { latin_upper: 0.3792, latin_mixed: 0.3142, cyrillic_upper: 0.403, cyrillic_mixed: 0.297 }
+    cap: 0.72
+  rubik_80s:
+    family: "Rubik 80s Fade"
+    file: Rubik80sFade-Regular.ttf
+    bold: false
+    scripts: [latin, cyrillic]
+    case: upper
+    width: { latin_upper: 0.5038, latin_mixed: 0.4364, cyrillic_upper: 0.5437, cyrillic_mixed: 0.4148 }
+    cap: 0.55
+  rubik_beastly:
+    family: "Rubik Beastly"
+    file: RubikBeastly-Regular.ttf
+    bold: false
+    scripts: [latin, cyrillic]
+    case: upper
+    width: { latin_upper: 0.5077, latin_mixed: 0.4397, cyrillic_upper: 0.5473, cyrillic_mixed: 0.4193 }
+    cap: 0.79
+  rubik_burned:
+    family: "Rubik Burned"
+    file: RubikBurned-Regular.ttf
+    bold: false
+    scripts: [latin, cyrillic]
+    case: upper
+    width: { latin_upper: 0.5058, latin_mixed: 0.4379, cyrillic_upper: 0.546, cyrillic_mixed: 0.4167 }
+    cap: 0.59
+  rubik_dirt:
+    family: "Rubik Dirt"
+    file: RubikDirt-Regular.ttf
+    bold: false
+    scripts: [latin, cyrillic]
+    case: upper
+    width: { latin_upper: 0.5046, latin_mixed: 0.4367, cyrillic_upper: 0.5447, cyrillic_mixed: 0.4152 }
+    cap: 0.57
+  rubik_distressed:
+    family: "Rubik Distressed"
+    file: RubikDistressed-Regular.ttf
+    bold: false
+    scripts: [latin, cyrillic]
+    case: upper
+    width: { latin_upper: 0.5046, latin_mixed: 0.4367, cyrillic_upper: 0.5447, cyrillic_mixed: 0.4152 }
+    cap: 0.59
+  rubik_glitch:
+    family: "Rubik Glitch"
+    file: RubikGlitch-Regular.ttf
+    bold: false
+    scripts: [latin, cyrillic]
+    case: upper
+    width: { latin_upper: 0.5054, latin_mixed: 0.4403, cyrillic_upper: 0.5467, cyrillic_mixed: 0.4204 }
+    cap: 0.56
+  rubik_mono:
+    family: "Rubik Mono One"
+    file: RubikMonoOne-Regular.ttf
+    bold: false
+    scripts: [latin, cyrillic]
+    case: upper
+    width: { latin_upper: 0.6846, latin_mixed: 0.6848, cyrillic_upper: 0.6857, cyrillic_mixed: 0.6856 }
+    cap: 0.64
+  rubik_moonrocks:
+    family: "Rubik Moonrocks"
+    file: RubikMoonrocks-Regular.ttf
+    bold: false
+    scripts: [latin, cyrillic]
+    case: upper
+    width: { latin_upper: 0.5042, latin_mixed: 0.4364, cyrillic_upper: 0.5443, cyrillic_mixed: 0.4148 }
+    cap: 0.56
+  rubik_puddles:
+    family: "Rubik Puddles"
+    file: RubikPuddles-Regular.ttf
+    bold: false
+    scripts: [latin, cyrillic]
+    case: upper
+    width: { latin_upper: 0.5081, latin_mixed: 0.4406, cyrillic_upper: 0.5477, cyrillic_mixed: 0.4193 }
+    cap: 0.7
+  rubik_wet_paint:
+    family: "Rubik Wet Paint"
+    file: RubikWetPaint-Regular.ttf
+    bold: false
+    scripts: [latin, cyrillic]
+    case: upper
+    width: { latin_upper: 0.5042, latin_mixed: 0.4364, cyrillic_upper: 0.5443, cyrillic_mixed: 0.4148 }
+    cap: 0.75
+  ruslan:
+    family: "Ruslan Display"
+    file: RuslanDisplay-Regular.ttf
+    bold: false
+    scripts: [latin, cyrillic]
+    case: upper
+    width: { latin_upper: 0.6265, latin_mixed: 0.6242, cyrillic_upper: 0.6707, cyrillic_mixed: 0.5996 }
+    cap: 0.91
+  russo:
+    family: "Russo One"
+    file: RussoOne-Regular.ttf
+    bold: false
+    scripts: [latin, cyrillic]
+    case: upper
+    width: { latin_upper: 0.5677, latin_mixed: 0.4839, cyrillic_upper: 0.6043, cyrillic_mixed: 0.4604 }
+    cap: 0.74
+  rye:
+    family: "Rye"
+    file: Rye-Regular.ttf
+    bold: false
+    scripts: [latin]
+    case: upper
+    width: { latin_upper: 0.5846, latin_mixed: 0.4921 }
+    cap: 0.76
+  sancreek:
+    family: "Sancreek"
+    file: Sancreek-Regular.ttf
+    bold: false
+    scripts: [latin]
+    case: upper
+    width: { latin_upper: 0.4123, latin_mixed: 0.3861 }
+    cap: 0.73
+  seymour:
+    family: "Seymour One"
+    file: SeymourOne-Regular.ttf
+    bold: false
+    scripts: [latin, cyrillic]
+    case: upper
+    width: { latin_upper: 0.7065, latin_mixed: 0.5567, cyrillic_upper: 0.7397, cyrillic_mixed: 0.5315 }
+    cap: 0.6
+  special_elite:
+    family: "Special Elite"
+    file: SpecialElite-Regular.ttf
+    bold: false
+    scripts: [latin]
+    case: any
+    width: { latin_upper: 0.5996, latin_mixed: 0.577 }
+    cap: 0.83
+  spectral_sc:
+    family: "Spectral SC"
+    file: SpectralSC-Bold.ttf
+    bold: true
+    scripts: [latin, cyrillic]
+    case: upper
+    width: { latin_upper: 0.4804, latin_mixed: 0.3461, cyrillic_upper: 0.5107, cyrillic_mixed: 0.3411 }
+    cap: 0.56
+  stalinist:
+    family: "Stalinist One"
+    file: StalinistOne-Regular.ttf
+    bold: false
+    scripts: [latin, cyrillic]
+    case: upper
+    width: { latin_upper: 0.8158, latin_mixed: 0.6936, cyrillic_upper: 0.8373, cyrillic_mixed: 0.6693 }
+    cap: 0.61
+  tenor:
+    family: "Tenor Sans"
+    file: TenorSans-Regular.ttf
+    bold: false
+    scripts: [latin, cyrillic]
+    case: upper
+    width: { latin_upper: 0.6169, latin_mixed: 0.4606, cyrillic_upper: 0.6677, cyrillic_mixed: 0.4456 }
+    cap: 0.7
+  unbounded:
+    family: "Unbounded Black"
+    file: Unbounded-Black.ttf
+    bold: false
+    scripts: [latin, cyrillic]
+    case: upper
+    width: { latin_upper: 0.5912, latin_mixed: 0.4961, cyrillic_upper: 0.6297, cyrillic_mixed: 0.473 }
+    cap: 0.55
+  uncial:
+    family: "Uncial Antiqua"
+    file: UncialAntiqua-Regular.ttf
+    bold: false
+    scripts: [latin]
+    case: any
+    width: { latin_upper: 0.5958, latin_mixed: 0.4918 }
+    cap: 1.0
+  underdog:
+    family: "Underdog"
+    file: Underdog-Regular.ttf
+    bold: false
+    scripts: [latin, cyrillic]
+    case: any
+    width: { latin_upper: 0.5327, latin_mixed: 0.4358, cyrillic_upper: 0.5673, cyrillic_mixed: 0.4093 }
+    cap: 0.78
+  unifraktur:
+    family: "UnifrakturMaguntia"
+    file: UnifrakturMaguntia-Book.ttf
+    bold: false
+    scripts: [latin]
+    case: any
+    width: { latin_upper: 0.7677, latin_mixed: 0.4097 }
+    cap: 0.96
+  yeseva:
+    family: "Yeseva One"
+    file: YesevaOne-Regular.ttf
+    bold: false
+    scripts: [latin, cyrillic]
+    case: any
+    width: { latin_upper: 0.4931, latin_mixed: 0.4173, cyrillic_upper: 0.5297, cyrillic_mixed: 0.4074 }
+    cap: 0.64

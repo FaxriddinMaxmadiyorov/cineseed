@@ -1,0 +1,22 @@
+# Ignore bundler config.
+/.bundle
+
+# Logs, caches and rendered trailers (they are a cache: deleting them only costs a re-render).
+/log/*
+/tmp/*
+!/log/.keep
+!/tmp/.keep
+/tmp/pids/*
+!/tmp/pids/.keep
+/storage/*
+
+# Downloaded originals used only by `bin/rails footage:build` (the cut shots are committed).
+/footage/sources/*
+!/footage/sources/.keep
+
+# Precompiled assets
+/public/assets
+
+# Secrets
+/config/master.key
+/.env*

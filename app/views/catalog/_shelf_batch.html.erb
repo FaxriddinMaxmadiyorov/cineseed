@@ -1,0 +1,9 @@
+<div class="shelf__grid">
+  <% movies.each do |movie| %>
+    <%= render "catalog/card", movie: movie %>
+  <% end %>
+</div>
+<%= turbo_frame_tag "batch-#{page + 1}", src: gallery_batch_path(catalog_query(page: page + 1)), loading: :lazy,
+      class: "shelf__next" do %>
+  <p class="shelf__loading"><%= t("gallery.loading") %></p>
+<% end %>

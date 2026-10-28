@@ -1,0 +1,25 @@
+# Generation settings that are the same for every region.
+page_size: 20
+series_share: 0.22
+years:
+  from: 1962
+  to: 2026
+  decade_weights: { 1960: 3, 1970: 5, 1980: 8, 1990: 11, 2000: 15, 2010: 20, 2020: 18 }
+actors: [3, 5]
+runtime:
+  default: [88, 142]
+  animation: [78, 104]
+  family: [82, 112]
+  documentary: [76, 118]
+  war: [110, 172]
+  drama: [92, 158]
+  fantasy: [98, 168]
+  action: [94, 148]
+  horror: [82, 112]
+  comedy: [84, 118]
+episode_runtime: [22, 62]
+seasons: { 1: 30, 2: 22, 3: 16, 4: 11, 5: 8, 6: 6, 7: 4, 8: 3 }
+episodes: [6, 13]
+review_ratings: { 1: 2, 2: 2, 3: 3, 4: 4, 5: 6, 6: 9, 7: 12, 8: 13, 9: 9, 10: 6 }
+critic_share: 0.4
+max_per_movie: 10

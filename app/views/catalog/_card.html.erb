@@ -1,0 +1,16 @@
+<article class="card" lang="<%= movie.region.code %>" aria-labelledby="card-<%= movie.index %>">
+  <%= render "catalog/player", movie: movie %>
+  <div class="card__body">
+    <h3 class="card__title" id="card-<%= movie.index %>"><span class="card__index"><%= movie.index %></span> <%= movie.title %></h3>
+    <p class="card__meta">
+      <span><%= year_label(movie) %></span>
+      <span class="genre"><span class="genre__swatch" style="--swatch: <%= genre_color(movie) %>"></span><%= movie.genre_name %></span>
+      <% if movie.series? %><span><%= kind_label(movie) %></span><% end %>
+    </p>
+    <p class="card__cast"><%= actors_label(movie) %></p>
+    <details class="card__audience">
+      <summary class="card__summary"><%= t("audience.summary") %></summary>
+      <%= render "catalog/audience", movie: movie %>
+    </details>
+  </div>
+</article>

@@ -1,0 +1,15 @@
+<% unless turbo_frame_request? %>
+  <header class="masthead">
+    <%= render "catalog/toolbar" %>
+  </header>
+<% end %>
+
+<main class="stage" id="main">
+  <turbo-frame id="catalog" class="catalog" data-turbo-action="advance" aria-live="polite">
+    <% if @view == "gallery" %>
+      <%= render "catalog/gallery", movies: @movies, page: @page %>
+    <% else %>
+      <%= render "catalog/table", movies: @movies, page: @page %>
+    <% end %>
+  </turbo-frame>
+</main>

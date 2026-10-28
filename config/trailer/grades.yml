@@ -1,0 +1,102 @@
+# Color grades: ffmpeg filter chains with randomized parameters ({name} is replaced by a value
+# sampled from params[name] = [min, max] using the trailer's seed). Applied to every footage shot of
+# a trailer, so one trailer has one consistent look while two trailers rarely look the same.
+#
+# Only filters that work directly on YUV are used (colorcorrect for split toning, eq, lutyuv, hue):
+# they cost almost nothing per frame, unlike RGB filters such as colorbalance or lut3d.
+# colorcorrect: rl/bl = red/blue push in the shadows, rh/bh = in the highlights (-1..1).
+grades:
+  natural:
+    filters:
+      - "eq=contrast={contrast}:saturation={saturation}:gamma={gamma}"
+    params: { contrast: [1.03, 1.1], saturation: [1.0, 1.12], gamma: [0.97, 1.03] }
+
+  teal_orange:
+    filters:
+      - "colorcorrect=rl={rl}:bl={bl}:rh={rh}:bh={bh}:saturation={sat}"
+      - "eq=contrast={contrast}:gamma={gamma}"
+    params: { rl: [-0.1, -0.05], bl: [0.05, 0.12], rh: [0.05, 0.1], bh: [-0.1, -0.04], sat: [1.05, 1.2], contrast: [1.08, 1.18], gamma: [0.94, 1.0] }
+
+  bleach:
+    filters:
+      - "eq=contrast={contrast}:saturation={saturation}:gamma={gamma}:brightness={brightness}"
+      - "lutyuv=y='clip(val+{curve}*(val-128)*(1-abs(val-128)/128),0,255)'"
+    params: { contrast: [1.12, 1.26], saturation: [0.35, 0.6], gamma: [0.9, 1.0], brightness: [-0.04, 0.0], curve: [0.2, 0.4] }
+
+  crimson:
+    filters:
+      - "colorcorrect=rl={rl}:rh={rh}:bh={bh}:saturation={sat}"
+      - "eq=contrast={contrast}:gamma={gamma}"
+    params: { rl: [0.03, 0.08], rh: [0.06, 0.12], bh: [-0.08, -0.03], sat: [0.8, 1.0], contrast: [1.12, 1.22], gamma: [0.9, 0.98] }
+
+  cold:
+    filters:
+      - "colorcorrect=rl={rl}:bl={bl}:rh={rh}:bh={bh}:saturation={sat}"
+      - "eq=contrast={contrast}:gamma={gamma}"
+    params: { rl: [-0.08, -0.04], bl: [0.06, 0.12], rh: [-0.06, -0.02], bh: [0.03, 0.08], sat: [0.7, 0.9], contrast: [1.05, 1.15], gamma: [0.92, 1.0] }
+
+  warm_golden:
+    filters:
+      - "colorcorrect=rl={rl}:bl={bl}:rh={rh}:bh={bh}:saturation={sat}"
+      - "eq=contrast={contrast}:gamma={gamma}"
+    params: { rl: [0.02, 0.05], bl: [-0.08, -0.04], rh: [0.05, 0.1], bh: [-0.12, -0.06], sat: [1.05, 1.2], contrast: [1.02, 1.1], gamma: [1.0, 1.05] }
+
+  vivid:
+    filters:
+      - "eq=contrast={contrast}:saturation={saturation}:gamma={gamma}"
+    params: { contrast: [1.03, 1.09], saturation: [1.2, 1.4], gamma: [1.0, 1.05] }
+
+  pastel:
+    filters:
+      - "eq=contrast={contrast}:saturation={saturation}:brightness={brightness}:gamma={gamma}"
+      - "colorcorrect=rh={rh}:bh={bh}:bl={bl}"
+    params: { contrast: [0.88, 0.95], saturation: [0.8, 0.95], brightness: [0.02, 0.05], gamma: [1.03, 1.1], rh: [0.02, 0.05], bh: [0.02, 0.05], bl: [0.02, 0.05] }
+
+  faded:
+    filters:
+      - "lutyuv=y='{lift}+val*({roll}-{lift})/255'"
+      - "eq=saturation={saturation}:contrast={contrast}"
+      - "colorcorrect=bl={bl}:rh={rh}"
+    params: { lift: [12, 26], roll: [222, 240], saturation: [0.65, 0.85], contrast: [0.96, 1.03], bl: [0.02, 0.06], rh: [0.0, 0.04] }
+
+  horror_green:
+    filters:
+      - "colorcorrect=rl={rl}:bl={bl}:rh={rh}:bh={bh}:saturation={sat}"
+      - "eq=contrast={contrast}:gamma={gamma}:brightness={brightness}"
+    params: { rl: [-0.09, -0.04], bl: [-0.06, -0.02], rh: [-0.04, 0.0], bh: [-0.02, 0.02], sat: [0.5, 0.7], contrast: [1.15, 1.28], gamma: [0.8, 0.92], brightness: [-0.06, -0.02] }
+
+  night_blue:
+    filters:
+      - "colorcorrect=rl={rl}:bl={bl}:rh={rh}:bh={bh}:saturation={sat}"
+      - "eq=contrast={contrast}:gamma={gamma}:brightness={brightness}"
+    params: { rl: [-0.08, -0.04], bl: [0.08, 0.14], rh: [-0.04, -0.01], bh: [0.06, 0.12], sat: [0.55, 0.75], contrast: [1.1, 1.2], gamma: [0.78, 0.9], brightness: [-0.08, -0.03] }
+
+  noir:
+    filters:
+      - "hue=s=0"
+      - "eq=contrast={contrast}:gamma={gamma}"
+      - "lutyuv=y='clip(val+{curve}*(val-128)*(1-abs(val-128)/128),0,255)'"
+    params: { contrast: [1.15, 1.35], gamma: [0.88, 1.0], curve: [0.2, 0.45] }
+
+  sepia:
+    filters:
+      - "hue=s=0"
+      - "lutyuv=u='val-{du}':v='val+{dv}'"
+      - "eq=contrast={contrast}:gamma={gamma}"
+    params: { du: [7, 13], dv: [9, 17], contrast: [1.04, 1.15], gamma: [0.95, 1.05] }
+
+  matrix:
+    filters:
+      - "colorcorrect=rl={rl}:bl={bl}:rh={rh}:bh={bh}:saturation={sat}"
+      - "eq=contrast={contrast}:gamma={gamma}"
+    params: { rl: [-0.08, -0.04], bl: [-0.08, -0.04], rh: [-0.05, -0.02], bh: [-0.06, -0.02], sat: [0.6, 0.8], contrast: [1.1, 1.2], gamma: [0.9, 0.98] }
+
+  western_dust:
+    filters:
+      - "colorcorrect=rl={rl}:bl={bl}:rh={rh}:bh={bh}:saturation={sat}"
+      - "eq=contrast={contrast}:gamma={gamma}"
+    params: { rl: [0.03, 0.07], bl: [-0.08, -0.04], rh: [0.04, 0.08], bh: [-0.1, -0.05], sat: [0.65, 0.85], contrast: [1.1, 1.2], gamma: [0.95, 1.02] }
+
+# Families of footage that already carry a strong look get a fixed grade family.
+family_grades:
+  archival: { sepia: 3, noir: 3, bleach: 1 }

@@ -1,0 +1,949 @@
+# German (Germany) dataset. Names, cities and usernames come from Faker's "de" data
+# (I18n falls back from de-DE to de). Titles are built with real German declension:
+# adjective stems get their endings from title.adjective_endings, articles from title.articles,
+# and every noun carries its gender, genitive and plural forms.
+de-DE:
+  # ASCII spelling of names, used for usernames (Rails I18n transliteration rules)
+  i18n:
+    transliterate:
+      rule:
+        "ä": "ae"
+        "ö": "oe"
+        "ü": "ue"
+        "ß": "ss"
+        "é": "e"
+        "è": "e"
+        "à": "a"
+        "ç": "c"
+
+  cineseed:
+    region:
+      name: "Deutsch (Deutschland)"
+      short: "DE-DE"
+      script: latin
+      order: 2
+
+  faker:
+    movie_store:
+      genres:
+        action: Action
+        adventure: Abenteuer
+        animation: Animation
+        comedy: Komödie
+        crime: Krimi
+        documentary: Dokumentarfilm
+        drama: Drama
+        family: Familienfilm
+        fantasy: Fantasy
+        horror: Horror
+        mystery: Mystery
+        romance: Liebesfilm
+        sci_fi: Science-Fiction
+        thriller: Thriller
+        war: Kriegsfilm
+        western: Western
+
+      kinds:
+        movie: Film
+        series: Serie
+
+      # Patterns for reviewer and liker usernames ({first} {last} {f} {l} {nn} {yy}); names are
+      # transliterated with i18n.transliterate.rule below.
+      usernames: ["{first}.{last}", "{first}_{last}", "{first}{last}", "{f}{last}", "{first}{nn}", "{last}{yy}", "{f}.{last}", "{last}_{first}", "{first}_kino", "filmfreund_{first}", "{first}{last}{nn}", "kinofan{yy}"]
+
+      runtime: "%{h} Std. %{m} Min."
+      runtime_minutes: "%{m} Min."
+      seasons: "Staffeln: %{count}"
+      season_line: "Staffel %{n} · %{year} · %{episodes} Folgen"
+
+      ratings:
+        FSK 0: "Freigegeben ohne Altersbeschränkung"
+        FSK 6: "Freigegeben ab 6 Jahren"
+        FSK 12: "Freigegeben ab 12 Jahren"
+        FSK 16: "Freigegeben ab 16 Jahren"
+        FSK 18: "Keine Jugendfreigabe"
+      rating_by_genre:
+        movie:
+          default: { FSK 12: 6, FSK 16: 3, FSK 6: 1 }
+          family: { FSK 0: 5, FSK 6: 5 }
+          animation: { FSK 0: 6, FSK 6: 4 }
+          horror: { FSK 16: 6, FSK 18: 4 }
+          war: { FSK 16: 7, FSK 12: 3 }
+          crime: { FSK 16: 5, FSK 12: 5 }
+          documentary: { FSK 0: 6, FSK 6: 3, FSK 12: 1 }
+          comedy: { FSK 6: 4, FSK 12: 6 }
+        series:
+          default: { FSK 12: 6, FSK 16: 4 }
+          family: { FSK 0: 6, FSK 6: 4 }
+          animation: { FSK 0: 5, FSK 6: 5 }
+
+      title:
+        case: first
+        articles:
+          def:
+            nom: { m: der, f: die, n: das, pl: die }
+            gen: { m: des, f: der, n: des, pl: der }
+        adjective_endings:
+          regular:
+            weak:
+              nom: { m: e, f: e, n: e, pl: en }
+              gen: { m: en, f: en, n: en, pl: en }
+            strong:
+              nom: { m: er, f: e, n: es, pl: e }
+              gen: { m: en, f: er, n: en, pl: er }
+        patterns:
+          - { w: 9, base: true, t: "{art.def@x} {adj.weak@x} {noun:x}" }
+          - { w: 4, base: true, t: "{adj.strong@x} {noun:x}" }
+          - { w: 2, base: true, t: "{adj.strong@x} {nouns:x}" }
+          - { w: 5, base: true, t: "{art.def@x} {noun:x} {art.def@y.gen} {noun:y.gen}" }
+          - { w: 3, base: true, t: "{art.def@x} {noun:x} {art.def@y.gen} {adj.weak@y.gen} {noun:y.gen}" }
+          - { w: 2, base: true, t: "{art.def@x} {noun:x} {art.def@y.gen} {nouns:y.gen}" }
+          - { w: 3, base: true, t: "{art.def@x} {noun:x}" }
+          - { w: 6, base: true, t: "{pick:single}" }
+          - { w: 6, t: "{pick:phrase}" }
+          - { w: 2, t: "{faker:Name.first_name} und {art.def@x} {noun:x}" }
+          - { w: 4, t: "{pick:city_frame}" }
+          - { w: 4, t: "{pick:prep_frame}" }
+          - { w: 1, t: "{pick:number} {nouns:x}" }
+          - { w: 4, t: "{base}: {pick:subtitle}" }
+          - { w: 3, t: "{base} {pick:sequel}" }
+
+        nouns:
+          # masculine
+          - { g: m, nom: Zeuge, gen: Zeugen, pl: Zeugen, pl_gen: Zeugen, tags: [thriller, crime, drama, mystery] }
+          - { g: m, nom: Wald, gen: Waldes, pl: Wälder, pl_gen: Wälder, tags: [fantasy, horror, family, adventure, animation] }
+          - { g: m, nom: König, gen: Königs, pl: Könige, pl_gen: Könige, tags: [fantasy, drama, war] }
+          - { g: m, nom: Himmel, gen: Himmels, tags: [romance, war, drama, sci_fi, family] }
+          - { g: m, nom: Sturm, gen: Sturms, pl: Stürme, pl_gen: Stürme, tags: [action, adventure, war, drama] }
+          - { g: m, nom: Fluss, gen: Flusses, pl: Flüsse, pl_gen: Flüsse, tags: [drama, western, romance, adventure] }
+          - { g: m, nom: Mond, gen: Mondes, pl: Monde, pl_gen: Monde, tags: [romance, horror, fantasy, sci_fi, family] }
+          - { g: m, nom: Wolf, gen: Wolfes, pl: Wölfe, pl_gen: Wölfe, tags: [horror, fantasy, western, adventure, thriller] }
+          - { g: m, nom: Krieg, gen: Krieges, pl: Kriege, pl_gen: Kriege, tags: [war, drama] }
+          - { g: m, nom: Winter, gen: Winters, tags: [drama, war, romance, fantasy] }
+          - { g: m, nom: Sommer, gen: Sommers, tags: [romance, comedy, drama, family] }
+          - { g: m, nom: Schatten, gen: Schattens, pl: Schatten, pl_gen: Schatten, tags: [horror, thriller, mystery, fantasy, crime] }
+          - { g: m, nom: Drache, gen: Drachen, pl: Drachen, pl_gen: Drachen, tags: [fantasy, family, animation, adventure] }
+          - { g: m, nom: Soldat, gen: Soldaten, pl: Soldaten, pl_gen: Soldaten, tags: [war, action, drama] }
+          - { g: m, nom: Prinz, gen: Prinzen, pl: Prinzen, pl_gen: Prinzen, tags: [fantasy, family, romance, animation] }
+          - { g: m, nom: Held, gen: Helden, pl: Helden, pl_gen: Helden, tags: [action, war, fantasy, family, comedy] }
+          - { g: m, nom: Bär, gen: Bären, pl: Bären, pl_gen: Bären, tags: [family, animation, documentary, comedy] }
+          - { g: m, nom: Engel, gen: Engels, pl: Engel, pl_gen: Engel, tags: [drama, romance, fantasy, horror] }
+          - { g: m, nom: Teufel, gen: Teufels, pl: Teufel, pl_gen: Teufel, tags: [horror, crime, western, comedy] }
+          - { g: m, nom: Jäger, gen: Jägers, pl: Jäger, pl_gen: Jäger, tags: [action, horror, western, fantasy, thriller] }
+          - { g: m, nom: Spion, gen: Spions, pl: Spione, pl_gen: Spione, tags: [thriller, action, comedy, war] }
+          - { g: m, nom: Dieb, gen: Diebes, pl: Diebe, pl_gen: Diebe, tags: [crime, comedy, action, fantasy] }
+          - { g: m, nom: Sheriff, gen: Sheriffs, tags: [western, comedy] }
+          - { g: m, nom: Pilot, gen: Piloten, pl: Piloten, pl_gen: Piloten, tags: [war, action, drama, sci_fi] }
+          - { g: m, nom: Planet, gen: Planeten, pl: Planeten, pl_gen: Planeten, tags: [sci_fi, animation, family, documentary] }
+          - { g: m, nom: Stern, gen: Sterns, pl: Sterne, pl_gen: Sterne, tags: [romance, sci_fi, family, animation, documentary] }
+          - { g: m, nom: Schwur, gen: Schwurs, tags: [drama, war, fantasy, romance] }
+          - { g: m, nom: Fluch, gen: Fluches, tags: [horror, fantasy, mystery, comedy] }
+          - { g: m, nom: Geist, gen: Geistes, pl: Geister, pl_gen: Geister, tags: [horror, comedy, mystery, family] }
+          - { g: m, nom: Kuss, gen: Kusses, tags: [romance, comedy] }
+          - { g: m, nom: Brief, gen: Briefes, pl: Briefe, pl_gen: Briefe, tags: [romance, drama, war, mystery] }
+          - { g: m, nom: Traum, gen: Traumes, pl: Träume, pl_gen: Träume, tags: [drama, romance, fantasy, animation, horror] }
+          - { g: m, nom: Hafen, gen: Hafens, tags: [drama, thriller, crime, romance] }
+          - { g: m, nom: Weg, gen: Weges, pl: Wege, pl_gen: Wege, tags: [drama, western, adventure, family] }
+          - { g: m, nom: Sand, gen: Sandes, tags: [western, war, adventure] }
+          - { g: m, nom: Rauch, gen: Rauches, tags: [war, crime, western, thriller] }
+          - { g: m, nom: Frost, gen: Frostes, tags: [war, horror, drama, fantasy] }
+          - { g: m, nom: Turm, gen: Turmes, pl: Türme, pl_gen: Türme, tags: [fantasy, thriller, horror, sci_fi] }
+          - { g: m, nom: Spiegel, gen: Spiegels, pl: Spiegel, pl_gen: Spiegel, tags: [horror, mystery, fantasy, thriller] }
+          - { g: m, nom: Schlüssel, gen: Schlüssels, tags: [mystery, fantasy, family, thriller] }
+          - { g: m, nom: Schatz, gen: Schatzes, tags: [adventure, family, animation, comedy] }
+          - { g: m, nom: Wächter, gen: Wächters, pl: Wächter, pl_gen: Wächter, tags: [fantasy, sci_fi, action, horror] }
+          - { g: m, nom: Roboter, gen: Roboters, pl: Roboter, pl_gen: Roboter, tags: [sci_fi, family, animation, comedy] }
+          - { g: m, nom: Code, gen: Codes, tags: [thriller, sci_fi, crime, mystery] }
+          - { g: m, nom: Mörder, gen: Mörders, tags: [crime, thriller, horror, mystery] }
+          - { g: m, nom: Gott, gen: Gottes, pl: Götter, pl_gen: Götter, tags: [fantasy, drama, horror, war] }
+          - { g: m, nom: Ozean, gen: Ozeans, tags: [adventure, documentary, family, drama] }
+          - { g: m, nom: Berg, gen: Berges, pl: Berge, pl_gen: Berge, tags: [adventure, documentary, drama, war] }
+          - { g: m, nom: Fremde, gen: Fremden, tags: [western, thriller, drama, horror, romance] }
+          - { g: m, nom: Nachbar, gen: Nachbarn, pl: Nachbarn, pl_gen: Nachbarn, tags: [comedy, horror, thriller, family] }
+          - { g: m, nom: Zug, gen: Zuges, pl: Züge, pl_gen: Züge, tags: [thriller, western, action, mystery, drama] }
+          - { g: m, nom: Vogel, gen: Vogels, pl: Vögel, pl_gen: Vögel, tags: [family, animation, drama, documentary] }
+          - { g: m, nom: Fuchs, gen: Fuchses, pl: Füchse, pl_gen: Füchse, tags: [family, animation, comedy] }
+          - { g: m, nom: Rabe, gen: Raben, pl: Raben, pl_gen: Raben, tags: [horror, fantasy, western, mystery] }
+          - { g: m, nom: Schwarm, gen: Schwarms, tags: [documentary, horror, sci_fi] }
+          # feminine
+          - { g: f, nom: Nacht, gen: Nacht, pl: Nächte, pl_gen: Nächte, tags: [horror, thriller, romance, crime, mystery] }
+          - { g: f, nom: Stadt, gen: Stadt, pl: Städte, pl_gen: Städte, tags: [crime, thriller, drama, sci_fi, romance] }
+          - { g: f, nom: Königin, gen: Königin, tags: [fantasy, drama, romance] }
+          - { g: f, nom: Zeugin, gen: Zeugin, tags: [thriller, crime, drama, mystery] }
+          - { g: f, nom: Rückkehr, gen: Rückkehr, tags: [drama, fantasy, horror, western, war] }
+          - { g: f, nom: Legende, gen: Legende, pl: Legenden, pl_gen: Legenden, tags: [fantasy, adventure, western, family, documentary] }
+          - { g: f, nom: Insel, gen: Insel, pl: Inseln, pl_gen: Inseln, tags: [adventure, mystery, romance, horror, family] }
+          - { g: f, nom: Wahrheit, gen: Wahrheit, tags: [drama, mystery, thriller, crime] }
+          - { g: f, nom: Stille, gen: Stille, tags: [thriller, horror, drama, war, mystery] }
+          - { g: f, nom: Flut, gen: Flut, tags: [drama, adventure, thriller, documentary] }
+          - { g: f, nom: Grenze, gen: Grenze, pl: Grenzen, pl_gen: Grenzen, tags: [western, war, thriller, sci_fi, drama] }
+          - { g: f, nom: Spur, gen: Spur, pl: Spuren, pl_gen: Spuren, tags: [crime, mystery, thriller, adventure] }
+          - { g: f, nom: Schuld, gen: Schuld, tags: [crime, drama, thriller] }
+          - { g: f, nom: Erinnerung, gen: Erinnerung, pl: Erinnerungen, pl_gen: Erinnerungen, tags: [drama, romance, sci_fi, mystery] }
+          - { g: f, nom: Lüge, gen: Lüge, pl: Lügen, pl_gen: Lügen, tags: [thriller, drama, crime, comedy] }
+          - { g: f, nom: Rache, gen: Rache, tags: [action, western, crime, thriller] }
+          - { g: f, nom: Hoffnung, gen: Hoffnung, tags: [drama, war, family, documentary] }
+          - { g: f, nom: Liebe, gen: Liebe, tags: [romance, drama, comedy] }
+          - { g: f, nom: Sehnsucht, gen: Sehnsucht, tags: [romance, drama] }
+          - { g: f, nom: Brücke, gen: Brücke, pl: Brücken, pl_gen: Brücken, tags: [drama, war, romance, thriller] }
+          - { g: f, nom: Küste, gen: Küste, tags: [drama, romance, thriller] }
+          - { g: f, nom: Wüste, gen: Wüste, tags: [western, war, adventure, sci_fi] }
+          - { g: f, nom: Station, gen: Station, tags: [sci_fi, thriller, horror] }
+          - { g: f, nom: Kolonie, gen: Kolonie, tags: [sci_fi, horror, war] }
+          - { g: f, nom: Mission, gen: Mission, tags: [action, sci_fi, war, comedy] }
+          - { g: f, nom: Maschine, gen: Maschine, pl: Maschinen, pl_gen: Maschinen, tags: [sci_fi, action, thriller] }
+          - { g: f, nom: Prophezeiung, gen: Prophezeiung, tags: [fantasy, horror, drama] }
+          - { g: f, nom: Hexe, gen: Hexe, pl: Hexen, pl_gen: Hexen, tags: [horror, fantasy, family, comedy] }
+          - { g: f, nom: Krone, gen: Krone, tags: [fantasy, drama, war] }
+          - { g: f, nom: Asche, gen: Asche, tags: [war, drama, fantasy, horror] }
+          - { g: f, nom: Glut, gen: Glut, tags: [romance, drama, war, fantasy] }
+          - { g: f, nom: Tiefe, gen: Tiefe, tags: [horror, adventure, documentary, thriller] }
+          - { g: f, nom: Dunkelheit, gen: Dunkelheit, tags: [horror, fantasy, thriller] }
+          - { g: f, nom: Jagd, gen: Jagd, tags: [action, thriller, horror, western] }
+          - { g: f, nom: Reise, gen: Reise, tags: [adventure, family, documentary, drama, comedy] }
+          - { g: f, nom: Expedition, gen: Expedition, tags: [adventure, documentary, horror] }
+          - { g: f, nom: Wildnis, gen: Wildnis, tags: [adventure, documentary, western] }
+          - { g: f, nom: Erde, gen: Erde, tags: [documentary, sci_fi, drama] }
+          - { g: f, nom: Stimme, gen: Stimme, pl: Stimmen, pl_gen: Stimmen, tags: [horror, mystery, drama, romance] }
+          - { g: f, nom: Tochter, gen: Tochter, pl: Töchter, pl_gen: Töchter, tags: [drama, family, thriller, horror] }
+          - { g: f, nom: Schwester, gen: Schwester, pl: Schwestern, pl_gen: Schwestern, tags: [drama, comedy, family, horror] }
+          - { g: f, nom: Braut, gen: Braut, tags: [comedy, romance, horror] }
+          - { g: f, nom: Hochzeit, gen: Hochzeit, tags: [comedy, romance] }
+          - { g: f, nom: Familie, gen: Familie, tags: [comedy, drama, family, crime] }
+          - { g: f, nom: Bande, gen: Bande, tags: [crime, comedy, family, western] }
+          - { g: f, nom: Beute, gen: Beute, tags: [crime, action, documentary, thriller] }
+          - { g: f, nom: Seele, gen: Seele, pl: Seelen, pl_gen: Seelen, tags: [horror, drama, fantasy, romance] }
+          - { g: f, nom: Krähe, gen: Krähe, pl: Krähen, pl_gen: Krähen, tags: [horror, fantasy, western] }
+          - { g: f, nom: Ruine, gen: Ruine, pl: Ruinen, pl_gen: Ruinen, tags: [war, fantasy, adventure, sci_fi] }
+          - { g: f, nom: Welle, gen: Welle, pl: Wellen, pl_gen: Wellen, tags: [drama, romance, adventure, documentary] }
+          # neuter
+          - { g: n, nom: Lied, gen: Liedes, pl: Lieder, pl_gen: Lieder, tags: [romance, drama, family, animation, documentary] }
+          - { g: n, nom: Haus, gen: Hauses, tags: [horror, drama, comedy, family, mystery] }
+          - { g: n, nom: Herz, gen: Herzens, pl: Herzen, pl_gen: Herzen, tags: [romance, drama, family, comedy] }
+          - { g: n, nom: Erbe, gen: Erbes, tags: [drama, mystery, crime, fantasy] }
+          - { g: n, nom: Geheimnis, gen: Geheimnisses, tags: [mystery, drama, romance, thriller, family] }
+          - { g: n, nom: Feuer, gen: Feuers, tags: [action, drama, war, horror] }
+          - { g: n, nom: Blut, gen: Blutes, tags: [horror, war, action, crime, western] }
+          - { g: n, nom: Eis, gen: Eises, tags: [documentary, adventure, sci_fi, horror] }
+          - { g: n, nom: Schweigen, gen: Schweigens, tags: [thriller, drama, war, mystery] }
+          - { g: n, nom: Tal, gen: Tales, tags: [western, drama, horror, family] }
+          - { g: n, nom: Meer, gen: Meeres, tags: [adventure, documentary, romance, drama] }
+          - { g: n, nom: Reich, gen: Reiches, tags: [fantasy, war, sci_fi, drama] }
+          - { g: n, nom: Land, gen: Landes, tags: [drama, western, war, documentary] }
+          - { g: n, nom: Gold, gen: Goldes, tags: [western, adventure, crime] }
+          - { g: n, nom: Spiel, gen: Spiels, tags: [thriller, action, comedy, sci_fi, crime] }
+          - { g: n, nom: Signal, gen: Signals, tags: [sci_fi, thriller, mystery] }
+          - { g: n, nom: Echo, gen: Echos, tags: [mystery, horror, sci_fi, drama] }
+          - { g: n, nom: Versprechen, gen: Versprechens, tags: [romance, drama, family, war] }
+          - { g: n, nom: Kind, gen: Kindes, pl: Kinder, pl_gen: Kinder, tags: [drama, family, horror, war] }
+          - { g: n, nom: Mädchen, gen: Mädchens, tags: [drama, family, horror, thriller, mystery] }
+          - { g: n, nom: Paradies, gen: Paradieses, tags: [romance, drama, comedy, adventure] }
+          - { g: n, nom: Labyrinth, gen: Labyrinths, tags: [fantasy, mystery, thriller, horror] }
+          - { g: n, nom: Schiff, gen: Schiffes, pl: Schiffe, pl_gen: Schiffe, tags: [adventure, war, sci_fi, family] }
+          - { g: n, nom: Experiment, gen: Experiments, tags: [sci_fi, horror, thriller] }
+          - { g: n, nom: Ende, gen: Endes, tags: [drama, sci_fi, war, horror] }
+          - { g: n, nom: Licht, gen: Lichts, pl: Lichter, pl_gen: Lichter, tags: [drama, sci_fi, romance, documentary] }
+          - { g: n, nom: Schicksal, gen: Schicksals, tags: [drama, fantasy, romance, war] }
+          - { g: n, nom: Testament, gen: Testaments, tags: [crime, comedy, drama, mystery] }
+          - { g: n, nom: Wunder, gen: Wunders, pl: Wunder, pl_gen: Wunder, tags: [family, drama, comedy, documentary] }
+          - { g: n, nom: Abenteuer, gen: Abenteuers, tags: [adventure, family, animation, comedy] }
+          - { g: n, nom: Monster, gen: Monsters, pl: Monster, pl_gen: Monster, tags: [horror, family, animation, comedy] }
+          - { g: n, nom: Gespenst, gen: Gespenstes, pl: Gespenster, pl_gen: Gespenster, tags: [horror, comedy, family, mystery] }
+          - { g: n, nom: Rätsel, gen: Rätsels, tags: [mystery, family, thriller] }
+          - { g: n, nom: Tagebuch, gen: Tagebuchs, tags: [drama, mystery, romance, war] }
+          - { g: n, nom: Ufer, gen: Ufers, tags: [drama, romance, western] }
+          - { g: n, nom: Moor, gen: Moores, tags: [horror, mystery, crime, drama] }
+          - { g: n, nom: Imperium, gen: Imperiums, tags: [sci_fi, war, fantasy, crime] }
+
+        adjectives:
+          - { stem: letzt, class: regular, tags: [action, war, western, drama, sci_fi, horror] }
+          - { stem: still, class: regular, tags: [thriller, horror, drama, war, mystery, romance] }
+          - { stem: kalt, class: regular, tags: [thriller, crime, war, drama, sci_fi] }
+          - { stem: dunkl, class: regular, tags: [horror, thriller, fantasy, crime, mystery] }
+          - { stem: schwarz, class: regular, tags: [crime, horror, western, war, thriller] }
+          - { stem: weiß, class: regular, tags: [war, drama, thriller, horror] }
+          - { stem: rot, class: regular, tags: [war, western, action, horror, thriller] }
+          - { stem: blau, class: regular, tags: [romance, drama, sci_fi, crime] }
+          - { stem: grau, class: regular, tags: [war, drama, thriller] }
+          - { stem: golden, class: regular, tags: [fantasy, adventure, romance, family, western] }
+          - { stem: silbern, class: regular, tags: [western, romance, sci_fi, fantasy, family] }
+          - { stem: eisern, class: regular, tags: [war, action, fantasy, sci_fi] }
+          - { stem: gläsern, class: regular, tags: [drama, thriller, fantasy, romance] }
+          - { stem: verloren, class: regular, tags: [adventure, drama, fantasy, mystery, family] }
+          - { stem: vergessen, class: regular, tags: [war, drama, mystery, horror, fantasy] }
+          - { stem: verborgen, class: regular, tags: [mystery, thriller, fantasy, family, documentary] }
+          - { stem: gebrochen, class: regular, tags: [drama, romance, war, thriller] }
+          - { stem: zerbrochen, class: regular, tags: [drama, thriller, war, sci_fi] }
+          - { stem: ewig, class: regular, tags: [fantasy, romance, horror, sci_fi] }
+          - { stem: tot, class: regular, tags: [horror, crime, western, comedy, thriller] }
+          - { stem: wild, class: regular, tags: [adventure, comedy, western, family, documentary, romance] }
+          - { stem: fremd, class: regular, tags: [sci_fi, thriller, drama, western] }
+          - { stem: geheim, class: regular, tags: [mystery, family, romance, comedy, thriller] }
+          - { stem: stumm, class: regular, tags: [thriller, horror, drama, mystery] }
+          - { stem: blutig, class: regular, tags: [horror, war, action, western] }
+          - { stem: heilig, class: regular, tags: [horror, drama, war, fantasy] }
+          - { stem: einsam, class: regular, tags: [drama, romance, western, sci_fi] }
+          - { stem: bitter, class: regular, tags: [drama, war, crime, western, romance] }
+          - { stem: erst, class: regular, tags: [romance, drama, sci_fi, family, comedy] }
+          - { stem: neu, class: regular, tags: [comedy, romance, sci_fi, family] }
+          - { stem: alt, class: regular, tags: [western, drama, comedy, horror] }
+          - { stem: jung, class: regular, tags: [drama, romance, comedy, war] }
+          - { stem: schön, class: regular, tags: [romance, drama, comedy, documentary] }
+          - { stem: klein, class: regular, tags: [comedy, family, animation, drama] }
+          - { stem: groß, class: regular, tags: [comedy, family, animation, adventure] }
+          - { stem: gefährlich, class: regular, tags: [thriller, crime, action, romance, comedy] }
+          - { stem: verrückt, class: regular, tags: [comedy, action] }
+          - { stem: verflucht, class: regular, tags: [horror, fantasy, western, comedy] }
+          - { stem: brennend, class: regular, tags: [action, war, drama, thriller, horror] }
+          - { stem: eisig, class: regular, tags: [adventure, horror, documentary, war, sci_fi] }
+          - { stem: endlos, class: regular, tags: [romance, drama, sci_fi, documentary] }
+          - { stem: unsichtbar, class: regular, tags: [sci_fi, thriller, comedy, drama, horror] }
+          - { stem: unendlich, class: regular, tags: [sci_fi, drama, documentary] }
+          - { stem: nördlich, class: regular, tags: [war, drama, adventure, western, documentary] }
+          - { stem: fern, class: regular, tags: [sci_fi, drama, war, romance, documentary] }
+          - { stem: lautlos, class: regular, tags: [thriller, horror, war, mystery] }
+          - { stem: falsch, class: regular, tags: [crime, thriller, comedy, drama] }
+          - { stem: mitternächtlich, class: regular, tags: [horror, romance, crime, mystery] }
+          - { stem: hungrig, class: regular, tags: [horror, comedy, documentary, family] }
+          - { stem: glücklich, class: regular, tags: [comedy, family, romance] }
+          - { stem: perfekt, class: regular, tags: [comedy, romance, thriller, drama] }
+          - { stem: süß, class: regular, tags: [romance, comedy, family] }
+          - { stem: tödlich, class: regular, tags: [action, thriller, crime, horror] }
+          - { stem: stolz, class: regular, tags: [drama, western, war, family] }
+          - { stem: tapfer, class: regular, tags: [family, animation, war, adventure, fantasy] }
+          - { stem: magisch, class: regular, tags: [fantasy, family, animation] }
+          - { stem: heimlich, class: regular, tags: [mystery, romance, comedy, thriller] }
+          - { stem: gestohlen, class: regular, tags: [crime, thriller, drama, mystery] }
+          - { stem: schlaflos, class: regular, tags: [thriller, romance, drama, horror] }
+          - { stem: wahr, class: regular, tags: [drama, documentary, crime] }
+          - { stem: digital, class: regular, tags: [sci_fi, thriller, documentary] }
+          - { stem: atomar, class: regular, tags: [sci_fi, war, action, documentary] }
+          - { stem: königlich, class: regular, tags: [fantasy, drama, romance, comedy] }
+
+        lists:
+          single:
+            - { v: "Nachtfalter", tags: [horror, thriller, romance, mystery] }
+            - { v: "Eisenherz", tags: [war, fantasy, action] }
+            - { v: "Sturmflut", tags: [action, drama, documentary, thriller] }
+            - { v: "Schattenland", tags: [fantasy, horror, adventure] }
+            - { v: "Aschenregen", tags: [war, sci_fi, drama] }
+            - { v: "Glutnacht", tags: [thriller, romance, crime] }
+            - { v: "Wolfsmond", tags: [horror, fantasy] }
+            - { v: "Blutgold", tags: [western, crime, action] }
+            - { v: "Funkstille", tags: [thriller, sci_fi, drama, comedy] }
+            - { v: "Nebelwand", tags: [horror, mystery, thriller] }
+            - { v: "Sternenstaub", tags: [romance, family, animation, sci_fi] }
+            - { v: "Schwarzwasser", tags: [horror, thriller, crime] }
+            - { v: "Frostzeit", tags: [war, drama, sci_fi] }
+            - { v: "Donnerhall", tags: [action, war, western] }
+            - { v: "Totenstille", tags: [horror, thriller, crime] }
+            - { v: "Wüstenwind", tags: [western, adventure, war] }
+            - { v: "Grenzland", tags: [western, war, drama, thriller] }
+            - { v: "Mitternachtszug", tags: [mystery, thriller, romance] }
+            - { v: "Falschgeld", tags: [crime, comedy, thriller] }
+            - { v: "Glashaus", tags: [thriller, drama, mystery] }
+            - { v: "Morgengrauen", tags: [horror, war, drama] }
+            - { v: "Feuerprobe", tags: [action, drama, war] }
+            - { v: "Seelenfänger", tags: [horror, fantasy] }
+            - { v: "Heimweh", tags: [drama, romance, family] }
+            - { v: "Fernweh", tags: [romance, adventure, comedy, documentary] }
+            - { v: "Zugvögel", tags: [documentary, drama, family] }
+            - { v: "Schneeblind", tags: [thriller, horror, crime] }
+            - { v: "Brandmal", tags: [crime, horror, western] }
+            - { v: "Kaltfront", tags: [thriller, crime, war] }
+            - { v: "Sandsturm", tags: [war, adventure, sci_fi] }
+            - { v: "Irrlicht", tags: [fantasy, horror, mystery] }
+            - { v: "Tiefenrausch", tags: [adventure, thriller, documentary] }
+            - { v: "Strandgut", tags: [drama, comedy, romance] }
+            - { v: "Rabenschwarz", tags: [horror, crime, fantasy] }
+            - { v: "Herzflimmern", tags: [romance, comedy, drama] }
+            - { v: "Kopfgeld", tags: [western, action, crime] }
+            - { v: "Wolkenbruch", tags: [drama, comedy, romance] }
+            - { v: "Nordlicht", tags: [romance, documentary, drama] }
+            - { v: "Zeitsprung", tags: [sci_fi, comedy, family] }
+            - { v: "Sternfahrer", tags: [sci_fi, adventure, family] }
+            - { v: "Polarnacht", tags: [horror, thriller, documentary] }
+            - { v: "Hexenwerk", tags: [fantasy, comedy, horror, family] }
+            - { v: "Luftschloss", tags: [romance, comedy, family, fantasy] }
+            - { v: "Lampenfieber", tags: [comedy, drama, romance] }
+            - { v: "Glückspilz", tags: [comedy, family] }
+            - { v: "Pechvogel", tags: [comedy, family] }
+            - { v: "Schlitzohr", tags: [comedy, crime] }
+            - { v: "Wirbelwind", tags: [family, animation, comedy, action] }
+            - { v: "Erdenkinder", tags: [documentary, drama, family] }
+            - { v: "Stahlgewitter", tags: [war, action] }
+            - { v: "Funkenflug", tags: [action, drama, war] }
+            - { v: "Gezeitenwechsel", tags: [drama, romance, mystery] }
+            - { v: "Grabesruhe", tags: [horror, mystery, crime] }
+            - { v: "Hagelschlag", tags: [action, drama, western] }
+            - { v: "Herbstzeitlose", tags: [romance, drama] }
+            - { v: "Himmelsstürmer", tags: [adventure, family, animation] }
+            - { v: "Kältewelle", tags: [thriller, sci_fi, drama] }
+            - { v: "Kreidezeit", tags: [documentary, family, adventure] }
+            - { v: "Lichtjahre", tags: [sci_fi, romance, documentary] }
+            - { v: "Mitternachtssonne", tags: [romance, drama, documentary] }
+            - { v: "Moorleuchten", tags: [horror, mystery, fantasy] }
+            - { v: "Spätschicht", tags: [crime, comedy, thriller] }
+            - { v: "Pulverdampf", tags: [western, war, action] }
+            - { v: "Salzwiesen", tags: [drama, romance, mystery] }
+            - { v: "Schattenspiel", tags: [mystery, thriller, fantasy] }
+            - { v: "Schneegestöber", tags: [family, comedy, romance] }
+            - { v: "Silberstreif", tags: [drama, romance, family] }
+            - { v: "Sonnenwende", tags: [fantasy, horror, drama] }
+            - { v: "Staubfänger", tags: [comedy, family] }
+            - { v: "Sternschnuppe", tags: [romance, family, animation] }
+            - { v: "Taschendieb", tags: [crime, comedy] }
+            - { v: "Tiefseetaucher", tags: [adventure, documentary, sci_fi] }
+            - { v: "Trugbild", tags: [mystery, thriller, sci_fi] }
+            - { v: "Unterholz", tags: [horror, thriller, crime] }
+            - { v: "Wetterleuchten", tags: [drama, war, thriller] }
+            - { v: "Windstille", tags: [drama, romance, sci_fi] }
+            - { v: "Wolfsgrube", tags: [horror, war, thriller] }
+            - { v: "Zauberwald", tags: [fantasy, family, animation] }
+            - { v: "Zwielicht", tags: [horror, mystery, fantasy] }
+            - { v: "Goldrausch", tags: [western, adventure, comedy] }
+            - { v: "Galgenfrist", tags: [western, crime, thriller] }
+            - { v: "Eiskalt", tags: [thriller, crime, action] }
+            - { v: "Gegenwind", tags: [drama, action, documentary] }
+            - { v: "Kometenjahr", tags: [sci_fi, family, drama] }
+            - { v: "Maulwurf", tags: [crime, thriller, comedy] }
+            - { v: "Funkloch", tags: [comedy, horror, thriller] }
+            - { v: "Hirngespinst", tags: [comedy, mystery, sci_fi] }
+            - { v: "Lebkuchenherz", tags: [romance, comedy, family] }
+            - { v: "Glücksritter", tags: [adventure, comedy, western] }
+            - { v: "Schwarzmarkt", tags: [crime, war, thriller] }
+          phrase:
+            - { v: "Kein Weg zurück", tags: [action, thriller, war] }
+            - { v: "Jenseits der Stille", tags: [drama, mystery, romance] }
+            - { v: "Bis ans Ende der Welt", tags: [adventure, romance, drama, documentary] }
+            - { v: "Wenn die Nacht kommt", tags: [horror, thriller, romance] }
+            - { v: "Was der Fluss verschweigt", tags: [mystery, drama, crime] }
+            - { v: "Niemand schläft heute Nacht", tags: [horror, thriller, comedy] }
+            - { v: "Ein Sommer am Meer", tags: [romance, comedy, family, drama] }
+            - { v: "Zwischen zwei Feuern", tags: [war, drama, western, thriller] }
+            - { v: "Wo die Wölfe heulen", tags: [western, adventure, horror, documentary] }
+            - { v: "Tote tanzen nicht", tags: [crime, comedy, western] }
+            - { v: "Irgendwo nach Mitternacht", tags: [romance, thriller, mystery] }
+            - { v: "Ein Lied für die Verlorenen", tags: [drama, war, romance] }
+            - { v: "Der Tag, an dem der Himmel fiel", tags: [sci_fi, action, war, drama] }
+            - { v: "Alles brennt zweimal", tags: [thriller, drama, crime] }
+            - { v: "Kleine Wunder", tags: [family, drama, comedy] }
+            - { v: "Zu spät für Helden", tags: [war, western, action] }
+            - { v: "Das Mädchen, das die Sterne zählte", tags: [drama, family, fantasy, romance] }
+            - { v: "Wie man einen Planeten stiehlt", tags: [comedy, sci_fi, family, animation] }
+            - { v: "Mein Nachbar ist ein Monster", tags: [comedy, family, horror, animation] }
+            - { v: "Zehn Tage im Paradies", tags: [comedy, romance, thriller] }
+            - { v: "Ein letzter Sommer", tags: [romance, drama, comedy] }
+            - { v: "Halt die Stellung", tags: [war, action, drama] }
+            - { v: "Schau nicht in den See", tags: [horror, thriller] }
+            - { v: "Etwas in den Wänden", tags: [horror, mystery] }
+            - { v: "Die Wahrheit über die Hafenstraße", tags: [mystery, drama, crime] }
+            - { v: "Als die Lichter ausgingen", tags: [horror, thriller, drama, sci_fi] }
+            - { v: "Omas letzter Coup", tags: [comedy, crime, family] }
+            - { v: "Liebe im Rauschen", tags: [romance, sci_fi, comedy] }
+            - { v: "Achtzig Meilen schlechter Weg", tags: [western, comedy, adventure] }
+            - { v: "Reite bis Sonnenuntergang", tags: [western, action] }
+            - { v: "Der Planet unter uns", tags: [documentary, sci_fi] }
+            - { v: "Könige des kalten Meeres", tags: [documentary, adventure, war] }
+            - { v: "Eine sehr laute Hochzeit", tags: [comedy, romance] }
+            - { v: "Lauf wie der Donner", tags: [action, family] }
+            - { v: "Wir waren nie hier", tags: [thriller, crime, mystery, sci_fi] }
+            - { v: "Der Klang fallenden Schnees", tags: [drama, romance, war] }
+            - { v: "Lichter über dem Moor", tags: [sci_fi, mystery, horror] }
+            - { v: "Der Drache, der Montage hasste", tags: [animation, family, comedy, fantasy] }
+            - { v: "Der Nebel holt jeden", tags: [horror, mystery] }
+            - { v: "Erst schießen, dann beten", tags: [western, action, comedy] }
+            - { v: "Die Karte am Ende der Welt", tags: [adventure, fantasy, family] }
+            - { v: "Sommer, Sonne, Chaos", tags: [comedy, family, romance] }
+            - { v: "Tod im Dreivierteltakt", tags: [crime, mystery, comedy] }
+            - { v: "Morgen ist auch noch ein Tag", tags: [drama, comedy, romance] }
+            - { v: "Sieben Tage bis zum Frühling", tags: [romance, drama, family] }
+            - { v: "Ein Brief aus der Vergangenheit", tags: [drama, mystery, romance, war] }
+            - { v: "Wer hat Martha getötet?", tags: [crime, mystery, thriller] }
+            - { v: "Unter fremdem Himmel", tags: [drama, war, romance, sci_fi] }
+            - { v: "Die Nacht gehört uns", tags: [romance, crime, thriller] }
+            - { v: "Nur der Wind weiß es", tags: [mystery, drama, romance] }
+            - { v: "Wer zuletzt lacht", tags: [comedy, crime] }
+            - { v: "Ein Haus voller Geister", tags: [horror, comedy, family] }
+            - { v: "Bevor der Schnee fällt", tags: [drama, romance, war] }
+            - { v: "Das Schweigen der Berge", tags: [drama, thriller, documentary] }
+            - { v: "Zurück nach Hause", tags: [drama, family, war] }
+            - { v: "Keiner kommt hier lebend raus", tags: [horror, thriller, action] }
+            - { v: "Der Junge, der die Sonne lieh", tags: [animation, family, fantasy] }
+            - { v: "Weckt nicht die Nachbarn", tags: [comedy, horror] }
+            - { v: "Jede Sekunde zählt", tags: [action, thriller, sci_fi] }
+            - { v: "Briefe, die nie ankamen", tags: [romance, drama, war] }
+            - { v: "Geister zahlen keine Miete", tags: [comedy, horror, family] }
+            - { v: "Unter dem Eis", tags: [thriller, horror, documentary, sci_fi] }
+            - { v: "Sommer der falschen Entscheidungen", tags: [comedy, romance] }
+            - { v: "Geboren unter rotem Himmel", tags: [war, drama, western] }
+            - { v: "Das geheime Leben der Leuchttürme", tags: [documentary, mystery, family] }
+            - { v: "Die Wölfe vom Silbertal", tags: [western, adventure, fantasy] }
+            - { v: "Einer muss bezahlen", tags: [crime, thriller] }
+            - { v: "Der letzte Zug hinaus", tags: [war, thriller, drama] }
+            - { v: "Wo die Karte endet", tags: [adventure, fantasy, documentary] }
+            - { v: "Rauschen auf Kanal neun", tags: [horror, mystery, sci_fi] }
+            - { v: "Der Roboter von nebenan", tags: [animation, family, sci_fi, comedy] }
+            - { v: "Liebe mit Unterbrechungen", tags: [romance, comedy, drama] }
+            - { v: "Zwei Meter Schnee", tags: [thriller, horror, crime] }
+            - { v: "Keine Heiligen in Staubtal", tags: [western, crime] }
+            - { v: "Der Garten bei Nacht", tags: [mystery, horror, romance] }
+            - { v: "Der große Puddingraub", tags: [comedy, family, animation] }
+            - { v: "Herzen wie Donner", tags: [romance, action, drama] }
+            - { v: "Kinder des langen Winters", tags: [fantasy, drama, war] }
+            - { v: "Der Mann, der den Regen verkaufte", tags: [comedy, fantasy, drama] }
+            - { v: "Brüder im Staub", tags: [war, western, drama] }
+            - { v: "Ein Signal aus der Tiefe", tags: [sci_fi, thriller, horror] }
+            - { v: "Hundert Jahre Donner", tags: [documentary, war, drama] }
+            - { v: "Die Rückkehr der Papierkönige", tags: [fantasy, adventure, comedy] }
+            - { v: "Der letzte Tanz im Paradies", tags: [romance, crime, drama] }
+            - { v: "Mit dem letzten Tropfen Benzin", tags: [comedy, action, crime] }
+            - { v: "Am Rand von allem", tags: [drama, sci_fi, romance] }
+            - { v: "Was wir begraben haben", tags: [horror, mystery, crime] }
+            - { v: "Ein Wolf vor der Tür", tags: [thriller, horror, crime] }
+            - { v: "Das Haus erinnert sich", tags: [horror, mystery, drama] }
+            - { v: "Zähl bis zehn und lauf", tags: [thriller, horror] }
+            - { v: "Das Jahr, in dem wir zerbrachen", tags: [drama, romance] }
+            - { v: "Kleine Stadt, großer Ärger", tags: [comedy, crime, family] }
+            - { v: "Abendessen mit dem Teufel", tags: [horror, comedy, crime] }
+            - { v: "Der Mond lügt", tags: [sci_fi, mystery, fantasy] }
+            - { v: "Wenn der Schnee schmilzt", tags: [drama, romance, war] }
+            - { v: "Ein Königreich aus Glas", tags: [fantasy, drama] }
+            - { v: "Die lange Nachtschicht", tags: [crime, thriller, comedy] }
+            - { v: "Der letzte Ehrliche im Westen", tags: [western, comedy, crime] }
+          prep_frame:
+            - { v: "Im Schatten {art.def@x.gen} {noun:x.gen}", tags: [horror, thriller, drama, war, crime] }
+            - { v: "Jenseits {art.def@x.gen} {noun:x.gen}", tags: [adventure, fantasy, sci_fi, drama] }
+            - { v: "Am Ende {art.def@x.gen} {noun:x.gen}", tags: [drama, war, sci_fi, romance] }
+            - { v: "Im Herzen {art.def@x.gen} {noun:x.gen}", tags: [adventure, drama, romance, documentary] }
+            - { v: "Auf der Spur {art.def@x.gen} {adj.weak@x.gen} {noun:x.gen}", tags: [crime, mystery, adventure, family] }
+            - { v: "Im Zeichen {art.def@x.gen} {adj.weak@x.gen} {noun:x.gen}", tags: [fantasy, horror, war] }
+            - { v: "Die Stunde {art.def@x.gen} {nouns:x.gen}", tags: [horror, war, fantasy, action] }
+          city_frame:
+            - { v: "Rückkehr nach {faker:Address.city}", tags: [drama, horror, mystery, romance] }
+            - { v: "Der letzte Zug nach {faker:Address.city}", tags: [thriller, western, drama, war] }
+            - { v: "Mord in {faker:Address.city}", tags: [crime, mystery, thriller] }
+            - { v: "Flucht aus {faker:Address.city}", tags: [action, sci_fi, thriller, war] }
+            - { v: "Nächte in {faker:Address.city}", tags: [romance, crime, drama] }
+            - { v: "Willkommen in {faker:Address.city}", tags: [comedy, horror, family] }
+            - { v: "Der Coup von {faker:Address.city}", tags: [crime, comedy, action] }
+            - { v: "Abschied von {faker:Address.city}", tags: [drama, romance, war] }
+            - { v: "{faker:Address.city} bei Nacht", tags: [crime, thriller, romance] }
+            - { v: "Die Geister von {faker:Address.city}", tags: [horror, mystery, documentary] }
+            - { v: "Ein Sommer in {faker:Address.city}", tags: [romance, comedy, family, drama] }
+            - { v: "{faker:Address.city} sehen und sterben", tags: [crime, comedy, thriller] }
+          number:
+            - { v: Zwei }
+            - { v: Drei }
+            - { v: Vier }
+            - { v: Fünf }
+            - { v: Sieben }
+            - { v: Neun }
+            - { v: Zehn }
+            - { v: Zwölf }
+            - { v: "Dreizehn", tags: [horror, thriller] }
+            - { v: "Hundert", tags: [war, drama, documentary] }
+          subtitle:
+            - { v: "Die Abrechnung", tags: [action, western, thriller, crime] }
+            - { v: "Tag Null", tags: [sci_fi, action, horror] }
+            - { v: "Das Vermächtnis", tags: [drama, war, sci_fi, fantasy] }
+            - { v: "Die Auferstehung", tags: [horror, sci_fi, action] }
+            - { v: "Das letzte Gefecht", tags: [war, western, action] }
+            - { v: "Die Offenbarung", tags: [mystery, horror, sci_fi] }
+            - { v: "Der Ursprung", tags: [fantasy, sci_fi, action] }
+            - { v: "Der Aufstand", tags: [war, sci_fi, action] }
+            - { v: "Exodus", tags: [sci_fi, war, drama] }
+            - { v: "Requiem", tags: [war, drama, horror] }
+            - { v: "Die Rückkehr", tags: [horror, fantasy, western, drama] }
+            - { v: "Vergeltung", tags: [action, crime, thriller] }
+            - { v: "Ins Auge des Sturms", tags: [adventure, action, war] }
+            - { v: "Blutmond", tags: [horror, western, fantasy] }
+            - { v: "Stunde Null", tags: [war, sci_fi, thriller] }
+            - { v: "Das verlorene Kapitel", tags: [mystery, fantasy, family] }
+            - { v: "Zweite Chancen", tags: [romance, drama, comedy] }
+            - { v: "Neues Blut", tags: [crime, horror, action] }
+            - { v: "Der Kreis schließt sich", tags: [drama, crime, sci_fi] }
+            - { v: "Sommerferien", tags: [comedy, family, romance] }
+            - { v: "Der große Fluchtplan", tags: [comedy, family, animation] }
+            - { v: "Der Aufstieg {art.def@z.gen} {nouns:z.gen}", tags: [fantasy, sci_fi, horror, action, family] }
+            - { v: "Die Rückkehr {art.def@z.gen} {noun:z.gen}", tags: [fantasy, horror, western, comedy] }
+            - { v: "Der Fluch {art.def@z.gen} {adj.weak@z.gen} {noun:z.gen}", tags: [horror, fantasy, adventure] }
+            - { v: "Das Lied {art.def@z.gen} {nouns:z.gen}", tags: [fantasy, drama, family] }
+          sequel:
+            - { v: "2" }
+            - { v: "3" }
+            - { v: II }
+            - { v: III }
+            - { v: IV }
+            - { v: ": Teil II" }
+            - { v: ": Teil III" }
+
+      taglines:
+        action:
+          - "Keine Regeln. Keine Rückendeckung. Keine zweite Chance."
+          - "Die Uhr lief, sobald sie Nein gesagt hatte."
+          - "Manche Missionen haben keinen Rückweg."
+          - "Er wollte ein ruhiges Jahr. Die Welt hatte andere Pläne."
+          - "Jede Straße aus der Stadt brennt bereits."
+          - "Der letzte Auftrag ist immer der, der schiefgeht."
+        adventure:
+          - "Die Karte endet hier. Ihre Reise nicht."
+          - "Jede Legende beginnt mit jemandem, der verrückt genug ist."
+          - "Hinter dem letzten Fluss liegt das erste Wunder."
+          - "Leichtes Gepäck. Niemandem trauen. Weitergehen."
+          - "Die Welt ist größer als alle Geschichten über sie."
+          - "Manche Schätze werden von mehr als Schlössern bewacht."
+        animation:
+          - "Kleiner Held. Riesiges Problem."
+          - "Jeder Wald hat ein Geheimnis. Dieser hat hundert."
+          - "Freundschaft war noch nie so flauschig."
+          - "Ein Wunsch. Keine Gebrauchsanweisung."
+          - "Die größten Abenteuer beginnen im eigenen Garten."
+          - "Auch Legenden fangen klein an."
+        comedy:
+          - "Was soll schon schiefgehen? Alles. Zweimal."
+          - "Sie hatten nur eine Aufgabe. Und haben sie nicht erledigt."
+          - "Familie ist für immer. Leider."
+          - "Ein perfekter Plan, ausgeführt von sehr unperfekten Menschen."
+          - "Liebe ist geduldig. Liebe ist freundlich. Liebe ist sehr, sehr laut."
+          - "Das Wochenende, das alle Leben ruinierte. Urkomisch."
+        crime:
+          - "In dieser Stadt schuldet jeder irgendwem etwas."
+          - "Die Wahrheit hat ihren Preis. Sie zahlt ihn."
+          - "Jedes Geständnis hat eine zweite Fassung."
+          - "Verbrechen lohnt sich. Bis die Rechnung kommt."
+          - "Eine Tasche voller Geld. Fünf Leute, die sie wollen."
+          - "Manche Schulden zahlt man nicht mit Geld."
+        documentary:
+          - "Der Planet schreibt seine Geschichte noch immer selbst."
+          - "Drei Jahre. Fünf Kontinente. Ein zerbrechliches Wunder."
+          - "Die außergewöhnlichsten Reisen sind echt."
+          - "Was geschieht, wenn niemand hinsieht."
+          - "Ein Porträt der Menschen, die niemals aufgaben."
+          - "Die Natur hört nie auf zu spielen. Nur wenige sehen zu."
+        drama:
+          - "Manche Abschiede dauern ein ganzes Leben."
+          - "Sie kam heim, um ein Geheimnis zu begraben. Es war noch nicht tot."
+          - "Jede Familie hat eine Geschichte, die sie nie erzählt."
+          - "Die größte Entfernung liegt zwischen zwei Herzen."
+          - "Ein Sommer kann den Rest deines Lebens verändern."
+          - "Was man erbt, kann man sich nicht aussuchen."
+        family:
+          - "Zuhause ist, wo deine Leute sind. Auch die mit Fell."
+          - "Ein Abenteuer ist nur eine schlechte Idee mit guten Freunden."
+          - "Holt die Decke. Die Geschichte beginnt."
+          - "Große Träume passen in kleine Hosentaschen."
+          - "Jede Familie hat einen Helden, mit dem keiner gerechnet hat."
+          - "Die Feiertage werden nie wieder ruhig sein."
+        fantasy:
+          - "Magie vergisst nichts."
+          - "Die alten Götter erwachen. Und sie sind nicht erfreut."
+          - "Jedes Königreich fällt. Ihres fällt nach oben."
+          - "Eine Krone aus Asche. Ein Herz aus Feuer."
+          - "Hinter dem Nebel wartet die vergessene Welt."
+          - "Das Schicksal klopft nicht an. Es tritt die Tür ein."
+        horror:
+          - "Manche Türen sollten verschlossen bleiben."
+          - "Es weiß, wo du schläfst."
+          - "Die Angst hat eine neue Adresse."
+          - "Das Haus erinnert sich an jeden Schrei."
+          - "Dreh dich nicht um. Es ist schon da."
+          - "Die Dunkelheit war nie leer."
+        mystery:
+          - "Jede Spur führt zu ihr zurück."
+          - "Nichts in dieser Stadt ist, wie es scheint."
+          - "Die Wahrheit wurde begraben. Die Vergangenheit hat sie ausgegraben."
+          - "Eine Frage, deren Antwort niemand hören will."
+          - "Die letzte Seite fehlt nicht ohne Grund."
+          - "Sieben Verdächtige. Eine sehr geduldige Lüge."
+        romance:
+          - "Für manche Menschen verpasst man gern den letzten Zug."
+          - "Die Liebe kommt nie pünktlich."
+          - "Zwei Herzen. Ein schreckliches Timing."
+          - "Erst langsam. Dann mit voller Wucht."
+          - "Jede Liebesgeschichte ist ein kleines Chaos."
+          - "Der Sommer geht. Manche Gefühle bleiben."
+        sci_fi:
+          - "Die Zukunft hört bereits zu."
+          - "Im All hört niemand dich zögern."
+          - "Die Menschheit sandte eine Nachricht. Etwas hat geantwortet."
+          - "Morgen wurde abgesagt. Es bleibt nur heute."
+          - "Das Signal kam aus dem Inneren der Station."
+          - "Die Evolution hat nie um Erlaubnis gefragt."
+        thriller:
+          - "Traue niemandem. Am wenigsten dir selbst."
+          - "Achtundvierzig Stunden. Eine Chance zu verschwinden."
+          - "Das perfekte Alibi hat einen tödlichen Fehler."
+          - "Jemand sieht immer zu. Heute Nacht wird es persönlich."
+          - "Jedes Geheimnis hat ein Verfallsdatum."
+          - "Die leisesten Menschen machen die lautesten Fehler."
+        war:
+          - "Mut ist eine Entscheidung unter Beschuss."
+          - "Sie hielten die Stellung, damit andere heimkehren konnten."
+          - "Niemand kommt so von der Front zurück, wie er ging."
+          - "Die Geschichte erinnert sich an die Schlacht. Sie erinnern sich an die Namen."
+          - "In der Stille zwischen den Schüssen wurde ein Versprechen gegeben."
+          - "Der Krieg endete. Ihr Kampf nicht."
+        western:
+          - "An der Grenze gilt nur das Gesetz, das du bei dir trägst."
+          - "Eine Stadt. Ein Sheriff. Zu viele Kugeln."
+          - "Hier draußen legt sich der Staub. Die Rechnungen nicht."
+          - "Reite schnell. Schieß gerade. Schau nie zurück."
+          - "Jeder Gesetzlose war einmal jemandes Sohn."
+          - "Das Gold liegt in den Hügeln. Die Gräber auch."
+
+      reviews:
+        openers:
+          positive:
+            - "„{title}“ ist eine echte Überraschung."
+            - "Ich bin mit niedrigen Erwartungen rein und grinsend wieder raus."
+            - "Einer der selbstbewusstesten Filme, die ich dieses Jahr gesehen habe."
+            - "Von der ersten Einstellung an weiß „{title}“ genau, was er sein will."
+            - "Ein seltener Film, der sein Publikum ernst nimmt."
+            - "Ich hätte nicht gedacht, dass mich das so packt."
+            - "{director} hat endlich den Film gedreht, auf den wir gewartet haben."
+          mixed:
+            - "„{title}“ hat große Ideen und ein etwas kleineres Budget dafür."
+            - "Irgendwo in „{title}“ steckt ein großartiger Film."
+            - "Unausgewogen, aber nie langweilig."
+            - "Besser als erwartet, schwächer als erhofft."
+            - "Halb brillant, halb rätselhaft."
+            - "Sehenswert, mit ein paar Einschränkungen."
+          negative:
+            - "Ich wollte „{title}“ wirklich mögen."
+            - "Zwei Stunden, die ich nicht zurückbekomme."
+            - "Irgendwann hat „{title}“ vergessen, worum es eigentlich geht."
+            - "Der Film strengt sich sehr an und trifft fast nie."
+            - "Ein Film, der Lautstärke mit Spannung verwechselt."
+            - "Selbst eine starke Besetzung kann dieses Drehbuch nicht retten."
+        lines:
+          positive:
+            - "{actor} spielt so stark, dass es einen noch lange begleitet."
+            - "Das Tempo stimmt, und das Finale verdient sich jede Träne."
+            - "{director} inszeniert mit Geduld und lässt den Szenen Luft."
+            - "Allein die Kameraarbeit ist das Eintrittsgeld wert."
+            - "{actor} und {actor2} harmonieren auf eine Weise, die man nicht spielen kann."
+            - "Die Musik trägt den Film an genau den richtigen Stellen."
+            - "Selbst die Nebenfiguren wirken, als hätten sie ein Leben außerhalb des Bildes."
+            - "Die Dialoge sind scharf, ohne angeberisch zu sein."
+            - "Auf der großen Leinwand sieht das fantastisch aus."
+            - "Über das Ende habe ich auf dem ganzen Heimweg nachgedacht."
+          mixed:
+            - "{actor} ist großartig, aber das Drehbuch gibt kaum etwas her."
+            - "Der Mittelteil zieht sich, das Ende macht vieles wieder gut."
+            - "Manche Szenen sind atemberaubend, andere wirken wie aus einem anderen Film."
+            - "Der Ton schwankt öfter zwischen ernst und albern, als ihm guttut."
+            - "{director} hatte eine Vision, aber der Schnitt wirkt gehetzt."
+            - "Vorhersehbar, aber auf eine gemütliche Art."
+            - "Die Bilder sind stark, die Dialoge leider nicht."
+          negative:
+            - "{actor} gibt sich Mühe mit Sätzen, die jeden untergehen lassen würden."
+            - "Die Logiklöcher sind groß genug für einen Lastwagen."
+            - "Jede Wendung sieht man meilenweit kommen."
+            - "Der Schnitt ist so hektisch, dass man der Action kaum folgen kann."
+            - "Eine halbe Stunde weniger hätte dem Film gutgetan."
+            - "Keine einzige Entscheidung der Figuren hat mich überzeugt."
+            - "Sogar der Soundtrack wirkt gelangweilt."
+        genre_lines:
+          horror:
+            positive: ["Die Schocks sind verdient, nicht billig.", "Die letzten zwanzig Minuten habe ich durch die Finger geschaut."]
+            negative: ["Jeder Schockmoment wird zehn Sekunden vorher von der Musik angekündigt."]
+          comedy:
+            positive: ["Die Witze sitzen, und die leisen Momente noch mehr.", "Ich habe mehrmals laut gelacht, und das passiert mir fast nie."]
+            negative: ["Die meisten Gags kannte man schon aus dem Trailer."]
+          action:
+            positive: ["Die Action ist klar, brutal und wunderbar choreografiert.", "Die Verfolgungsjagd im zweiten Akt allein lohnt den Kinobesuch."]
+            negative: ["Die Kämpfe sind so nah gefilmt, dass man nicht erkennt, wer wen schlägt."]
+          romance:
+            positive: ["Danach glaubt man wieder an große Gesten.", "Romantisch, ohne je kitschig zu werden."]
+            negative: ["Die beiden Hauptfiguren haben die Chemie von zwei geparkten Autos."]
+          sci_fi:
+            positive: ["Die Welt ist durchdacht und angenehm originell.", "Der Film stellt große Fragen und traut uns die Antworten zu."]
+            negative: ["Die Wissenschaft ist Unsinn, und zwar nicht der unterhaltsame."]
+          documentary:
+            positive: ["Die Aufnahmen sind atemberaubend, die Geschichte dahinter noch mehr.", "Er informiert, ohne zu belehren."]
+            negative: ["Wirkt eher wie ein langer Bildschirmschoner als wie eine Doku."]
+          family:
+            positive: ["Die Kinder waren begeistert, und ehrlich gesagt ich auch.", "Lustig für Kinder, überraschend berührend für Eltern."]
+            negative: ["Zu lang für kleine Kinder und zu simpel für alle anderen."]
+          animation:
+            positive: ["Jedes Bild wirkt mit Liebe von Hand gemacht.", "Die Animation ist wunderschön und voller kleiner Details."]
+            negative: ["Hübsch anzusehen, schnell vergessen."]
+          western:
+            positive: ["Staubig, gemein und wunderschön, so wie ein Western sein muss."]
+            negative: ["Viel Hut, wenig Rinder."]
+          war:
+            positive: ["Erschütternd, menschlich und unvergesslich."]
+            negative: ["Die Tragödie dient hier nur als Kulisse für Explosionen."]
+          thriller:
+            positive: ["Die Spannung lässt keine Sekunde nach."]
+            negative: ["Die große Wendung macht alles Vorherige zunichte."]
+        closers:
+          positive:
+            - "Klare Empfehlung."
+            - "Unbedingt auf der größten Leinwand ansehen, die ihr finden könnt."
+            - "{rating}/10, und ich bin noch geizig."
+            - "Sofort auf meiner Lieblingsliste."
+            - "Taschentücher mitnehmen."
+          mixed:
+            - "Gut für einen faulen Sonntag."
+            - "Lieber auf den Stream warten."
+            - "{rating}/10. Gut, aber nicht großartig."
+            - "Geschmackssache."
+          negative:
+            - "Lieber auslassen."
+            - "{rating}/10, vor allem für die Mühe."
+            - "Schaut euch lieber den Trailer an, das ist derselbe Film, nur kürzer."
+            - "Keine Empfehlung."
+        # Reviews of series talk about episodes and seasons instead of the cinema.
+        series:
+          openers:
+            positive:
+              - "„{title}“ ist eine der seltenen Serien, die mit jeder Folge besser werden."
+              - "Eigentlich wollte ich nur eine Folge sehen. Um drei Uhr nachts war die Staffel durch."
+              - "Diese Serie empfehle ich gerade allen, die ich kenne."
+              - "Schon ab der ersten Folge weiß „{title}“ genau, wohin die Reise geht."
+              - "Kaum eine Serie traut ihrem Publikum so viel zu."
+            mixed:
+              - "„{title}“ hat eine starke erste Staffelhälfte und eine wackelige zweite."
+              - "In „{title}“ steckt irgendwo eine großartige Serie."
+              - "Von Folge zu Folge schwankend, aber nie langweilig."
+              - "Manche Folgen sind großartig, andere reine Lückenfüller."
+              - "„{title}“ lohnt sich, mit ein paar Abstrichen."
+            negative:
+              - "Ich habe „{title}“ drei Folgen gegeben. Das war großzügig."
+              - "Eine ganze Staffel, die auch ein Neunzigminüter hätte sein können."
+              - "Irgendwo in der Mitte der Staffel verliert „{title}“ den Faden."
+              - "Die Serie gibt sich große Mühe und erreicht wenig."
+              - "Nicht einmal die starke Besetzung hält diese Serie zusammen."
+          lines:
+            positive:
+              - "{actor} wächst mit jeder Folge mehr in die Rolle hinein."
+              - "Die Autoren wissen genau, wann eine Folge mit einem Cliffhanger enden muss."
+              - "{actor} und {actor2} haben einige der besten Szenen des Serienjahres."
+              - "Jede Folge bringt die Geschichte weiter, nichts wirkt wie Füllmaterial."
+              - "Das Staffelfinale führt alle Fäden zusammen, ohne zu schummeln."
+              - "Auch die Nebenfiguren bekommen echte Entwicklungen."
+              - "Der langsame Anfang zahlt sich spätestens ab der dritten Folge aus."
+              - "{director} gibt der Serie einen Look, den man im Fernsehen selten sieht."
+            mixed:
+              - "{actor} ist großartig, aber die Nebenhandlungen führen ins Leere."
+              - "Die mittleren Folgen ziehen sich, das Finale macht vieles wieder gut."
+              - "Manche Handlungsstränge packen, andere wirken künstlich gestreckt."
+              - "Der Ton schwankt von Folge zu Folge stärker als nötig."
+              - "Vorhersehbar, aber auf eine gemütliche Art, die zum Durchschauen einlädt."
+              - "Tolle Figuren, wackelige Drehbücher."
+            negative:
+              - "{actor} kämpft tapfer gegen Dialoge, an denen jeder scheitern würde."
+              - "Jeder Cliffhanger wird in den ersten zwei Minuten der nächsten Folge aufgelöst."
+              - "Die Handlung dreht sich die halbe Staffel lang im Kreis."
+              - "Zu viele Figuren und zu wenig Gründe, sich für sie zu interessieren."
+              - "Das Finale verspielt das bisschen Wohlwollen, das die Staffel aufgebaut hatte."
+              - "Die Folgen verschwimmen ineinander."
+          closers:
+            positive:
+              - "Unbedingt am Stück schauen."
+              - "{rating}/10. Ich warte schon auf die nächste Staffel."
+              - "Klare Empfehlung."
+              - "Wochenende freihalten."
+            mixed:
+              - "Gut für ein freies Wochenende."
+              - "{rating}/10. Gut, aber nicht großartig."
+              - "Bis zur dritten Folge durchhalten."
+              - "Geschmackssache."
+            negative:
+              - "Lieber nicht."
+              - "{rating}/10, vor allem für die Mühe."
+              - "Keine Empfehlung."
+              - "Die Zusammenfassung reicht völlig."
+        critic_outlets:
+          - Abendkurier
+          - Filmspiegel
+          - Leinwand Magazin
+          - Die Kinoschau
+          - Rheinische Filmpost
+          - Hamburger Lichtspiel
+          - Kino & Kritik
+          - Zweite Reihe
+          - Nordblick Feuilleton
+          - Der Filmvorführer
+        critic_suffix: "%{name}, %{outlet}"
+
+      trailer:
+        when: [DIESEN HERBST, DIESEN SOMMER, DIESEN WINTER, DIESES FRÜHJAHR, ZU WEIHNACHTEN, NÄCHSTES JAHR, AN HALLOWEEN]
+        from:
+          - "VOM REGISSEUR VON „{other_title}“"
+          - "VON DEN MACHERN VON „{other_title}“"
+          - "{studio} PRÄSENTIERT"
+          - "EIN FILM VON {director}"
+        series_from:
+          - "VON DEN MACHERN VON „{other_title}“"
+          - "{platform} PRÄSENTIERT"
+          - "EINE ORIGINALSERIE"
+        hooks:
+          action: [[EIN MANN, EINE MISSION], [KEINE REGELN, KEINE GNADE], [KEIN AUSWEG, KEINE HILFE], [DIE ZEIT, LÄUFT AB]]
+          adventure: [[JENSEITS DER KARTE, JENSEITS DER ANGST], [EINE REISE, VERÄNDERT, ALLES], [DIE WELT, WARTET]]
+          animation: [[DIESEN SOMMER, DENK GROSS], [EIN KLEINER HELD, EIN RIESIGES PROBLEM], [ABENTEUER, WAR NIE, SO LUSTIG]]
+          comedy: [[SIE HATTEN, NUR EINE AUFGABE], [WAS SOLL, SCHON, SCHIEFGEHEN], [FAMILIE, IST FÜR IMMER, LEIDER]]
+          crime: [[JEDER, HAT SEINEN PREIS], [EINE TASCHE, FÜNF SPIELER], [DIE WAHRHEIT, IST KÄUFLICH]]
+          documentary: [[EIN PLANET, MILLIONEN GESCHICHTEN], [DIE WILDNIS, RUFT], [ERLEBE, DAS AUSSERGEWÖHNLICHE]]
+          drama: [[MANCHE GEHEIMNISSE, STERBEN NIE], [JEDE FAMILIE, HAT IHRE GESCHICHTE], [EIN SOMMER, VERÄNDERTE, ALLES]]
+          family: [[ZUHAUSE, IST, WO DAS HERZ IST], [GROSSES HERZ, KLEINER HELD], [DAS ABENTEUER, BEGINNT ZUHAUSE]]
+          fantasy: [[MAGIE, HAT IHREN PREIS], [DIE ALTE WELT, ERWACHT], [EINE KRONE, EIN SCHICKSAL]]
+          horror: [[ES WEISS, WO DU SCHLÄFST], [SCHAU, NICHT ZURÜCK], [DIE DUNKELHEIT, IST NICHT LEER], [MANCHE TÜREN, BLEIBEN, BESSER ZU]]
+          mystery: [[JEDE SPUR, FÜHRT ZU IHR], [NICHTS, IST WIE ES SCHEINT], [EINE FRAGE, KEINE ANTWORT]]
+          romance: [[MANCHMAL, FINDET DICH, DIE LIEBE], [ZWEI HERZEN, EINE CHANCE], [VERLIEB DICH, LANGSAM]]
+          sci_fi: [[DIE ZUKUNFT, HÖRT ZU], [WIR SIND, NICHT ALLEIN], [DAS SIGNAL, IST DA]]
+          thriller: [[TRAUE, NIEMANDEM], [48 STUNDEN, UM ZU VERSCHWINDEN], [JEMAND, BEOBACHTET DICH]]
+          war: [[HALTET, DIE STELLUNG], [NIEMAND, KOMMT ZURÜCK, WIE ER GING], [MUT, UNTER FEUER]]
+          western: [[EINE STADT, EIN GESETZ], [REITE SCHNELL, SCHIESS GERADE], [DIE GRENZE, KENNT KEINE GNADE]]
+        release:
+          - "DEMNÄCHST IM KINO"
+          - "AB {date} IM KINO"
+          - "NUR IM KINO · AB {date}"
+          - "{date}"
+          - "BALD IM KINO"
+        series_release:
+          - "AB {date} IM STREAM"
+          - "ALLE FOLGEN AB {date}"
+          - "NUR AUF {platform}"
+          - "{platform} · {date}"
+        season: ["STAFFEL {n}", "DIE FINALE STAFFEL", "EINE NEUE STAFFEL"]
+        season_first: ["EINE NEUE SERIE", "EINE ORIGINALSERIE"]
+        starring_prefix: ""
+        and_prefix: "UND "
+        billing:
+          presents: "{studio} PRÄSENTIERT"
+          production: "EINE {company} PRODUKTION"
+          film_by: "EIN FILM VON {director}"
+          starring: "MIT"
+          music: "MUSIK"
+          edited: "SCHNITT"
+          photography: "KAMERA"
+          produced: "PRODUZIERT VON"
+          written: "DREHBUCH"
+          directed: "REGIE"
+        date: "{day}. {month}"
+        months: [JANUAR, FEBRUAR, MÄRZ, APRIL, MAI, JUNI, JULI, AUGUST, SEPTEMBER, OKTOBER, NOVEMBER, DEZEMBER]
+        studios:
+          - Nordlicht Filmproduktion
+          - Spreeufer Pictures
+          - Lichtspielhaus Media
+          - Alpenglühen Film
+          - Hafenkante Studios
+          - Zweiter Akt Filmverleih
+          - Rheinblick Pictures
+          - Kranich Film
+          - Elbufer Entertainment
+          - Weitwinkel Studios
+          - "{faker:Name.last_name} Filmproduktion"
+          - "{faker:Name.last_name} & {faker:Name.last_name} Film"
+        companies:
+          - Windrose
+          - Kaltstart
+          - Lichtblick
+          - Seitenwind
+          - Kleinkunst
+          - Nachtschicht
+          - "{faker:Name.last_name} Media"
+        platforms: [STREAMHAUS, KINOLA, NOVA+, FLIMMERKISTE, BILDWERK TV, SERIENWELT]

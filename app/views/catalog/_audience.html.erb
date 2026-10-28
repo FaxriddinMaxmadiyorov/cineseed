@@ -1,0 +1,22 @@
+<section class="audience" aria-label="<%= t("audience.label") %>">
+  <h4 class="audience__heading">
+    <svg class="audience__heart" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true" focusable="false"><path d="M10 17s-6.5-3.9-6.5-8.6A3.6 3.6 0 0110 6.3a3.6 3.6 0 016.5 2.1C16.5 13.1 10 17 10 17z" fill="currentColor"/></svg>
+    <%= t("audience.likes", count: movie.likes) %>
+  </h4>
+  <% if movie.likers.any? %>
+    <ul class="likers">
+      <% movie.likers.each do |name| %><li class="likers__name"><%= name %></li><% end %>
+    </ul>
+  <% end %>
+
+  <h4 class="audience__heading"><%= t("audience.reviews", count: movie.reviews.size) %></h4>
+  <% movie.reviews.each do |review| %>
+    <article class="review">
+      <p class="review__byline">
+        <span class="review__score" title="<%= t("audience.score_hint") %>"><%= t("audience.score", rating: review.rating) %></span>
+        <span class="review__author"><%= review.author %></span>
+      </p>
+      <p class="review__text"><%= review.text %></p>
+    </article>
+  <% end %>
+</section>

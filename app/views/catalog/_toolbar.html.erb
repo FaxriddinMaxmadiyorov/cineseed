@@ -1,0 +1,48 @@
+<%= form_with url: root_path, method: :get, id: "toolbar", class: "toolbar",
+      html: { novalidate: true, autocomplete: "off" },
+      data: { controller: "toolbar", turbo_frame: "catalog", turbo_action: "advance",
+              action: "input->toolbar#changed change->toolbar#changed submit->toolbar#submitted" } do %>
+  <%= link_to t("app.name"), root_path, class: "wordmark", data: { turbo: false } %>
+
+  <div class="toolbar__fields">
+    <div class="field">
+      <label class="field__label" for="region"><%= t("toolbar.region") %></label>
+      <select class="field__select" id="region" name="region">
+        <% Region.all.each do |region| %>
+          <option value="<%= region.code %>" lang="<%= region.code %>" <%= "selected" if region == @catalog.region %>><%= region.name %></option>
+        <% end %>
+      </select>
+    </div>
+
+    <div class="field field--seed">
+      <label class="field__label" for="seed"><%= t("toolbar.seed") %></label>
+      <input class="field__input field__input--seed" id="seed" name="seed" type="text" value="<%= @seed_text %>"
+             inputmode="numeric" spellcheck="false" maxlength="200" data-toolbar-target="seed"
+             aria-describedby="seed-hint">
+      <span class="visually-hidden" id="seed-hint"><%= t("toolbar.seed_hint") %></span>
+      <button type="button" class="icon-button" data-action="toolbar#randomSeed" title="<%= t("toolbar.random_seed") %>">
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><rect x="3.5" y="3.5" width="17" height="17" rx="4" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="8.5" cy="8.5" r="1.6" fill="currentColor"/><circle cx="15.5" cy="15.5" r="1.6" fill="currentColor"/><circle cx="12" cy="12" r="1.6" fill="currentColor"/><circle cx="15.5" cy="8.5" r="1.6" fill="currentColor"/><circle cx="8.5" cy="15.5" r="1.6" fill="currentColor"/></svg>
+        <span class="visually-hidden"><%= t("toolbar.random_seed") %></span>
+      </button>
+    </div>
+
+    <% { likes: @catalog.likes, reviews: @catalog.reviews }.each do |name, value| %>
+      <div class="field field--average">
+        <label class="field__label" for="<%= name %>"><%= t("toolbar.#{name}") %></label>
+        <input class="field__range" type="range" min="0" max="10" step="0.1" value="<%= number_value(value) %>"
+               data-sync="<%= name %>" aria-label="<%= t("toolbar.#{name}_range") %>" tabindex="-1">
+        <input class="field__input field__input--number" id="<%= name %>" name="<%= name %>" type="number"
+               min="0" max="10" step="0.1" value="<%= number_value(value) %>" data-sync="<%= name %>"
+               title="<%= t("toolbar.average_hint") %>">
+      </div>
+    <% end %>
+
+    <fieldset class="switch">
+      <legend class="visually-hidden"><%= t("toolbar.view") %></legend>
+      <% %w[table gallery].each do |view| %>
+        <input class="switch__input" type="radio" name="view" value="<%= view %>" id="view-<%= view %>" <%= "checked" if @view == view %>>
+        <label class="switch__label" for="view-<%= view %>"><%= t("toolbar.#{view}") %></label>
+      <% end %>
+    </fieldset>
+  </div>
+<% end %>

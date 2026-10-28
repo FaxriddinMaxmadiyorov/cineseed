@@ -1,0 +1,16 @@
+#!/bin/bash -e
+# The app keeps no secrets and no user data, but Rails still signs its session cookie (CSRF token).
+# Use SECRET_KEY_BASE when the platform provides one; otherwise create one once and keep it in tmp/.
+if [ -z "${SECRET_KEY_BASE}" ]; then
+  if [ ! -s tmp/secret_key_base ]; then
+    openssl rand -hex 64 > tmp/secret_key_base
+  fi
+  export SECRET_KEY_BASE="$(cat tmp/secret_key_base)"
+fi
+
+# jemalloc is in the image for amd64; skip it where the library is missing (arm64).
+if [ -n "${LD_PRELOAD}" ] && [ ! -f "${LD_PRELOAD}" ]; then
+  unset LD_PRELOAD
+fi
+
+exec "${@}"

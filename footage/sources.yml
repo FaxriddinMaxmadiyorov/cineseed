@@ -1,0 +1,365 @@
+# Footage sources for the trailer engine.
+#
+# `bin/rails footage:build` downloads every source (when the file is not already in footage/sources),
+# splits it into shots with ffmpeg scene detection, normalizes each shot (24 fps, <= 960x540, H.264,
+# no audio), extracts a still for posters, measures luma/saturation/warmth/motion and writes
+# footage/manifest.json. Only openly licensed material is listed; see CREDITS.md.
+#
+# family  - visual world of the source. A trailer never mixes families, so a cartoon rabbit cannot
+#           show up between two shots of a night city.
+# tags    - genre keys (see config/trailer/genres.yml) and content hints. Mood tags (dark, bright,
+#           warm, cool, mono, calm, dynamic) are added automatically from measurements.
+# include - time ranges in seconds that may be used (titles and credits are left out).
+# pre     - extra ffmpeg filters applied before normalizing (crop borders, 360 -> flat, ...).
+
+defaults:
+  scene_threshold: 0.30
+  min_shot: 1.1
+  max_shot: 3.0
+  max_shots: 40
+
+sources:
+  - id: sintel
+    family: sintel
+    url: https://raw.githubusercontent.com/mdn/dom-examples/main/abort-api/sintel.mp4
+    license: CC BY 3.0
+    attribution: "Sintel, (c) copyright Blender Foundation | durian.blender.org"
+    tags: [animation, fantasy, adventure, action, drama, war, mystery, western, romance, family, horror, thriller]
+    include: [[21, 87.5], [97, 734]]
+    scene_threshold: 0.28
+    max_shots: 150
+
+  - id: bbb
+    family: toon
+    url: https://raw.githubusercontent.com/immersive-web/webxr-samples/main/media/video/bbb-sunflower-540p2-1min.webm
+    license: CC BY 3.0
+    attribution: "Big Buck Bunny, (c) copyright 2008 Blender Foundation | www.bigbuckbunny.org"
+    tags: [animation, comedy, family, adventure, fantasy]
+    pre: "crop=960:540:0:0"
+    include: [[5, 60]]
+    max_shots: 24
+
+  - id: chaplin
+    family: archival
+    url: https://raw.githubusercontent.com/Zulko/moviepy/master/media/chaplin.mp4
+    license: Public domain
+    attribution: "Charlie Chaplin film excerpt (public domain), via the MoviePy repository"
+    tags: [comedy, family, drama, classic, bw, people]
+    pre: "crop=496:360:72:0"
+    max_shots: 6
+
+  - id: fate0
+    family: archival
+    url: https://raw.githubusercontent.com/phaserjs/examples/master/public/assets/phaserbyexample/fate/assets/videos/video0.mp4
+    license: Historical newsreel footage, distributed in the MIT-licensed Phaser examples repository
+    attribution: "Soviet space programme newsreel footage (1961), via phaserjs/examples"
+    tags: [sci_fi, war, documentary, drama, action, thriller, space, rocket, history]
+    pre: "crop=948:720:12:0"
+    max_shots: 8
+
+  - id: fate1
+    family: archival
+    url: https://raw.githubusercontent.com/phaserjs/examples/master/public/assets/phaserbyexample/fate/assets/videos/video1.mp4
+    license: Historical newsreel footage, distributed in the MIT-licensed Phaser examples repository
+    attribution: "Soviet space programme newsreel footage (1961), via phaserjs/examples"
+    tags: [sci_fi, war, documentary, drama, thriller, space, people, history]
+    max_shots: 8
+
+  - id: fate2
+    family: archival
+    url: https://raw.githubusercontent.com/phaserjs/examples/master/public/assets/phaserbyexample/fate/assets/videos/video2.mp4
+    license: Historical newsreel footage, distributed in the MIT-licensed Phaser examples repository
+    attribution: "Soviet space programme newsreel footage (1961), via phaserjs/examples"
+    tags: [sci_fi, war, documentary, drama, action, thriller, space, rocket, history]
+    include: [[0, 19.8], [29.8, 47.3]]  # 20-29.5s carries burned-in subtitles
+    max_shots: 18
+
+  - id: fate3
+    family: archival
+    url: https://raw.githubusercontent.com/phaserjs/examples/master/public/assets/phaserbyexample/fate/assets/videos/video3.mp4
+    license: Historical newsreel footage, distributed in the MIT-licensed Phaser examples repository
+    attribution: "Soviet space programme newsreel footage (1961), via phaserjs/examples"
+    tags: [sci_fi, war, documentary, drama, thriller, mystery, space, people, history, bw]
+    max_shots: 8
+
+  - id: tokyo
+    family: live
+    url: https://raw.githubusercontent.com/phaserjs/examples/master/public/assets/bugs/tokyo.mp4
+    license: Distributed in the MIT-licensed Phaser examples repository
+    attribution: "Rainy Tokyo street at night, via phaserjs/examples"
+    tags: [thriller, crime, drama, romance, mystery, sci_fi, night, city, rain, people]
+    max_shots: 3
+
+  - id: skyline
+    family: live
+    url: https://raw.githubusercontent.com/kivy/kivy/master/examples/widgets/cityCC0.mpg
+    license: CC0
+    attribution: "City skyline at night (CC0), via the Kivy examples"
+    tags: [thriller, crime, sci_fi, drama, action, mystery, night, city]
+    max_shots: 3
+
+  - id: aerial_city
+    family: live
+    url: https://raw.githubusercontent.com/StartBootstrap/startbootstrap-coming-soon/master/src/assets/mp4/bg.mp4
+    license: Distributed in the MIT-licensed Start Bootstrap repository
+    attribution: "Aerial city footage, via StartBootstrap/startbootstrap-coming-soon"
+    tags: [thriller, crime, drama, documentary, action, city, aerial]
+    max_shots: 3
+
+  - id: river
+    family: live
+    url: https://raw.githubusercontent.com/phaserjs/examples/master/public/assets/video/river.mp4
+    license: Distributed in the MIT-licensed Phaser examples repository
+    attribution: "River time-lapse, via phaserjs/examples"
+    tags: [drama, romance, documentary, adventure, family, western, nature, calm, sky]
+    pre: "crop=720:404:0:38"
+    max_shots: 4
+
+  - id: clouds
+    family: live
+    url: https://raw.githubusercontent.com/phaserjs/examples/master/public/assets/video/clouds.webm
+    license: Distributed in the MIT-licensed Phaser examples repository
+    attribution: "Flight over clouds, via phaserjs/examples"
+    tags: [adventure, fantasy, drama, romance, documentary, family, sci_fi, sky, calm]
+    max_shots: 2
+
+  - id: park
+    family: live
+    url: https://raw.githubusercontent.com/pixijs/pixijs/dev/tests/utils/assets/video/park.mp4
+    license: Distributed in the MIT-licensed PixiJS repository
+    attribution: "Park footage, via pixijs/pixijs"
+    tags: [drama, romance, family, comedy, nature, calm]
+    min_shot: 1.0
+    max_shots: 1
+
+  - id: flower
+    family: live
+    url: https://raw.githubusercontent.com/mdn/interactive-examples/main/live-examples/media/cc0-videos/flower.mp4
+    license: CC0
+    attribution: "Blooming flower (CC0), via mdn/interactive-examples"
+    tags: [romance, drama, family, documentary, fantasy, nature, calm, macro]
+    max_shots: 2
+
+  - id: zebra
+    family: live
+    url: https://raw.githubusercontent.com/IDEA-Research/Grounded-SAM-2/main/assets/zebra.mp4
+    license: Distributed in the Apache-2.0 licensed Grounded-SAM-2 repository
+    attribution: "Zebras on the savanna, via IDEA-Research/Grounded-SAM-2"
+    tags: [documentary, adventure, family, western, nature, wildlife]
+    max_shots: 3
+
+  - id: hippo
+    family: live
+    url: https://raw.githubusercontent.com/IDEA-Research/Grounded-SAM-2/main/assets/hippopotamus.mp4
+    license: Distributed in the Apache-2.0 licensed Grounded-SAM-2 repository
+    attribution: "Hippopotamus, via IDEA-Research/Grounded-SAM-2"
+    tags: [documentary, adventure, family, comedy, nature, wildlife]
+    max_shots: 2
+
+  - id: bear_walk
+    family: live
+    url: https://raw.githubusercontent.com/facebookresearch/co-tracker/main/gradio_demo/videos/bear.mp4
+    license: CC BY-NC 4.0 (CoTracker demo assets)
+    attribution: "Brown bear, via facebookresearch/co-tracker"
+    tags: [documentary, adventure, family, thriller, western, nature, wildlife]
+    min_shot: 1.0
+    max_shots: 1
+
+  - id: bear_cage
+    family: live
+    url: https://raw.githubusercontent.com/chromium/chromium/main/media/test/data/bear-1280x720.mp4
+    license: BSD-3-Clause (Chromium test data)
+    attribution: "Bear test clip, via the Chromium project"
+    tags: [documentary, drama, thriller, wildlife]
+    min_shot: 1.0
+    max_shots: 1
+
+  - id: paraglide_launch
+    family: live
+    url: https://raw.githubusercontent.com/facebookresearch/co-tracker/main/gradio_demo/videos/paragliding-launch.mp4
+    license: CC BY-NC 4.0 (CoTracker demo assets)
+    attribution: "Paragliding launch, via facebookresearch/co-tracker"
+    tags: [adventure, action, documentary, drama, family, sports, sky]
+    min_shot: 1.0
+    max_shots: 1
+
+  - id: paraglide
+    family: live
+    url: https://raw.githubusercontent.com/facebookresearch/co-tracker/main/gradio_demo/videos/paragliding.mp4
+    license: CC BY-NC 4.0 (CoTracker demo assets)
+    attribution: "Paraglider over the valley, via facebookresearch/co-tracker"
+    tags: [adventure, action, documentary, romance, family, sports, sky]
+    min_shot: 1.0
+    max_shots: 1
+
+  - id: highway
+    family: live
+    url: https://raw.githubusercontent.com/IDEA-Research/Grounded-SAM-2/main/assets/tracking_car.mp4
+    license: Distributed in the Apache-2.0 licensed Grounded-SAM-2 repository
+    attribution: "Highway traffic, via IDEA-Research/Grounded-SAM-2"
+    tags: [action, thriller, crime, drama, documentary, city, cars]
+    max_shots: 3
+
+  - id: skater
+    family: live
+    url: https://raw.githubusercontent.com/transitive-bullshit/ffmpeg-concat/master/media/2.mp4
+    license: Distributed in the MIT-licensed ffmpeg-concat repository
+    attribution: "Street skater, via transitive-bullshit/ffmpeg-concat"
+    tags: [comedy, drama, action, family, city, sports, people]
+    max_shots: 1
+
+  - id: keyboard
+    family: live
+    url: https://raw.githubusercontent.com/transitive-bullshit/ffmpeg-concat/master/media/0.mp4
+    license: Distributed in the MIT-licensed ffmpeg-concat repository
+    attribution: "Typing hands, via transitive-bullshit/ffmpeg-concat"
+    tags: [thriller, crime, mystery, sci_fi, drama, tech, people]
+    max_shots: 1
+
+  - id: cat
+    family: live
+    url: https://raw.githubusercontent.com/transitive-bullshit/ffmpeg-concat/master/media/1.mp4
+    license: Distributed in the MIT-licensed ffmpeg-concat repository
+    attribution: "Cat close-up, via transitive-bullshit/ffmpeg-concat"
+    tags: [comedy, family, drama, mystery, animal]
+    max_shots: 1
+
+  - id: dog
+    family: live
+    url: https://raw.githubusercontent.com/facebookresearch/sam2/main/demo/data/gallery/01_dog.mp4
+    license: CC BY 4.0 (SA-V dataset sample)
+    attribution: "Dog on a walk, via facebookresearch/sam2"
+    tags: [comedy, family, animal, people]
+    max_shots: 3
+
+  - id: juggler
+    family: live
+    url: https://raw.githubusercontent.com/facebookresearch/sam2/main/demo/data/gallery/05_default_juggle.mp4
+    license: CC BY 4.0 (SA-V dataset sample)
+    attribution: "Football juggling, via facebookresearch/sam2"
+    tags: [comedy, family, drama, sports, people]
+    max_shots: 3
+
+  - id: coffee
+    family: live
+    url: https://raw.githubusercontent.com/facebookresearch/sam2/main/demo/data/gallery/04_coffee.mp4
+    license: CC BY 4.0 (SA-V dataset sample)
+    attribution: "Pour-over coffee, via facebookresearch/sam2"
+    tags: [drama, romance, comedy, calm, macro]
+    max_shots: 2
+
+  - id: cockatoo
+    family: live
+    url: https://raw.githubusercontent.com/imageio/imageio-binaries/master/images/cockatoo.mp4
+    license: Distributed in the BSD-licensed imageio-binaries repository
+    attribution: "Cockatoo, via imageio/imageio-binaries"
+    tags: [comedy, family, animal]
+    max_shots: 3
+
+  - id: driver
+    family: live
+    url: https://raw.githubusercontent.com/intel-iot-devkit/sample-videos/master/driver-action-recognition.mp4
+    license: CC BY 4.0 (Intel IoT DevKit sample videos)
+    attribution: "Driver footage, Intel IoT DevKit sample-videos (CC BY 4.0)"
+    tags: [thriller, crime, drama, action, mystery, people, cars]
+    scene_threshold: 0.35
+    max_shots: 12
+
+  - id: marathon
+    family: live
+    url: https://raw.githubusercontent.com/OpenShot/libopenshot/develop/examples/run.mp4
+    license: Distributed in the LGPL-licensed libopenshot repository
+    attribution: "Marathon runners, via OpenShot/libopenshot"
+    tags: [drama, documentary, action, family, sports, city, people]
+    max_shots: 1
+
+  - id: launch_pad
+    family: live
+    url: https://raw.githubusercontent.com/renpy/renpy/master/tutorial/game/oa4_launch.webm
+    license: Public domain (NASA)
+    attribution: "Rocket launch footage, NASA (public domain), via the Ren'Py tutorial"
+    tags: [sci_fi, action, drama, documentary, war, thriller, space, rocket]
+    max_shots: 3
+
+  - id: shuttle
+    family: live
+    url: https://raw.githubusercontent.com/processing/processing-video/main/examples/Movie/Loop/data/launch2.mp4
+    license: Public domain (NASA)
+    attribution: "Space Shuttle launch, NASA (public domain), via processing/processing-video"
+    tags: [sci_fi, action, drama, documentary, thriller, space, rocket]
+    max_shots: 3
+
+  - id: solar_probe
+    family: live
+    url: https://raw.githubusercontent.com/BabylonJS/Assets/master/photoDomes/solarProbeMission.mp4
+    license: Public domain (NASA)
+    attribution: "Parker Solar Probe launch 360 video, NASA (public domain), via BabylonJS/Assets"
+    tags: [sci_fi, documentary, drama, action, thriller, space, rocket, night]
+    pre: "v360=input=e:output=flat:h_fov=72:v_fov=40:yaw=0:pitch=4:w=854:h=480"
+    include: [[8, 18], [118, 196]]
+    max_shots: 8
+
+  - id: wormhole
+    family: live
+    url: https://raw.githubusercontent.com/phaserjs/examples/master/public/assets/video/wormhole.mp4
+    license: Distributed in the MIT-licensed Phaser examples repository
+    attribution: "Wormhole animation, via phaserjs/examples"
+    tags: [sci_fi, fantasy, mystery, thriller, space, cg]
+    max_shots: 4
+
+  - id: tunnel
+    family: live
+    url: https://raw.githubusercontent.com/phaserjs/examples/master/public/assets/video/tunnel.mp4
+    license: Distributed in the MIT-licensed Phaser examples repository
+    attribution: "Sci-fi tunnel animation, via phaserjs/examples"
+    tags: [sci_fi, action, thriller, cg]
+    max_shots: 2
+
+  - id: outrun
+    family: live
+    url: https://raw.githubusercontent.com/phaserjs/examples/master/public/assets/video/retro-outrun.mp4
+    license: Distributed in the MIT-licensed Phaser examples repository
+    attribution: "Retro synthwave drive, via phaserjs/examples"
+    tags: [sci_fi, action, thriller, crime, cg, retro, night, cars]
+    max_shots: 2
+
+  - id: cg_mountains
+    family: live
+    url: https://raw.githubusercontent.com/phaserjs/examples/master/public/assets/video/mountains.mp4
+    license: Distributed in the MIT-licensed Phaser examples repository
+    attribution: "Mountain fly-through, via phaserjs/examples"
+    tags: [fantasy, adventure, sci_fi, documentary, war, cg, landscape]
+    max_shots: 7
+
+  - id: underwater
+    family: live
+    url: https://raw.githubusercontent.com/phaserjs/examples/master/public/assets/video/underwater.mp4
+    license: Distributed in the MIT-licensed Phaser examples repository
+    attribution: "Underwater animation, via phaserjs/examples"
+    tags: [adventure, fantasy, mystery, documentary, family, cg, water]
+    pre: "crop=720:404:0:38"
+    max_shots: 2
+
+  - id: pumpkins
+    family: live
+    url: https://raw.githubusercontent.com/phaserjs/examples/master/public/assets/video/pumpkins.mp4
+    license: Distributed in the MIT-licensed Phaser examples repository
+    attribution: "Jack-o'-lanterns, via phaserjs/examples"
+    tags: [horror, comedy, family, fantasy, cg, night]
+    max_shots: 2
+
+  - id: skull
+    family: live
+    url: https://raw.githubusercontent.com/phaserjs/examples/master/public/assets/video/skull.mp4
+    license: Distributed in the MIT-licensed Phaser examples repository
+    attribution: "Burning skull, via phaserjs/examples"
+    tags: [horror, action, fantasy, thriller, war, cg, fire, night]
+    max_shots: 2
+
+  - id: fireworks
+    family: live
+    url: https://raw.githubusercontent.com/phaserjs/examples/master/public/assets/video/fireworks.mp4
+    license: Distributed in the MIT-licensed Phaser examples repository
+    attribution: "Fireworks, via phaserjs/examples"
+    tags: [romance, comedy, family, drama, action, cg, night, celebration]
+    max_shots: 2
