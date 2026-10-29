@@ -12,6 +12,7 @@ class MediaController < ApplicationController
     send_media(path.to_s, TYPES.fetch(params[:format]))
   rescue Trailer::Renderer::Error => e
     logger.error(e.message)
+    response.headers["Cache-Control"] = "no-store"
     head :service_unavailable
   end
 
